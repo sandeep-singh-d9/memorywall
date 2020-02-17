@@ -1,0 +1,55 @@
+  @font-face {
+    font-family: National-Regular;
+    src: url("fonts/National-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Medium;
+    src: url("fonts/National-Medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Bold;
+    src: url("fonts/National-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Bold;
+    src: url("fonts/National-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Extrabold;
+    src: url("fonts/National-Extrabold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Light;
+    src: url("fonts/National-Light.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-LightItalic;
+    src: url("fonts/National-LightItalic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  
+  @font-face {
+    font-family: National-Semibold;
+    src: url("fonts/National-Semibold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+
+
+    @font-face {
+        font-family: 'Vogue-Regular';
+        src: url('fonts/Vogue-Regular.ttf'); /* IE9 Compat Modes */
+      }
+  
+    @import url('https://fonts.googleapis.com/css?family=Poppins:100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
