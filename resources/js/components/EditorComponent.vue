@@ -1,7 +1,7 @@
 <template>
     <div>
         <headerTop></headerTop>
-        <!-- <loaderComponent v-if="showLoader" /> -->
+        <loaderComponent v-if="showLoader" />
         <div class="builder container right_div padding_70">
             <div class="row m-0">
                 <div class="col-lg-6 p-5 mt-3 mirrored">
@@ -64,7 +64,7 @@
                                         <img src="/images/upload_image.png" alt="" title="">
                                         <span>{{imagePath =='' ? 'UPLOAD IMAGE'  : 'CHANGE IMAGE'}}</span>
                                     </p>
-                                    <p class="ml-1" @click="rotate()">
+                                    <p class="ml-1" @click="rotate()" v-if="canvasType == 'roleCanvas'? false : true">
                                         <img src="/images/rotate_icon.png" alt="" title="">
                                         <span>ROTATE ORIENTATION</span>
                                     </p>
@@ -150,7 +150,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="float-left col-md-12 p-0 right_circleimg" >
+                    <div class="float-left col-md-12 p-0 right_circleimg" v-if="canvasType == 'roleCanvas'? false : true">
                         <label><b>CANVAS EDGING</b></label>
                         <ul>
                             <li class="mb-0">
@@ -196,7 +196,7 @@
                             <i class="fas fa-rupee-sign"></i>{{dynamicPrice}}
                         </h2>
                         <div class="col-md-12">
-                            <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart" :disabled="showLoader ? true : false" >Add to Cart</button>
+                            <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart">Add to Cart</button>
                             <button type="button" class="btn default_grey_btn canvas_btn text-uppercase" @click="previewImage">Preview Canvas</button>
                         </div>
                     </div>
@@ -354,6 +354,7 @@ export default {
         if(this.$store.state.widthHeightSelect == ''){
             this.$store.state.widthHeightSelect = '8x8'
         }
+        console.log(this.$store.state.widthHeightSelect , 'new') 
         this.layoutModify()
         const self = this
             Draggable.create(".map img", {
@@ -527,6 +528,7 @@ export default {
             }else{
                 // $('.transform-after-drag').css('transform', 'translate3d(0px, 0px, 0px)')
             }
+            console.log(this.$store.state.widthHeightSelect, 'asasass')
             // console.log(this.fileStatckImageHeight , this.fileStatckImageWidth , 'asasas')
             this.selectedCanvasWidth =  parseInt(this.$store.state.widthHeightSelect.split('x')[0]) || this.$store.state.customWidth
             this.selectedCanvasHeight =  parseInt(this.$store.state.widthHeightSelect.split('x')[1]) || this.$store.state.customHeight
@@ -923,7 +925,10 @@ export default {
             if(value  == 'gallerywrap1'){
                 this.thickDimension = 30
                 // this.topWrapWidth = 400
-            }else{
+            }else if(value == 'roleCanvas'){
+                this.imageType = 'mirror'
+            }
+            else{
                 this.thickDimension = ''
                 // this.topWrapWidth = 380 
             }

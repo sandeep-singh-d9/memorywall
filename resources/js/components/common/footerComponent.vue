@@ -68,12 +68,12 @@
                             <span class="float-left text-uppercase">Follow Us</span>
                             <ul class="social-icon float-left">
                                 <li>
-                                    <a>
+                                    <a href="https://www.facebook.com/memorywall.in">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a>
+                                    <a href="https://www.instagram.com/memorywall.in/">
                                         <i class="fab fa-instagram"></i>
                                     </a>
                                 </li>

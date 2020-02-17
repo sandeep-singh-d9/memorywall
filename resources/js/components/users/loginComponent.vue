@@ -86,7 +86,8 @@
                                     <div class="form-group">
                                         <label class="">Date of Birth</label>
                                         <ValidationProvider name="dateOfBirth" rules="required" v-slot="{ errors }">
-                                            <input type="text" v-model="dateOfBirth" class="form-control" >
+                                            <!-- <input type="text" v-model="dateOfBirth" class="form-control" > -->
+                                            <date-picker v-model="dateOfBirth" valueType="format" format="	DD-MMM-YYYY" ></date-picker>
                                             <span class="color_red">{{ errors[0] }}</span>
                                         </ValidationProvider>
                                     </div>
@@ -180,12 +181,12 @@
         <footerBottom></footerBottom>
     </div>
 </template>
-
 <script>
 import headerTop from '../common/headerComponent'
 import footerBottom from '../common/footerComponent'
 
 export default {
+    
     data(){
         return{
             username:'',

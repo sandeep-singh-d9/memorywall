@@ -688,8 +688,8 @@ export default {
             }
             if(this.billingMethod == 'ccavenue'){
                 axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
-                axios.post('/api/placeOrder',data).then(response => {
-                    window.location.href = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest='+response.data.encrypted_data+'&access_code='+response.data.access_code;                        
+                axios.post('/api/userCheckout',data).then(response => {
+                    // window.location.href = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest='+response.data.encrypted_data+'&access_code='+response.data.access_code;                        
                 }).catch(err => {
                     console.log(err)
                 })

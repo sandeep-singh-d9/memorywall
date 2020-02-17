@@ -40,7 +40,7 @@ class RegisterController extends Controller
                 $token = $user->createToken('memory_wall')->accessToken;
 
                 return response()->json([
-                    'message' => 'login success',
+                    'message' => 'Register successfully!',
                     'data' => $user,
                     'accessToken' => $token,
                 ], 200);

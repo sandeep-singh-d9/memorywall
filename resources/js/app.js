@@ -20,17 +20,20 @@ import V_Session from 'v-session';
 import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import FlashMessage from '@smartweb/vue-flash-message';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 // install rules and localization
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
 });
-  
+
 window.toastr = require('toastr')
 window.Vue = require('vue');
 Vue.use(VueToastr2)
 Vue.use(V_Session)
 Vue.use(FlashMessage);
 Vue.component('color-picker', ColorPicker);
+Vue.component('date-picker', DatePicker);
 Vue.use(VueSession)
 Vue.use(VueScrollTo)
 Vue.component('ValidationObserver', ValidationObserver);

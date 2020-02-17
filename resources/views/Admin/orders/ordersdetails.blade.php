@@ -39,10 +39,11 @@
                                             <td class="text-center">{{ $key+1 }}</td>
                                             <td class="text-center">
                                                 <img src="{{ $orderDetail->imagePath}}" alt="" title="" style="height:100px">
-                                                <a href="/download_image/original/{{ $orderDetail->id}}">download</a>
+                                                <a href="/download_image/original/{{ $orderDetail->id}}" target="_blank">download</a>
                                             </td>
                                             <td class="text-center">
                                                 <img src="{{ $orderDetail->domImage}}" alt="" title="" style="height:100px">
+                                                <a href="/download_image/domImage/{{ $orderDetail->id}}" target="_blank">download</a>
                                             </td>
                                             <td class="text-center">{{  $orderDetail->canvas_height }} x {{  $orderDetail->canvas_width }}</td>
                                             <td class="text-center">{{ $orderDetail->image_type }}</td>

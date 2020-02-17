@@ -140,47 +140,47 @@ class OrdersController extends Controller
                     'price' => $value['price'],
                 ]);
                 DB::commit();
-                if (isset($value['id'])) {
-                    Cart::whereId($value['id'])->delete();
-                    DB::commit();
-                }
+                // if (isset($value['id'])) {
+                //     Cart::whereId($value['id'])->delete();
+                //     DB::commit();
+                // }
             }
-            $c_data = [];
-            if ($billingMethod == 'ccavenue') {
-                $c_data['transaction_id'] = $transaction_id;
-                $c_data['merchant_id'] = env('MERCHANT_ID');
-                $c_data['order_id'] = $order_no;
-                $c_data['amount'] = $grand_total;
-                $c_data['currency'] = 'INR';
-                $c_data['redirect_url'] = 'http://memorywall.in/ccavenueResponse';
-                $c_data['cancel_url'] = 'http://memorywall.in/cancelResponse';
-                $c_data['language'] = 'EN';
-                $c_data['billing_name'] = $firstname . ' ' . $lastname;
-                $c_data['billing_address'] = $landmark . ' ' . $area . ' ' . $address;
-                $c_data['billing_city'] = $city;
-                $c_data['billing_state'] = $state;
-                $c_data['billing_zip'] = $zipcode;
-                $c_data['billing_zip'] = $zipcode;
-                $c_data['billing_country'] = $country;
-                $c_data['billing_tel'] = $mobile;
-                $c_data['billing_email'] = $email;
-                $merchant_data = '';
-                $working_key = env('WORKING_KEY'); //Shared by CCAVENUES
-                $access_code = env('ACCESS_CODE'); //Shared by CCAVENUES
+            // $c_data = [];
+            // if ($billingMethod == 'ccavenue') {
+            //     $c_data['transaction_id'] = $transaction_id;
+            //     $c_data['merchant_id'] = env('MERCHANT_ID');
+            //     $c_data['order_id'] = $order_no;
+            //     $c_data['amount'] = $grand_total;
+            //     $c_data['currency'] = 'INR';
+            //     $c_data['redirect_url'] = 'http://memorywall.in/ccavenueResponse';
+            //     $c_data['cancel_url'] = 'http://memorywall.in/cancelResponse';
+            //     $c_data['language'] = 'EN';
+            //     $c_data['billing_name'] = $firstname . ' ' . $lastname;
+            //     $c_data['billing_address'] = $landmark . ' ' . $area . ' ' . $address;
+            //     $c_data['billing_city'] = $city;
+            //     $c_data['billing_state'] = $state;
+            //     $c_data['billing_zip'] = $zipcode;
+            //     $c_data['billing_zip'] = $zipcode;
+            //     $c_data['billing_country'] = $country;
+            //     $c_data['billing_tel'] = $mobile;
+            //     $c_data['billing_email'] = $email;
+            //     $merchant_data = '';
+            //     $working_key = env('WORKING_KEY'); //Shared by CCAVENUES
+            //     $access_code = env('ACCESS_CODE'); //Shared by CCAVENUES
 
-                foreach ($c_data as $key => $value) {
-                    $merchant_data .= $key . '=' . urlencode($value) . '&';
-                }
+            //     foreach ($c_data as $key => $value) {
+            //         $merchant_data .= $key . '=' . urlencode($value) . '&';
+            //     }
 
-                $encrypted_data = $this->encrypt($merchant_data, $working_key);
-                return response()->json([
-                    'message' => 'Order place successfully',
-                    'order_no' => $order_no,
-                    'encrypted_data' => $encrypted_data,
-                    'access_code' => $access_code,
-                    'success' => true,
-                ], 200);
-            }
+            //     $encrypted_data = $this->encrypt($merchant_data, $working_key);
+            //     return response()->json([
+            //         'message' => 'Order place successfully',
+            //         'order_no' => $order_no,
+            //         'encrypted_data' => $encrypted_data,
+            //         'access_code' => $access_code,
+            //         'success' => true,
+            //     ], 200);
+            // }
 
             // $email = $this->emailcontroller->order_email($order, $orderData, $shippingId, $email);
 

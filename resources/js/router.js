@@ -21,8 +21,9 @@ import myInformation from "./components/myAccount/myInformationComponent";
 import myOrder from "./components/myAccount/myOrderComponent";
 import viewOrder from "./components/myAccount/viewOrderComponent";
 import aboutUs from "./components/common/aboutUs";
-import contactUs  from "./components/common/contactUs";
-import giftCanvasComponent  from "./components/giftCanvasComponent";
+import contactUs from "./components/common/contactUs";
+import giftCanvasComponent from "./components/giftCanvasComponent";
+import loader from "./components/loader/loader";
 
 
 
@@ -33,6 +34,10 @@ export default new VueRouter({
         {
             path: '/welcome',
             component: demoCanvasComponent,
+        },
+        {
+            path: '/loader',
+            component: loader,
         },
         {
             path: '/dev-ui',

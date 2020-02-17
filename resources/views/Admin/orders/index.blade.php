@@ -36,8 +36,8 @@
                                 <tr>
                                     <td>{{ $key + 1 }} </td>
                                     <td>{{ $order->shippingAddress->firstname. ' ' . $order->shippingAddress->lastname }}</td>
-                                    <td>{{ $order->ordered_at }}</td>
-                                    <td>{{ $order->payment_method = 1 ? 'Cash On Delivery' : 'Card' }}</td>
+                                    <td>{{ date('d-m-y',strtotime($order->ordered_at)) }}</td>
+                                    <td>{{ $order->payment_method = 'ccavenue' ? 'ccavenue' : 'Cash On Delivery' }}</td>
                                     <td>{{ $order->price }}</td>
                                     <td>{{ $order->tax_collected }}</td>
                                     <!-- <td>{{ $order->discount }}</td> -->

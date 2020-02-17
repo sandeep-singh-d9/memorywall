@@ -36,7 +36,7 @@
     <script src="{{ asset('/js/owl.carousel.js') }}"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-
+    <script src="//code.tidio.co/an6eohcy4esjerjwu4cgsche0xq0dcb2.js" async></script>
 </body>
 
 </html>

@@ -127,6 +127,9 @@
         width: 100%;
         margin: 0 auto;
     }
+    .gift_innercanvas .col-md-4 {
+        padding: 0 15px;
+    }
 
 }
 
@@ -305,6 +308,23 @@
     .login_div .form-control{
         padding: 8px 12px;
     }
+    .gift_innercanvas .col-md-4 {
+        padding: 0 15px;
+        height: 280px;
+    }
+    .gift_innercanvas .col-md-4:first-child img{ width: 110px !important; }
+    .gift_innercanvas .col-md-4:nth-child(2) img{ width: 130px !important; }
+    .gift_innercanvas .col-md-4:nth-child(3) img{ width: 150px !important; }
+    .gift_innercanvas .col-md-4:nth-child(4) img{ width: 140px !important; }
+    .gift_innercanvas .col-md-4:nth-child(5) img{ width: 150px !important; }
+    .gift_innercanvas .col-md-4:nth-child(6) img{ width: 175px !important; }
+    .gift_innercanvas .col-md-4:nth-child(7) img{ width: 100px !important; }
+    .gift_innercanvas .col-md-4:nth-child(8) img{ width: 120px !important; }
+    .gift_innercanvas .col-md-4:nth-child(9) img{ width: 140px !important; }
+    .about_us p {
+        font-size: 15px;
+        line-height: 30px;
+    }
 }
 
 
@@ -380,6 +400,9 @@
         width: 75px;
         margin-bottom: 15px;
     }
+    .gift_innercanvas .col-md-4 {
+        width: 33.33%;
+    }
     
 }
 
@@ -417,6 +440,21 @@
         height: 300px;
         padding-top: 0;
     }
+    .gift_innercanvas .col-md-4 h5{
+        font-size: 15px;
+    }
+    .gift_innercanvas .col-md-4 {
+        height: 240px;
+    }
+    .gift_innercanvas .col-md-4:first-child img{ width: 90px !important; }
+    .gift_innercanvas .col-md-4:nth-child(2) img{ width: 110px !important; }
+    .gift_innercanvas .col-md-4:nth-child(3) img{ width: 130px !important; }
+    .gift_innercanvas .col-md-4:nth-child(4) img{ width: 110px !important; }
+    .gift_innercanvas .col-md-4:nth-child(5) img{ width: 130px !important; }
+    .gift_innercanvas .col-md-4:nth-child(6) img{ width: 150px !important; }
+    .gift_innercanvas .col-md-4:nth-child(7) img{ width: 80px !important; }
+    .gift_innercanvas .col-md-4:nth-child(8) img{ width: 100px !important; }
+    .gift_innercanvas .col-md-4:nth-child(9) img{ width: 120px !important; }
     
 }
 
@@ -441,6 +479,9 @@
     }
     .login_div .btn.canvas_btn {
         width: 40%;
+    }
+    .about_us img {
+        padding: 40px;
     }
 }
 @media (max-width: 568px){
@@ -499,6 +540,9 @@
         margin: -5px 5px;
         line-height: 23px;
         font-size: 10px;
+    }
+    .gift_innercanvas .col-md-4 {
+        width: 49%;
     }
 }
 
@@ -626,6 +670,17 @@
     .image__preview {
         background-size: 126px;
     }
+    .about_us img {
+        padding: 40px 0;
+    }
+    .about_us h4 {
+        margin-bottom: 30px;
+        font-size: 25px;
+    }
+    .about_us p {
+        font-size: 14px;
+        line-height: 24px;
+    }
     
 }
 
@@ -675,6 +730,27 @@
         width: 100%;
         margin: 10px 0;
     }
+    .gift_innercanvas .col-md-4 {
+        height: 200px;
+        padding: 0px 8px;
+        margin-bottom: 18px;
+    }
+    .gift_innercanvas .col-md-4:first-child img{ width: 70px !important; }
+    .gift_innercanvas .col-md-4:nth-child(2) img{ width: 85px !important; }
+    .gift_innercanvas .col-md-4:nth-child(3) img{ width: 100px !important; }
+    .gift_innercanvas .col-md-4:nth-child(4) img{ width: 85px !important; }
+    .gift_innercanvas .col-md-4:nth-child(5) img{ width: 100px !important; }
+    .gift_innercanvas .col-md-4:nth-child(6) img{ width: 120px !important; }
+    .gift_innercanvas .col-md-4:nth-child(7) img{ width: 70px !important; }
+    .gift_innercanvas .col-md-4:nth-child(8) img{ width: 80px !important; }
+    .gift_innercanvas .col-md-4:nth-child(9) img{ width: 100px !important; }
+    .inner_giftcanvas img {
+        margin-bottom: 15px;
+    }
+    .about_us h4 {
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
 }
 @media (max-width: 320px){
     .canvas_print .nav-pills .nav-link {
@@ -703,5 +779,12 @@
     }
     .f-20 {
         font-size: 11px;
+    }
+    .gift_innercanvas .col-md-4{
+        padding: 0px 3px;
+        margin-bottom: 7px;
+    }
+    .gift_innercanvas .col-md-4 h5 {
+        font-size: 12px;
     }
 }

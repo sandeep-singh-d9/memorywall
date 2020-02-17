@@ -12,7 +12,8 @@
                     <img :src="imagePathPreview" alt="">
                     <div class="ml-5 text-left">
                         <b class="text-uppercase">product:</b> <span>Canvas Print</span><br>
-                        <b class="text-uppercase">Size:</b> <span>{{widthHeight}} inches RS {{price}}</span><br>
+                        <b class="text-uppercase">Size:</b> <span>{{widthHeight}} inches</span><br>
+                        <b class="text-uppercase">Price:</b> <span>{{price}}</span><br>
                         <b class="text-uppercase">Edge:</b> <span>{{edgeType}}</span>
                     </div>
                 </div>

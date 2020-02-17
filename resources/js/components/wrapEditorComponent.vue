@@ -1,7 +1,7 @@
 <template>
     <div>
         <headerTop></headerTop>
-
+        <loaderComponent v-if="showLoader" />
         <div class="builder container right_div padding_70">
             <div class="row m-0">
                 <div class="col-lg-6 p-5 mt-3 mirrored">
@@ -170,7 +170,7 @@
                             <i class="fas fa-rupee-sign"></i>{{dynamicPrice}}
                         </h2>
                         <div class="col-md-12">
-                            <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart" :disabled="showLoader ? true : false">Add to Cart</button>
+                            <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart">Add to Cart</button>
                             <button type="button" class="btn default_grey_btn canvas_btn text-uppercase" @click="previewImage">Preview Canvas</button>
                         </div>
                     </div>
@@ -211,6 +211,7 @@ const client = filestack.init(process.env.MIX_FILESTACK_KEY);
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/material.css'
 import domtoimage from 'dom-to-image-more';
+import loaderComponent from './loader/loader'
 export default {
     data(){
         return {
@@ -281,7 +282,8 @@ export default {
         VueSlider,
         headerTop,
         footerBottom,
-        previewModal
+        previewModal,
+        loaderComponent
     },
     mounted(){
          window.scrollTo({
@@ -426,6 +428,7 @@ export default {
             function updateForm(result){
                 const fileData = result.filesUploaded[0];
                 self.imagePath = fileData.url;
+                self.showLoader = true
             }
             function selectedImageDimension(e){
                 
@@ -692,6 +695,9 @@ export default {
                 self.savedMainImageStyle = $('.transform-after-drag').attr('style')
                 
             }, 100)
+            setTimeout(function(){
+                self.showLoader = false
+            },3000)
         },
         yourFunction(e){
             const self = this;

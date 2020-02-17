@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('users', 'Admin\UserController');
     Route::resource('roles', 'Admin\RolesController');
     Route::resource('orders', 'Admin\OrderController');
+    Route::resource('subscribers', 'Admin\SubscribersController');
     Route::get('ordersDetails/{id}', 'Admin\OrderController@ordersDetails');
     Route::get('download_image/{name}/{id}', 'Admin\OrderController@download_image');
 
