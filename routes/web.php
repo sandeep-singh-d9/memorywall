@@ -18,15 +18,18 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/canvas', 'HomeController@canvas')->name('canvas');
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('users', 'Admin\UserController');
     Route::resource('roles', 'Admin\RolesController');
     Route::resource('orders', 'Admin\OrderController');
+    Route::resource('subscribers', 'Admin\SubscribersController');
+    Route::resource('promocodes', 'Admin\PromocodeController');
+    Route::resource('issues', 'Admin\IssuesController');
     Route::get('ordersDetails/{id}', 'Admin\OrderController@ordersDetails');
+    Route::get('payment/{id}', 'Admin\PaymentController@paymentDetail');
     Route::get('download_image/{name}/{id}', 'Admin\OrderController@download_image');
-
+    Route::get('changeStatus/{table}/{id}/{status}', 'Admin\GeneralSettingController@changeStatus');
 });
 Route::post('ccavenueResponse', 'Admin\PaymentController@ccavenueResponse');
 Route::post('cancelResponse', 'Admin\PaymentController@cancelResponse');

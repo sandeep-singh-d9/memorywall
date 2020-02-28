@@ -39,13 +39,18 @@
                                             <td class="text-center">{{ $key+1 }}</td>
                                             <td class="text-center">
                                                 <img src="{{ $orderDetail->imagePath}}" alt="" title="" style="height:100px">
-                                                <a href="/download_image/original/{{ $orderDetail->id}}">download</a>
+                                                <i class="material-icons">
+                                                    <a href="/download_image/original/{{ $orderDetail->id}}" target="_blank">cloud_download</a>
+                                                </i>
                                             </td>
                                             <td class="text-center">
                                                 <img src="{{ $orderDetail->domImage}}" alt="" title="" style="height:100px">
+                                                <i class="material-icons">
+                                                    <a href="/download_image/domImage/{{ $orderDetail->id}}" target="_blank">cloud_download</a>
+                                                </i>
                                             </td>
                                             <td class="text-center">{{  $orderDetail->canvas_height }} x {{  $orderDetail->canvas_width }}</td>
-                                            <td class="text-center">{{ $orderDetail->image_type }}</td>
+                                            <td class="text-center">{{ $orderDetail->canvas_type == 'gallerywrap' ? 'Gallary wrap 0.75' : ($orderDetail->canvas_type == 'gallerywrap1' ? 'Gallary wrap 1.25' : 'Rolled wrap') }}</td>
                                             <td class="text-center">{{  $orderDetail->image_type }}</td>
                                             <td class="text-center">{{ $orderDetail->quantity }}</td>
                                             @if($orderDetail->image_type == 'color')

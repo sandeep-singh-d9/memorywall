@@ -4,7 +4,7 @@
                     <div class="col-md-4" v-for="(shippingDetail , index) in shippingAddress" :key="index">
                         <div class="checkout_boxradius ">
                             <div class="custom-control custom-radio gift_option">
-                            <input type="radio" class="custom-control-input" value="giftmessage" :id="'checkout_address2'+index" name="checkout" @change="changeShipping(index)">
+                            <input type="radio" class="custom-control-input" value="giftmessage" :id="'checkout_address2'+index" name="checkout" :checked="index==0">
                             <label class="custom-control-label" :for="'checkout_address2'+index">
                                 {{shippingDetail.firstname}} {{shippingDetail.lastname}}
                                 <p>{{shippingDetail.address}}, {{shippingDetail.zipcode}}, Mo. {{shippingDetail.mobile}}</p>
@@ -226,7 +226,6 @@ export default {
             axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
             axios.get('/api/getUserDetail',{                       
             }).then(response => {
-                console.log(response, 'asasas')
                 this.userData = response.data.user
                 this.dateOfBirth = response.data.user.dob ,
                 this.gst = response.data.user.gst_number ,
@@ -292,9 +291,10 @@ export default {
                 area: this.area,
                 address_type: this.address_type
             }
-            axios.get('/api/storeShippingAddress',data)
+            axios.post('/api/storeShippingAddress',data)
             .then(response => {
                 this.shippingAddress = response.data.shippingAddress
+                $('#shippingDashboardModal').modal('close')
                 this.flashMessage.success({title: 'Success', message: response.data.message,time: 2500});
             }).catch(error => {
                 this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2500});

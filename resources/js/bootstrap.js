@@ -9,9 +9,10 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
+    // require('../../node_modules/cropit/dist/jquery.cropit.js')
     require('../../node_modules/guillotine/js/jquery.guillotine.min.js')
+    require('../../node_modules/cropbox/jquery.cropbox.min.js')
 } catch (e) {}
 
 /**

@@ -1,22 +1,22 @@
 <template>
     <div>
         <div id="giftOption" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <!-- Modal content-->
                 <div class="modal-content p-5">
                     <button type="button" class="close text-right" data-dismiss="modal">
                         <img src="/images/close_icon.png" alt="" title="">
                     </button>
                     <div class="p-0 text-center d-inline-block">
-                        <h4 class="modal-title text-uppercase Vogue header_title mb-5 ">Gift Options</h4>
+                        <h4 class="modal-title text-uppercase Vogue header_title mb-3 ">Gift Options</h4>
                     </div>
                     <div class="modal-body text-left">
                         <div class="row">
-                            <div class="col-md-6 bright">
-                                <h4 class="text-uppercase Vogue mb-4">Gift Message</h4>
+                            <div class="col-md-6 pl-0 bright">
+                                <h4 class="text-uppercase Vogue mb-3">Gift Message</h4>
                                 <div class="custom-control custom-radio font-national-regular gift_option">
                                     <input type="radio" class="custom-control-input" value="giftmessage" id="giftmessage" name="gift_option" v-model="messageType">
-                                    <label class="custom-control-label text-uppercase mb-5" for="giftmessage">Include Gift Message - <i class="fas fa-rupee-sign"></i> 0 </label>
+                                    <label class="custom-control-label text-uppercase mb-3" for="giftmessage">Include Gift Message - <span class="rupees_icon">&#x20B9;</span> 0 </label>
                                     <div class="form-group">
                                         <div class="row">
                                             <label class="col-md-4 p-0">TO* </label>
@@ -35,24 +35,24 @@
                                             <textarea type="text" maxlength="250" class="form-control" id="" name="" rows="5" v-model="userInputMesssage"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div >
                                         <div class="row">
-                                            <label class="col-md-12 p-0 mb-3">CHARACTER LIMIT : {{ 250 - (userInputMesssage.length) }} REMAINING </label>
+                                            <label class="col-md-12 p-0">CHARACTER LIMIT : {{ 250 - (userInputMesssage.length) }} REMAINING </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
                             <div class="col-md-5 pl-0">
-                                <h4 class="text-uppercase Vogue mb-4">Gift Wrap</h4>
+                                <h4 class="text-uppercase Vogue mb-3">Gift Wrap</h4>
                                 <div class="custom-control custom-radio font-national-regular gift_option">
                                     <input type="radio" class="custom-control-input" value="giftwrap" id="giftwrap" name="gift_option" v-model="messageType">
-                                    <label class="custom-control-label text-uppercase" for="giftwrap">Include Gift Wrapping - <i class="fas fa-rupee-sign"></i> 49<br/>(Gift Message Required) </label>
-                                    <img src="/images/gift_wrap.png" alt="" title="" class="mt-5" style="width:100%">
+                                    <label class="custom-control-label text-uppercase" for="giftwrap">Include Gift Wrapping - <span class="rupees_icon">&#x20B9;</span> 49<br/>(Gift Message Required) </label>
+                                    <img src="/images/gift_wrap.png" alt="" title="" class="mt-3" style="width:100%">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center">
-                                <a href="javascript:void(0)" @click="updatemessageType"  class="btn canvas_btn mb-2">UPDATE</a>
+                                <a href="javascript:void(0)" @click="updatemessageType"  class="btn canvas_btn">UPDATE</a>
                             </div>
                         </div>
                     </div>

@@ -7,15 +7,6 @@ $segment = Request::segments();
                 <ul class="list">
                 @foreach($menu as $key => $value)
                     @if(isset($value->child))
-                    <?php
-$active = '';
-foreach ($value->child as $keyC => $valueC) {
-    if ($value->id == $valueC->parent_id && $segment[0] == $valueC->routes) {
-        $active = 'active';
-        break;
-    }
-
-}?>
                         <li class="<?php echo $active ?>">
                             <a href="javascript:void(0);" class="menu-toggle">
                                 <i class="material-icons-outlined">{{ $value->icon }}</i>
@@ -28,7 +19,6 @@ foreach ($value->child as $keyC => $valueC) {
                                 <li>
                                 @if($valueC->menu )
                                     <a href="{{URL::to($valueC->routes)}}">
-
                                             <span>{{ $valueC->menu }}</span>
 
                                     </a>

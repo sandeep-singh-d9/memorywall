@@ -33,24 +33,11 @@ class ComposerServiceProvider extends ServiceProvider
             $roles = Roles::whereId($user->role_id)->first();
 
             if (\Auth::user()->role_id == 1) {
-                $menu = Menu::whereNull('parent_id')->get();
-                $child = Menu::whereNotNull('parent_id')->get();
+                $menu = Menu::get();
             } else {
                 if ($roles) {
                     $permissions = explode(',', $roles->permissions);
                     $menu = Menu::whereIn('id', $permissions)->whereNull('parent_id')->get();
-                    $child = Menu::whereIn('id', $permissions)->whereNotNull('parent_id')->get();
-                }
-            }
-            foreach ($menu as $key => $value) {
-                $childMenu = [];
-                foreach ($child as $keyC => $valueC) {
-                    if ($value->id == $valueC->parent_id) {
-                        $childMenu[] = $valueC;
-                    }
-                }
-                if (count($childMenu) > 0) {
-                    $value['child'] = $childMenu;
                 }
             }
             $view->with('menu', $menu);

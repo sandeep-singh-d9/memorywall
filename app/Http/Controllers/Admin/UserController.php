@@ -57,24 +57,28 @@ class UserController extends Controller
     {
         // dd($request);
         $this->validate($request, [
-            'name' => 'required',
-            'name_arabic' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|unique:users|email',
             'password' => 'required|min:6|confirmed',
-            'country_code' => 'required',
-            'phone' => 'required',
+            'dial_code' => 'required',
             'role_id' => 'required',
+            'gst_number' => 'required',
+            'dob' => 'required',
+            'mobile' => 'required',
         ]);
 
         try {
             DB::beginTransaction();
             User::create([
-                'name' => $request->get('name'),
-                'name_arabic' => $request->get('name_arabic'),
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
                 'email' => $request->get('email'),
                 'password' => \Hash::make($request->get('password')),
-                'country_code' => $request->get('country_code'),
-                'phone' => $request->get('phone'),
+                'dial_code' => $request->get('dial_code'),
+                'mobile' => $request->get('mobile'),
+                'gst_number' => $request->get('gst_number'),
+                'dob' => $request->get('dob'),
                 'role_id' => (int) $request->get('role_id'),
                 'status' => $request->get('status'),
                 'api_token' => Str::random(60),
@@ -106,13 +110,12 @@ class UserController extends Controller
 
             DB::commit();
 
-            return redirect()->to('users')->with('success', __('language.user') . ' ' . __('language.alertMessage.created'));
+            return redirect()->to('users')->with('success', 'User created successfully');
 
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollback();
 
-            return redirect()->back()->with('error', __('language.alertMessage.internalServerError'))->withInputs();
+            return redirect()->back()->with('error', 'Internal server error!')->withInputs();
         }
 
     }
@@ -157,11 +160,15 @@ class UserController extends Controller
         // dd($request);
         //for request validation
         $this->validate($request, [
-            'name' => 'required',
-            'name_arabic' => 'required',
-            'country_code' => 'required',
-            'phone' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:users|email',
+            'password' => 'required|min:6|confirmed',
+            'dial_code' => 'required',
             'role_id' => 'required',
+            'gst_number' => 'required',
+            'dob' => 'required',
+            'mobile' => 'required',
         ]);
         //if admin request for change user password so check validation.
         if ($request->get('password') != null) {
@@ -174,11 +181,17 @@ class UserController extends Controller
             DB::beginTransaction();
             //create a new array for request user detail .
             $data = array(
-                'name' => $request->get('name'),
-                'name_arabic' => $request->get('name_arabic'),
-                'country_code' => $request->get('country_code'),
-                'phone' => $request->get('phone'),
-                'role_id' => $request->get('role_id'),
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name'),
+                'email' => $request->get('email'),
+                'dial_code' => $request->get('dial_code'),
+                'mobile' => $request->get('mobile'),
+                'gst_number' => $request->get('gst_number'),
+                'dob' => $request->get('dob'),
+                'role_id' => (int) $request->get('role_id'),
+                'status' => $request->get('status'),
+                'api_token' => Str::random(60),
+                'created_by' => \Auth::id(),
             );
             //for change a password.
             if ($request->get('password') != null) {
@@ -189,11 +202,12 @@ class UserController extends Controller
 
             DB::commit();
 
+            return redirect()->to('users')->with('success', 'User updated error');
+
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', __('language.alertMessage.internalServerError'))->withInput();
+            return redirect()->back()->with('error', 'Internal server error!')->withInput();
         }
 
-        return redirect()->to('users')->with('success', __('language.user') . ' ' . __('language.alertMessage.updated'));
     }
 
     /**
@@ -207,7 +221,7 @@ class UserController extends Controller
 
         User::destroy($id);
 
-        return response()->json(['success' => __('language.user') . ' ' . __('language.alertMessage.deleted')]);
+        return response()->json(['success' => 'User deleted successfully!']);
 
     }
     /**
@@ -233,11 +247,11 @@ class UserController extends Controller
         } catch (Exception $e) {
             DB::rollback();
 
-            return redirect()->back()->with('error', __('language.alertMessage.internalServerError'));
+            return redirect()->back()->with('error', 'Internal server error');
         }
 
         return response()->json([
-            'success' => __('language.user') . ' ' . __('language.alertMessage.statusChange'),
+            'success' => 'Status change successfully!',
         ]);
 
     }

@@ -12,12 +12,20 @@ $(document).ready(function()
             validating: 'glyphicon glyphicon-refresh'
         },
 		fields: {
-                name:
+                first_name:
                 {
-                    message: 'Name is required.',
+                    message: 'Please enter first name.',
                     validators:
                         {
-                            notEmpty:{message: 'Name is required.'},
+                            notEmpty:{message: 'Please enter first name.'},
+                        }
+                },
+                last_name:
+                {
+                    message: 'Please enter last name.',
+                    validators:
+                        {
+                            notEmpty:{message: 'Please enter last name.'},
                         }
                 },
                 email:
@@ -69,7 +77,7 @@ $(document).ready(function()
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>User
+                    <h2>Create User
                         <a href="/users" class="btn btn-primary btn_save pull-right"><i
                                 class="material-icons-outlined">keyboard_backspace</i> Back</a>
                     </h2>
@@ -84,9 +92,16 @@ $(document).ready(function()
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('first_name') ? 'has-error' : '' }}">
                                 <div class="form-line">
-                                    {!! Form::text('name' , null ,['class' => 'form-control', 'placeholder' =>'name','id' => 'name']) !!}
+                                    {!! Form::text('first_name' , null ,['class' => 'form-control', 'placeholder' =>'First name','required' => 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group{{ $errors->has('last_name') ? 'has-error' : '' }}">
+                                <div class="form-line">
+                                    {!! Form::text('last_name' , null ,['class' => 'form-control', 'placeholder' =>'Last Name','required' => 'required']) !!}
                                 </div>
                             </div>
                         </div>
@@ -135,9 +150,9 @@ $(document).ready(function()
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group{{ $errors->has('country_code') ? 'has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('dial_code') ? 'has-error' : '' }}">
                                 <div class="form-line">
-                                    {!! Form::select('country_code',$country_code,966, ['class' =>
+                                    {!! Form::select('dial_code',$country_code,91, ['class' =>
                                     'form-control','required' => 'required']); !!}
                                 </div>
                             </div>
@@ -150,10 +165,40 @@ $(document).ready(function()
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group{{ $errors->has('phone') ? 'has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('mobile') ? 'has-error' : '' }}">
                                 <div class="form-line">
-                                    {!! Form::number('phone' , null ,['class' => 'form-control', 'placeholder'
+                                    {!! Form::number('mobile' , null ,['class' => 'form-control', 'placeholder'
                                     =>'mobile number','required' => 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-3 text-right">
+                            <div class="form-group">
+                                <label>Date of birth</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group{{ $errors->has('dob') ? 'has-error' : '' }}">
+                                <div class="form-line">
+                                    {!! Form::text('dob' , null ,['class' => 'form-control', 'placeholder'
+                                    =>'Date of birth','required' => 'required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-3 text-right">
+                            <div class="form-group">
+                                <label>GST number</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group{{ $errors->has('gst_number') ? 'has-error' : '' }}">
+                                <div class="form-line">
+                                    {!! Form::text('gst_number' , null ,['class' => 'form-control', 'placeholder'
+                                    =>'GST number','required' => 'required']) !!}
                                 </div>
                             </div>
                         </div>

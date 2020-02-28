@@ -1,6 +1,7 @@
 <template>
     <div>
         <headerTop></headerTop>
+        <loaderComponent v-if="showLoader" />
         <div class="builder container right_div padding_70" >
             <div class="row m-0">
                 <div class="col-lg-12 p-0 canvas_inner">
@@ -16,25 +17,10 @@
                                 </div>
                             </div>
                             <div class="row m-0">
-                                <!-- <div class="col-md-5 ">
-                                    <div class="checkout_boxradius active">
-                                        <div class="custom-control custom-radio gift_option">
-                                            <input type="radio" class="custom-control-input" value="giftmessage" id="checkout_address" name="checkout" >
-                                            <label class="custom-control-label" for="checkout_address">
-                                                Mayur Parekh
-                                                <p>Plot No. 237/1, Sector-22, Gandhinagar-382022, Mo. 8140999999</p>
-                                            </label>
-                                        </div>
-                                        <div class="btn_checkout text-right">
-                                            <a href="javascript:void(0)" class="btn">Remove</a>
-                                            <a href="javascript:void(0)" class="btn">Edit</a>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="col-md-5" v-for="(shippingDetail , index) in shippingAddrressArray" :key="index">
                                     <div class="checkout_boxradius">
                                         <div class="custom-control custom-radio gift_option">
-                                            <input type="radio" class="custom-control-input" value="giftmessage" :id="'checkout_address2'+index" name="checkout" @change="changeShipping(index)">
+                                            <input type="radio" class="custom-control-input" value="giftmessage" :id="'checkout_address2'+index" name="checkout" @change="changeShipping(index)" :checked="index == 0">
                                             <label class="custom-control-label" :for="'checkout_address2'+index">
                                                 {{shippingDetail.firstname}} {{shippingDetail.lastname}}
                                                 <p>{{shippingDetail.address}}, {{shippingDetail.zipcode}},{{shippingDetail.mobile}}</p>
@@ -96,7 +82,6 @@
                                     <label class="custom-control-label mb-3" for="ccavenue" style="width:100%;">
                                         <img src="/images/aa_avenue.png" alt="" title=""> 
                                         <p> CC Avenue <br/><span>( Credit Card / Debit Card / UPI / Net Banking )</span></p>
-                                        
                                     </label>
                                 </div>
                             </div>
@@ -113,7 +98,7 @@
                                 <p>Order Total 
                                     <!-- ( <a href="javascript:void(0)">View Details</a> )  -->
                                     <span class="float-right">
-                                        <i class="fas fa-rupee-sign"></i> {{grand_total}}
+                                        <span class="rupees_icon">&#x20B9;</span>{{grand_total}}
                                     </span>
                                 </p>
                                 <a href="javascript:void(0)" @click="placeOrder" class="btn canvas_btn mt-4 mb-4 px-3">Place Order</a>
@@ -129,168 +114,20 @@
                 </div>
             </div>
         </div>
-        <!-- <div v-if="continueClick == true">
-            <label>
-            <input type="radio" name="checkoutType" v-model="checkoutType"  value="guest">Guest checkout
-            </label>
-            <label>
-            <input type="radio" name="checkoutType" v-model="checkoutType" value="register">Register
-            </label>
-            <label>
-            <input type="radio" name="checkoutType" v-model="checkoutType" value="login">Login
-            </label>
-        </div> -->
-        <!-- register and guest checkout start here -->
-        <!-- <div v-if="(checkoutType == 'guest' || checkoutType == 'register') && continueClick == true  ">
-            
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>First Name</b></label>
-                        <input data-vv-name="firstname" type="text" class="form-control" v-model="firstname" name="firstname" placeholder="Enter First Name">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Last name</b></label>
-                        <input data-vv-name="lastname" type="text" v-model="lastname" class="form-control" name="lastname" placeholder="Enter last name">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Email</b></label>
-                        <input data-vv-name="email" type="text" v-model="email" class="form-control" name="email" placeholder="Enter Email">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Mobile</b></label>
-                        <input data-vv-name="mobile" type="text" v-model="mobile" class="form-control" name="mobile" placeholder="Enter Mobile number">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" v-if="checkoutType == 'register'">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Password</b></label>
-                        <input data-vv-name="password" type="password" v-model="password" class="form-control" name="password" placeholder="Enter Password number">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Confirm password</b></label>
-                        <input data-vv-name="confirmPassword" type="password" v-model="confirmPassword" class="form-control" name="confirmPassword" placeholder="Enter confirm Password number">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- register and guest checkout end here -->
-        <!-- login form start here -->
-        <!-- <div v-if="checkoutType == 'login' && continueClick == true">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>User Name</b></label>
-                        <input data-vv-name="username" type="text" class="form-control" v-model="username" name="username" placeholder="Enter User Name">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <label><b>Password</b></label>
-                        <input data-vv-name="password" type="password" v-model="password" class="form-control" name="password" placeholder="Enter password">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- login form end here -->
-
-        <!-- <button @click="continueClickButtton" v-show="continueClick == true && checkoutType == 'guest'" class="btn canvas_btn">Continue</button>
-        <button @click="signUp" v-show="continueClick == true && checkoutType == 'register'" class="btn canvas_btn">signup</button> -->
-        <!-- Shipping address start here -->
-        <!-- <div v-if="shippingPortion == true">
-            <h4><b>Shipping Addess</b></h4>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control"  placeholder="landmark" v-model="landmark">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="area" v-model="area">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="Address" v-model="address">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="Country" v-model="country">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="City" v-model="city">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="State" v-model="state">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="Zipcode" v-model="zipcode">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control"  placeholder="Phone Number" v-model="mobile">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <input type="text" class="form-control" placeholder="Email" v-model="email">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xs-12 first_second_div">
-                        <select class="form-control" v-model="address_type">
-                            <option value="">Select address type</option>
-                            <option value="home">Home</option>
-                            <option value="office">Office</option>  
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button @click="previousButtonClick" class="btn canvas_btn">Previous</button>
-            <button @click="nextButtonClick" class="btn canvas_btn" >Next</button>
-        </div> -->
-        <!-- Shipping address end here -->
-        
-        <!-- <div v-if="billingPortion">
-            <h4><b>Billing method</b></h4>
-            <label>
-                <input type="radio" name="billingMethod" v-model="billingMethod"  value="cod">Cash on delivery
-            </label>
-            <label>
-                <input type="radio" name="billingMethod" v-model="billingMethod" value="ccavenue">Online payment
-            </label>
-            <button @click="continueClickButtton" class="btn canvas_btn">Previous</button>
-            <button @click="placeOrder" class="btn canvas_btn" >Place Order</button>
-        </div> -->
         <!-- Shipping Modal -->
         <div id="shippingModal" class="modal fade login_div" role="dialog">
-            <div class="modal-dialog modal-lg modal-dialog-centered ">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <!-- Modal content-->
                 <div class="modal-content p-5">
                     <button type="button" class="close text-right" data-dismiss="modal">
                         <img src="/images/close_icon.png" alt="" title="">
                     </button>
                     <div class="p-0 text-center d-inline-block">
-                        <h4 class="modal-title text-uppercase Vogue header_title mb-5 ">Billing Address</h4>
+                        <h4 class="modal-title text-uppercase Vogue header_title mb-3 ">Billing Address</h4>
                     </div>
-                    <ValidationObserver v-slot="{ handleSubmit }">
-                        <form @submit.prevent="handleSubmit(saveShipping)">
-                            <div class="modal-body text-left">
+                    <div class="modal-body text-left">
+                        <ValidationObserver v-slot="{ handleSubmit }">
+                            <form @submit.prevent="handleSubmit(saveShipping)">
                                 <div class="row">
                                     <div class="col-md-6 first_second_div">
                                         <ValidationProvider name="firstname" rules="required">
@@ -415,12 +252,12 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-xs-12 first_second_div text-right">
                                         <button type="submit" class="btn canvas_btn"  style="margin-top:9px !important; width:auto;padding: 8px 15px;display:inline-block;">Save</button>
-                                        <button type="button" class="grey_btn" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn black_btn canvas_btn" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </ValidationObserver>
+                            </form>
+                        </ValidationObserver>
+                    </div>
                 </div>
             </div>
         </div>
@@ -431,7 +268,8 @@
 <script>
 import headerTop from './headerComponent'
 import footerBottom from './footerComponent'
-
+import loaderComponent from '../loader/loader'
+import { mapActions } from 'vuex'
 export default {
     data() {
         return {
@@ -454,7 +292,7 @@ export default {
             continueClick : true,
             billingPortion : false,
             shippingPortion : false,
-            billingMethod : 'cod',
+            billingMethod : 'ccavenue',
             canvasHeight: "",
             canvasWidth: "",
             imagePath: "",
@@ -471,17 +309,22 @@ export default {
             total : 0,
             GST:0,
             grand_total : 0,
-            shippingIndex : '',
+            shippingIndex : 0,
             continueAsGuest : '' ,
             showGuest : true,
             termAndCondition: true,
-            shippingCharge: ''
-
+            shippingCharge: '',
+            cartLength:'',
+            showLoader:false,
+            promocode:this.$store.state.promocodeStore,
+			discount:this.$store.state.discountStore,
+			discount_type: this.$store.state.discount_typeStore,
         }
     },
     components: {
         headerTop,
         footerBottom,
+        loaderComponent
     },
     watch:{
         termAndCondition(value){
@@ -495,8 +338,15 @@ export default {
             this.getShippingAddress()
         }else{
             let cartData = JSON.parse(localStorage.getItem("cart"));
-                    
             this.allCartValue = cartData
+            this.cartLength = this.allCartValue.length
+            this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
+        }
+        let promoCodeData = JSON.parse(localStorage.getItem("promocode"));
+        if(promoCodeData){
+            this.promocode = promoCodeData.promocode;
+            this.discount = promoCodeData.discount;
+            this.discount_type = promoCodeData.discount_type
         }
 
         this.calculateTotal()
@@ -516,6 +366,9 @@ export default {
         // this.totalPrice = cartData.total
     },
     methods: {
+        ...mapActions([
+            'ACTION_CHANGE_STATE'
+        ]),
         continueCheckout(){
             if(this.checkoutType == 'guest'){
 
@@ -561,9 +414,14 @@ export default {
                 return false;
             }
             if(this.showGuest == true && this.continueAsGuest == 'unchecked'){
-                this.flashMessage.error({title: 'Error', message: 'Select checkout as a guast!',time: 2000});
+                this.flashMessage.error({title: 'Error', message: 'Select checkout as a guest!',time: 2000});
                 return false;
             }
+            if(this.shippingAddrressArray.length == 0){
+                this.flashMessage.error({title: 'Error', message: 'Fill ShippingAddrress!',time: 2000});
+                return false;
+            }
+            this.showLoader = true
             if(this.$v_session.get('accessToken')){
                 this.userCheckout()
             }else{
@@ -614,23 +472,32 @@ export default {
                         total : this.total,
                         GST : this.GST,
                         grand_total : this.grand_total,
-                        shippingId : shippingId
-
+                        shippingId : shippingId,
+                        discount : this.discount,
+                        promocode : this.promocode
                     }
                 if(this.billingMethod == 'ccavenue'){
                     axios.post('/api/placeOrder',data).then(response => {
-                        
-                        window.location.href = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest='+response.data.encrypted_data+'&access_code='+response.data.access_code;                        
+                        window.location.href = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest='+response.data.encrypted_data+'&access_code='+response.data.access_code;     
+                        this.showLoader = false                   
+                        localStorage.clear();
                     }).catch(err => {
                         console.log(err)
+                        this.showLoader = false
                     })
                 }else{
                     axios.post('/api/placeOrder',data)
                     .then(response => {
                         const order_no = response.data.order_no
-                        this.$router.push({path: "/thankyou",params: { order_no }})
+                        this.cartLength = 0;
+                        this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
+                        localStorage.clear()
+                        this.showLoader = false
+                        // this.$router.push({path: "/thankyou",params: { order_no }})
+                        this.$router.push('/thankyou/'+order_no)
                     }).catch(error => {
                         console.log(error)
+                        this.showLoader = false
                     })
                 } 
             }
@@ -683,24 +550,35 @@ export default {
                 total : this.total,
                 GST : this.GST,
                 grand_total : this.grand_total,
-                shippingId : shippingId
+                shippingId : shippingId,
+                discount : this.discount,
+                promocode : this.promocode
 
             }
             if(this.billingMethod == 'ccavenue'){
                 axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
-                axios.post('/api/placeOrder',data).then(response => {
+                axios.post('/api/userCheckout',data).then(response => {
+                    this.cartLength = 0
+                    this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
                     window.location.href = 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&encRequest='+response.data.encrypted_data+'&access_code='+response.data.access_code;                        
+                    this.showLoader = false
                 }).catch(err => {
                     console.log(err)
+                    this.showLoader = false
                 })
             }else{
                 axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
                 axios.post('/api/userCheckout',data)
                 .then(response => {
                     const order_no = response.data.order_no
-                    this.$router.push({name: 'thankyou',params: { order_no }})
+                    this.cartLength = 0;
+                    this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
+                    this.showLoader = false
+                    // this.$router.push({name: 'thankyou',params: { order_no }})
+                    this.$router.push('/thankyou/'+order_no)
                 }).catch(error => {
                     console.log(error)
+                    this.showLoader = false
                 })
             }
         },
@@ -748,7 +626,7 @@ export default {
                 if(this.$v_session.get('accessToken')){
                     axios.post('/api/storeShippingAddress',data)
                     .then(response => {
-                        this.storeShippingAddress = response.data.shippingAddress
+                        this.shippingAddrressArray = response.data.shippingAddress
 						this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
 					}).catch(error => {
 						this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2000});
@@ -834,7 +712,7 @@ export default {
             this.allCartValue.map(v => {
                 this.total += (v.price * v.quantity)
                 if(v.messageType == 'giftwrap'){
-                    this.total = (parseFloat(this.total) + 49)
+                    this.total = (parseInt(this.total) + 49)
                 }
             })
             var val = this.total
@@ -845,13 +723,20 @@ export default {
                 this.shippingCharge = 'Free'
             }
             this.GST = val * 12 / 100;
+            if(this.discount != 0 ){
+                if(this.discount_type == 'price'){
+                    val = val - this.discount
+                }else{
+                    const discountVal = this.total * this.discount / 100;
+                    val =  val - discountVal
+                }
+            }
             this.grand_total = val + this.GST;
-            // console.log(this.grand_total , this.total, 'this.grand_total')
 
             if(this.billingMethod == 'cod'){
-                this.grand_total = parseFloat(this.grand_total + 50).toFixed(2)
+                this.grand_total = parseInt(this.grand_total + 50)
             }else{
-                this.grand_total = parseFloat(val + val * 12 / 100).toFixed(2);
+                this.grand_total = parseInt(val + val * 12 / 100);
             }
         },
         checkMethod(){
@@ -872,6 +757,8 @@ export default {
             axios.get('/api/getCartData')
             .then(response => {
                 this.allCartValue = response.data.data
+                this.cartLength = this.allCartValue.length
+                this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
                 this.$v_session.set('cartLength',response.data.data.length)
                 this.calculateTotal()
             }).catch(error => {

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Users;
 
 use App\Http\Controllers\Controller;
+use App\Model\Cart;
 use App\User;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -14,6 +16,7 @@ class LoginController extends Controller
         try {
             $email = $request->get('username');
             $password = $request->get('password');
+            $cartData = $request->get('cartData');
             $customer = User::where('email', $email)->where('role_id', 3)->first();
             if ($customer) {
                 if (!(\Hash::check($password, $customer->password))) {
@@ -26,9 +29,44 @@ class LoginController extends Controller
                     $user = Auth::user();
                     $token = $customer->createToken('memory_wall')->accessToken;
 
+                    if ($cartData) {
+                        foreach ($cartData as $key => $value) {
+                            $domImage = $value['domImage'];
+                            $name = time() . $key . '.png';
+                            $path = '/uploads/updatedImage/' . $name;
+                            \Image::make($domImage)->save(public_path('uploads/updatedImage/') . $name);
+
+                            Cart::create([
+                                'user_id' => Auth::id(),
+                                'domImage' => $path,
+                                'canvasHeight' => $value['canvasHeight'],
+                                'canvasWidth' => $value['canvasWidth'],
+                                'imagePath' => $value['imagePath'],
+                                'zoomValue' => $value['zoomValue'],
+                                'imageType' => $value['imageType'],
+                                'canvasType' => $value['canvasType'],
+                                'translateData' => $value['translateData'],
+                                'imageStyle' => $value['imageStyle'],
+                                'fileStatckImageWidth' => $value['fileStatckImageWidth'],
+                                'fileStatckImageHeight' => $value['fileStatckImageHeight'],
+                                'price' => $value['price'],
+                                'quantity' => $value['quantity'],
+                                'messageType' => isset($value['messageType']) ? $value['messageType'] : '',
+                                'messageTo' => isset($value['messageTo']) ? $value['messageTo'] : '',
+                                'messageFrom' => isset($value['messageFrom']) ? $value['messageFrom'] : '',
+                                'message' => isset($value['message']) ? $value['message'] : '',
+                                'color' => $value['color'],
+                            ]);
+                            DB::commit();
+                        }
+
+                    }
+
+                    $cartData = Cart::where('user_id', Auth::id())->get();
                     return response()->json([
                         'message' => 'login success',
                         'data' => $user,
+                        'cartData' => 'cartData',
                         'accessToken' => $token,
                     ], 200);
                 }
@@ -39,6 +77,7 @@ class LoginController extends Controller
                 ], 500);
             }
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
                 'message' => $th->getMessage(),
                 'success' => false,

@@ -1,63 +1,63 @@
 <template>
-        <div class="builder container">
-         <div id='content'>
-            <div style="width: 420px;width: 380px; height: 380px;position: relative;">
-                <div style="width: 380px; height: 20px; position:absolute!important; left: 0px; top: -20px;overflow: hidden;">
-                    <div style="width: 380px; height: 20px; position: relative;">
-                        <div style="position: absolute; width: 380px; height: 20px; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-left: 1px solid rgb(204, 204, 204);border-bottom: none; left: 0px; top: 0px;transform: scale(1, -1);" >
-                            <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleX(-1);height:380px !important;width:auto;">
-                        </div>
-                    </div>
-                </div>
-                <div style="width: 20px; height: 380px; position:absolute!important; left: 380px; top: 0px;">
-                    <div style="width: 20px; height: 380px; position: relative;overflow:hidden;">
-                        <div style="position: absolute; width: 20px; height: 380px; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-left: none; left: 0px; top: 0px;transform: scale(-1, 1);">
-                            <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleX(-1);height:380px !important;width:auto;">
-                        </div>
-                    </div>
-                </div>
-                <div class="image__preview wrapper" style="width: 380px; height: 380px; overflow:hidden;">
-                    <div class='frame' style="width: 380px;">
-                        <img id='sample_picture' src="/images/backup/1.jpg">
-                    </div>
-                </div>
-                <div style="width: 380px; height: 20px; position:absolute!important; left: 0px; top: 380px;">
-                    <div style="width: 380px; height: 20px; position: relative;overflow:hidden;">
-                        <div style="position: absolute; width: 380px; height: 20px; border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-left: 1px solid rgb(204, 204, 204); border-top: none; left: 0px; top: 0px;transform: scale(1, -1);">
-                            <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleY(-1);height:380px !important;width:auto;">
-                        </div>
-                    </div>
-                </div> 
-                <div style="width: 20px;height: 380px;position:absolute!important; left: -20px;top: 0px;">
-                    <div style="width: 20px; height: 380px; position: relative; overflow:hidden;">
-                        <div style="position: absolute;width: 20px;height: 380px;border-top: 1px solid rgb(204, 204, 204);border-bottom: 1px solid rgb(204, 204, 204);border-left: 1px solid rgb(204, 204, 204);border-right: none;left: 0px;top: 0px;touch-action: none;user-select: none;transform: scale(-1, 1);">
-                            <img src="/images/backup/1.jpg" >
-                        </div>
+    <div class="builder container" style="margin-top:30px;">
+        <div id='content'>
+        <div style="width: 420px;width: 380px; height: 380px;position: relative;">
+            <div style="width: 380px; height: 20px; position:absolute!important; left: 0px; top: -20px;overflow: hidden;">
+                <div style="width: 380px; height: 20px; position: relative;">
+                    <div style="position: absolute; width: 380px; height: 20px; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-left: 1px solid rgb(204, 204, 204);border-bottom: none; left: 0px; top: 0px;transform: scale(1, -1);" >
+                        <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleX(-1);height:380px !important;width:auto;">
                     </div>
                 </div>
             </div>
-           <div id='controls' class='hidden'>
-            <a href='#' id='rotate_left'  title='Rotate left'><i class='fa fa-rotate-left'></i></a>
-            <a href='#' id='zoom_out'     title='Zoom out'><i class='fa fa-search-minus'></i></a>
-            <a href='#' id='fit'          title='Fit image'><i class='fa fa-arrows-alt'></i></a>
-            <a href='#' id='zoom_in'      title='Zoom in'><i class='fa fa-search-plus'></i></a>
-            <a href='#' id='rotate_right' title='Rotate right'><i class='fa fa-rotate-right'></i></a>
+            <div style="width: 20px; height: 380px; position:absolute!important; left: 380px; top: 0px;">
+                <div style="width: 20px; height: 380px; position: relative;overflow:hidden;">
+                    <div style="position: absolute; width: 20px; height: 380px; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-left: none; left: 0px; top: 0px;transform: scale(-1, 1);">
+                        <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleX(-1);height:380px !important;width:auto;">
+                    </div>
+                </div>
             </div>
+            <div class="image__preview wrapper" style="width: 380px; height: 380px; overflow:hidden;">
+                <div class='frame' style="width: 380px;">
+                    <img id='sample_picture' src="/images/backup/1.jpg">
+                </div>
+            </div>
+            <div style="width: 380px; height: 20px; position:absolute!important; left: 0px; top: 380px;">
+                <div style="width: 380px; height: 20px; position: relative;overflow:hidden;">
+                    <div style="position: absolute; width: 380px; height: 20px; border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-left: 1px solid rgb(204, 204, 204); border-top: none; left: 0px; top: 0px;transform: scale(1, -1);">
+                        <img src="/images/backup/1.jpg" style="perspective: 1000px; backface-visibility: hidden; transform:scaleY(-1);height:380px !important;width:auto;">
+                    </div>
+                </div>
+            </div> 
+            <div style="width: 20px;height: 380px;position:absolute!important; left: -20px;top: 0px;">
+                <div style="width: 20px; height: 380px; position: relative; overflow:hidden;">
+                    <div style="position: absolute;width: 20px;height: 380px;border-top: 1px solid rgb(204, 204, 204);border-bottom: 1px solid rgb(204, 204, 204);border-left: 1px solid rgb(204, 204, 204);border-right: none;left: 0px;top: 0px;touch-action: none;user-select: none;transform: scale(-1, 1);">
+                        <img src="/images/backup/1.jpg" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='controls' class='hidden'>
+        <a href='#' id='rotate_left'  title='Rotate left'><i class='fa fa-rotate-left'></i></a>
+        <a href='#' id='zoom_out'     title='Zoom out'><i class='fa fa-search-minus'></i></a>
+        <a href='#' id='fit'          title='Fit image'><i class='fa fa-arrows-alt'></i></a>
+        <a href='#' id='zoom_in'      title='Zoom in'><i class='fa fa-search-plus'></i></a>
+        <a href='#' id='rotate_right' title='Rotate right'><i class='fa fa-rotate-right'></i></a>
+        </div>
 
-            <ul id='data' class='hidden'>
-            <div class='column'>
-                <li>x: <span id='x'></span></li>
-                <li>y: <span id='y'></span></li>
-            </div>
-            <div class='column'>
-                <li>width:  <span id='w'></span></li>
-                <li>height: <span id='h'></span></li>
-            </div>
-            <div class='column'>
-                <li>scale: <span id='scale'></span></li>
-                <li>angle: <span id='angle'></span></li>
-            </div>
-            </ul>
+        <ul id='data' class='hidden'>
+        <div class='column'>
+            <li>x: <span id='x'></span></li>
+            <li>y: <span id='y'></span></li>
+        </div>
+        <div class='column'>
+            <li>width:  <span id='w'></span></li>
+            <li>height: <span id='h'></span></li>
+        </div>
+        <div class='column'>
+            <li>scale: <span id='scale'></span></li>
+            <li>angle: <span id='angle'></span></li>
+        </div>
+        </ul>
   </div>
 
     </div>

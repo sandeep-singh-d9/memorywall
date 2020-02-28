@@ -1,6 +1,7 @@
 <template>
     <div>
         <headerTop></headerTop>
+        <loaderComponent v-if="showLoader" />
         <div class="login_bg">
             <div class="builder container login_div padding_70" >
                 <div class="row m-0">
@@ -86,14 +87,15 @@
                                     <div class="form-group">
                                         <label class="">Date of Birth</label>
                                         <ValidationProvider name="dateOfBirth" rules="required" v-slot="{ errors }">
-                                            <input type="text" v-model="dateOfBirth" class="form-control" >
+                                            <!-- <input type="text" v-model="dateOfBirth" class="form-control" > -->
+                                            <date-picker v-model="dateOfBirth" valueType="format" format="	DD-MMM-YYYY" ></date-picker>
                                             <span class="color_red">{{ errors[0] }}</span>
                                         </ValidationProvider>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="">GST Number*</label>
+                                        <label class="">GST Number</label>
                                         <input type="text" v-model="gstNumbner" class="form-control" >
                                     </div>
                                 </div>
@@ -180,12 +182,13 @@
         <footerBottom></footerBottom>
     </div>
 </template>
-
 <script>
 import headerTop from '../common/headerComponent'
 import footerBottom from '../common/footerComponent'
+import loaderComponent from '../loader/loader'
 
 export default {
+    
     data(){
         return{
             username:'',
@@ -199,39 +202,52 @@ export default {
             firstName: '',
             lastName: '',
             gstNumbner: '',
-            dateOfBirth: ''
+            dateOfBirth: '',
+            showLoader: false
         }
     },
     mounted(){
+        $(document).ready(function(){
+            $('.mx-datepicker').find('input').addClass('form-control');
+        })
     },
     components: {
         headerTop,
         footerBottom,
+        loaderComponent
     },
     methods : {
         loginCustomer(){
+            this.showLoader = true
+            const cartData = JSON.parse(localStorage.getItem('cart'));
             let data = { 
                 username : this.username,
-                password : this.password
+                password : this.password,
+                cartData : cartData
             }
             axios.post('/api/signIn',data)
             .then(response => {               
                 this.$v_session.set('accessToken', 'Bearer ' + response.data.accessToken)
                 const loginItem = this.$v_session.get('accessToken') ? true:false;
                 this.flashMessage.success({title: 'Success', message: 'User login Successfully',time: 1000});
-                this.storeLocalStorageData()
-                this.getCartData()
+                this.$v_session.set('cartLength',response.data.cartData.length)
                 const self = this
+
                 setTimeout(function(){
                     self.$router.push('/')
                 },1500)
+                // this.getCartData()
+                // this.storeLocalStorageData()                
             })
             .catch(error => {
+                this.showLoader = false
                 console.log(error)
                 this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 1000});
             })
         },
         registerCustomer(){
+            this.showLoader = true
+            // const cartData = JSON.parse(localStorage.getItem('cart'));
             let data = {
                 firstname : this.firstname, 
                 lastname : this.lastname, 
@@ -240,22 +256,26 @@ export default {
                 mobile : this.mobile, 
                 password : this.passwordNew,
                 gst_number: this.gstNumbner,
-                dob: this.dateOfBirth
+                dob: this.dateOfBirth,
+                // cartData : cartData
             }
             axios.post('/api/registerCustomer',data)
             .then(response => {
                 this.$v_session.set('accessToken', 'Bearer ' + response.data.accessToken)
                 this.flashMessage.success({title: 'Success', message: response.data.message,time: 2500});
-                this.storeLocalStorageData()
-                this.getCartData()
-                
+                // this.storeLocalStorageData()
+                // this.getCartData()
+                this.username = this.email
+                this.password = this.passwordNew
+                this.loginCustomer()
                 const self = this
-                setTimeout(function(){
-                    self.$router.push('/')
-                },1500)
+                // setTimeout(function(){
+                //     self.$router.push('/')
+                // },1500)
                 
             })
             .catch(error => {
+                this.showLoader = false
                 this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2500});
             })
         },
@@ -270,6 +290,7 @@ export default {
                     cartData:cartData
                 })
                 .then(response => {
+                    this.showLoader = false
                     localStorage.clear()
                 }).catch(error => {
                     console.log(error)
@@ -281,7 +302,12 @@ export default {
             axios.get('/api/getCartData')
             .then(response => {
                 this.$v_session.set('cartLength',response.data.data.length)
+                const self = this
+                setTimeout(function(){
+                    self.$router.push('/')
+                },1500)
             }).catch(error => {
+                this.showLoader = false
                 console.log(error)
             })
         }
@@ -291,5 +317,7 @@ export default {
 </script>
 
 <style>
-
+    .mx-datepicker {
+        width:100% !important;
+    }
 </style>

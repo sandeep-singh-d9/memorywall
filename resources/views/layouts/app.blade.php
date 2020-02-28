@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Canvas Print</title>
     <!-- Favicon-->
-    <link rel="icon" href="{{URL::asset('favicon.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" type="image/png" />
 
     @include('includes.styleSRC')
     @include('includes.javascripts')

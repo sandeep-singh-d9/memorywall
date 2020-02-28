@@ -550,7 +550,7 @@ export default {
         },
         changeRoute(value){
             this.$store.state.imageTypeStore = value 
-            this.$router.push('/dev-ui')
+            this.$router.push('/upload')
             if(value ==  'mirror'){
                 this.ACTION_CHANGE_STATE(['imagePathUrl' , this.imagePath])
                 // this.ACTION_CHANGE_STATE(['canvasTypeStore' , this.canvasType])
@@ -562,7 +562,7 @@ export default {
         changeRouter(value){
             this.$store.state.imagePathUrl  =  this.imagePath  
             this.$store.state.canvasTypeStore = value 
-            this.$router.push('/dev-ui')
+            this.$router.push('/upload')
         },
         rotate(){
             this.ACTION_CHANGE_STATE(['widthHeightSelect' , this.selectedCanvasHeight+'x'+this.selectedCanvasWidth])

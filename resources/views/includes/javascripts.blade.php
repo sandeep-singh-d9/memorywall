@@ -74,7 +74,7 @@
 
 <script src="{{URL::asset('adminLTE/js/pages/ui/tooltips-popovers.js')}}"></script>
 <script src="{{URL::asset('vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- <script src="{{URL::asset('adminLTE/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script> -->
 
 {{-- <script type="text/javascript">
@@ -123,15 +123,15 @@
             },
             cancel: function(){
             }
-        });  
+        });
         //}
     }
 
     function customChangeStatus(value, id, table){
-        
+
         $('#errorAlertMessage').empty('')
         $('#alert_message').empty('')
-        
+
         if(value == 1){
             value = 0
         }else{
@@ -169,7 +169,7 @@
             useBootstrap: false,
             cancelButton:'No',
             confirm: function(){
-                
+
             },
             cancel: function(){
             }

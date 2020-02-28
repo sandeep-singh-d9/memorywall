@@ -9,6 +9,7 @@
 <body>
     <div>
         <h2> Thanks Your Payment is Successfully Done  </h2>
+        <a href="http://memorywall.in/">Click here to continue</a>
     </div>
 </body>
 </html>

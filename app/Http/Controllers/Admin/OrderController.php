@@ -133,15 +133,18 @@ class OrderController extends Controller
             $path = '';
             if ($name == 'original') {
                 $path = $OrderDetail->imagePath;
-                $image = file_get_contents("https://logos-download.com/wp-content/uploads/2016/09/Laravel_logo.png");
-                        file_put_contents(public_path('img/a.png'), $image);
+                $image = file_get_contents($path);
+                $name = time() . '.jpg';
+                // file_put_contents(public_path('uploads/original' . $name), $image);
 
                 $contents = file_get_contents($path);
-                \Storage::disk('public/uploads/original')->put(time() . '.jpg', $contents);
+                \Storage::disk('local')->put($name, $contents);
+                return \Storage::download($name);
 
             } else {
                 $path = public_path($OrderDetail->domImage);
                 return \Response::download($path);
+
             }
         } catch (\Throwable $th) {
             dd($th);

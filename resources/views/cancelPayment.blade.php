@@ -9,6 +9,7 @@
 <body>
     <div>
         <h2>Payment Cancelled</h2>
+        <a href="http://memorywall.in/">Click here to continue</a>
     </div>
 </body>
 </html>

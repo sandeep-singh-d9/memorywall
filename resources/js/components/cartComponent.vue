@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<headerTop></headerTop>
+		<headerTop ></headerTop>
+		<loaderComponent v-if="showLoader"></loaderComponent>
 		<div class="builder container right_div padding_70" >
 			<div class="row m-0">
 				<div class="col-lg-12 p-0 canvas_inner" v-if="allCartValue.length > 0">
@@ -21,10 +22,12 @@
 												</a>
 											</span>
 										</h4>
-										<p>Size: {{data.canvasHeight + 'x' + data.canvasWidth + '( Inch )'}} </p>
-										<p>Canvas Wrap:</p>
-										<p>Canvas Edging: {{ data.imageType }}</p>
-										<p>Inclusion: Hanging Hardware</p>
+										<p><b>Size:</b> {{data.canvasHeight + 'x' + data.canvasWidth + '( Inch )'}} </p>
+										<p class="text-capitalize" v-if="data.canvasType == 'gallerywrap'"><b>Canvas Wrap:</b> Gallery wrap 0.75</p>
+										<p class="text-capitalize" v-else-if="data.canvasType == 'gallerywrap1'"><b>Canvas Wrap:</b> Gallery wrap 1.25</p>
+										<p class="text-capitalize" v-else><b>Canvas Wrap:</b> Rolled Canvas</p>
+										<p class="text-capitalize"><b>Canvas Edging:</b> {{ data.imageType }} Egde </p>
+										<p><b>Inclusion:</b> Hanging Hardware</p>
 									</div>
 									<div class="col-md-3 cart_price p-0">
 										<div class="custome_selectcart">
@@ -35,7 +38,7 @@
 												<option value="4">4</option>
 												<option value="5">5</option> -->
 											</select>
-											<span><i class="fas fa-rupee-sign"></i>{{ data.price }}</span>
+											<p style="font-weight: 600;"><span class="rupees_icon" style="padding:0px;font-weight: 600;">&#x20B9;</span> {{ data.price }}</p>
 										</div>
 									</div>
 									<div class="col-md-12 remove_cart text-uppercase">
@@ -55,30 +58,48 @@
 									<table class="table table-borderless mb-0">
 										<tr>
 											<td>Subtotal</td>
-											<td class="font_bold text-center"><i class="fas fa-rupee-sign"></i> {{total}}</td>
+											<td class="font_bold text-center"><span class="rupees_icon">&#x20B9;</span> {{total}}</td>
 										</tr>
 										<tr>
 											<td>Shipping</td>
-											<td class="font_bold text-center" v-if="shippingCharge != 'Free'"> <i class="fas fa-rupee-sign"></i> {{ shippingCharge }} </td>
+											<td class="font_bold text-center" v-if="shippingCharge != 'Free'"> 
+												<span class="rupees_icon">&#x20B9;</span> {{ shippingCharge }} 
+											</td>
 											<td class="font_bold text-center" v-if="shippingCharge == 'Free'">  {{ shippingCharge }} </td>
 										</tr>
 										<tr>
 											<td>GST(12%)</td>
-											<td class="font_bold text-center"><i class="fas fa-rupee-sign"></i> {{ GST }} </td>
+											<td class="font_bold text-center"><span class="rupees_icon">&#x20B9;</span> {{ GST }} </td>
+										</tr>
+										<tr v-if="this.giftPrice.length > 0">
+											<td>Gift Wrap</td>
+											<td class="font_bold text-center"><span class="rupees_icon">&#x20B9;</span> {{ giftPrice.length * 49 }} </td>
+										</tr>
+										<tr v-if="showDiscount">
+											<td>Discount</td>
+											<td class="font_bold text-center"><span class="rupees_icon">&#x20B9;</span> -{{ discount }} </td>
 										</tr>
 										<tr>
 											<td>Estimated Total</td>
-											<td class="font_bold text-center"><i class="fas fa-rupee-sign"></i> {{grand_total}} </td>
+											<td class="font_bold text-center"><span class="rupees_icon">&#x20B9;</span> {{grand_total}} </td>
 										</tr>
+										<!-- <tr>
+											<td colspan="2">
+												<div class="coupon_code">
+													<input class="form-control" type="text" placeholder="Enter pincode">
+													<button class="grey_btn"> Check </button>
+													<span class="error">
+														* Usually dispatched in 24 Hours
+													</span>
+												</div>
+											</td>
+										</tr> -->
 										<tr>
 											<td colspan="2">
-												<!-- Delivery -->
 												<div class="coupon_code">
-													<!-- <input class="form-control" type="text" placeholder="Enter pincode">
-													<button class="grey_btn"> Apply </button> -->
-													<!-- <span class="error">
-														* Usually dispatched in 24 Hours
-													</span> -->
+													<input class="form-control" v-model="promocode" type="text" placeholder="Enter Promocode">
+													<button class="grey_btn" @click="checkPromocode"> Apply </button>
+													<span v-if="showMessage" :class="messageColor">{{promocodeMessage}}</span>
 												</div>
 											</td>
 										</tr>
@@ -89,9 +110,8 @@
 						</div>
 					</div>
 				</div>
-
 				<!-- cart empty -->
-				<div class="col-lg-12 p-0 canvas_inner text-center" v-if="allCartValue.length == 0">
+				<div class="col-lg-12 p-0 canvas_inner text-center" v-if="allCartValue.length == 0 && showEmptyCart">
 					<h2 class="text-uppercase Vogue header_title mb-5">Shopping Cart is Empty</h2>
 					<div class="empty_card my-5">
 						<img src="/images/cart_empty.png" alt="" title=""><br/>
@@ -126,7 +146,14 @@
 <script>
 import headerTop from './common/headerComponent'
 import footerBottom from './common/footerComponent'
-import giftOption from './common/giftOption'
+import giftOption from './common/giftOption';
+import loaderComponent from './loader/loader'
+import {
+    mapState,
+    mapActions,
+    mapGetters,
+    mapMutations
+} from 'vuex';
 
 	var ccavenue = require('ccavenue');
 	export default {
@@ -153,15 +180,59 @@ import giftOption from './common/giftOption'
 			GST : 0,
 			allCartValue : [],
 			cartIndex : '',
-			quantityValue: []
+			quantityValue: [],
+			cartLength:0,
+			promocode: '',
+			discount: 0,
+			discount_type: '',
+			showDiscount : false,
+			showMessage : false,
+			promocodeMessage : '',
+			messageColor : '',
+			giftPrice : [],
+			showEmptyCart: false,
+			showLoader: false
 		};
 	},
 	components: {
         headerTop,
         footerBottom,
-		giftOption
-    },
+		giftOption,
+		loaderComponent
+	},
+	computed: {
+		...mapState([
+			'promocodeStore',
+			'discountStore',
+			'discount_typeStore',
+			'showDiscountStore'
+		])
+		
+	},
+	created() {
+	},
 	mounted() {
+		window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+		});
+		if(this.$v_session.get('accessToken')){
+			this.showEmptyCart = false
+			this.getCartData()
+			this.showLoader = true
+        }else{
+            let cartData = JSON.parse(localStorage.getItem("cart"));
+		
+            if(cartData != null){
+				this.allCartValue = cartData
+				this.cartLength = this.allCartValue.length
+				console.log(this.allCartValue, 'asas')
+				if(this.allCartValue.length == 0){
+					this.showEmptyCart = true
+				}
+				console.log(cartData, 'asasas')
+            }
+        }
 		var points = new Array(100);
         for (var i = 0; i < 100; i++) {
             points[i] = i + 1; //This populates the array.  +1 is necessary because arrays are 0 index based and you want to store 1-100 in it, NOT 0-99.
@@ -171,15 +242,7 @@ import giftOption from './common/giftOption'
 			 //This prints the values that you stored in the array
 			self.quantityValue = points
         }
-		if(this.$v_session.get('accessToken')){
-            this.getCartData()
-        }else{
-            let cartData = JSON.parse(localStorage.getItem("cart"));
 		
-            if(cartData != null){
-				this.allCartValue = cartData
-            }
-        }
 		
 
 		this.calculateTotal()
@@ -214,12 +277,15 @@ import giftOption from './common/giftOption'
 		localStorage.setItem('cartIndex','')
 	},
 	methods:{
+			...mapActions([
+				'ACTION_CHANGE_STATE'
+			]),
 			editCanvas(index, type){
 				localStorage.setItem('cartIndex',index)
 				if(type == 'wrapedge'){
 					this.$router.push('/wrapped')
 				}else{
-					this.$router.push('/dev-ui')
+					this.$router.push('/upload')
 				}
 			},
 			quantityChange(e){
@@ -233,7 +299,6 @@ import giftOption from './common/giftOption'
 						quantity : value
 					})
 					.then(response => {
-						console.log(response)
 						this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
 					}).catch(error => {
 						console.log(error)
@@ -290,7 +355,6 @@ import giftOption from './common/giftOption'
 					}
 					axios.post('/api/updateGiftOption/'+id,data)
 					.then(response => {
-						console.log(response)
 						this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
 					}).catch(error => {
 						console.log(error)
@@ -313,14 +377,24 @@ import giftOption from './common/giftOption'
 					axios.post('/api/removeCartItem/'+id)
 					.then(response => {
 						this.allCartValue.splice(index,1)
+						this.cartLength = this.allCartValue.length 
+						this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
 						this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
+						if(this.allCartValue.length == 0 ){
+							this.showEmptyCart = true
+						}
 					}).catch(error => {
 						console.log(error)
 						this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2000});
 					})
 				}else{
 					this.allCartValue.splice(index,1)
+					this.cartLength = this.allCartValue.length
+					this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
 					localStorage.setItem("cart",JSON.stringify(this.allCartValue));
+					if(this.allCartValue.length == 0 ){
+						this.showEmptyCart = true
+					}
 				}
 				this.calculateTotal()
 			},
@@ -329,10 +403,17 @@ import giftOption from './common/giftOption'
 				this.total = 0
 				let val = 0;
 				this.GST = 0
-				this.allCartValue.map(v => {
+				this.allCartValue.map((v,index) => {
 					this.total += (v.price * v.quantity)
 					if(v.messageType == 'giftwrap'){
-						this.total = (parseFloat(this.total) + 49)
+						// alert(index)
+						this.total = (parseInt(this.total) + 49)
+						if(!this.giftPrice.includes(index)){  
+							this.giftPrice.push(index)
+						}
+					}else if(v.messageType == 'giftmessage'){
+						if(this.giftPrice.includes(index))
+						this.giftPrice.splice(this.giftPrice.indexOf(index),1)
 					}
 				})
 				val = this.total
@@ -342,8 +423,16 @@ import giftOption from './common/giftOption'
 				}else{
 					this.shippingCharge = 'Free'
 				}
-				this.GST =  parseFloat((val * 12 / 100).toFixed(2))
-				this.grand_total = parseFloat(val + this.GST).toFixed(2) ;
+				this.GST =  parseInt((val * 12 / 100))
+				if(this.discount != 0 ){
+					if(this.discount_type == 'price'){
+						val = val - this.discount
+					}else{
+						const discountVal = this.total * this.discount / 100;
+						val =  val - discountVal
+					}
+				}
+				this.grand_total = parseInt(val + this.GST) ;
 				
 				const priceData = {
 					total : this.total,
@@ -356,10 +445,60 @@ import giftOption from './common/giftOption'
 				axios.get('/api/getCartData')
 				.then(response => {
 					this.allCartValue = response.data.data
+					this.cartLength = response.data.data.length
+					this.ACTION_CHANGE_STATE(['cartLength',this.cartLength])
 					this.$v_session.set('cartLength',response.data.data.length)
+					if(this.allCartValue.length == 0 ){
+						this.showEmptyCart = true
+					}
 					this.calculateTotal()
+					this.showLoader = false 
 				}).catch(error => {
+					this.showLoader = false
 					console.log(error)
+				})
+			},
+			checkPromocode(){
+				const data = {
+					promocode : this.promocode
+				}
+				axios.post('/api/checkPromocode',data)
+				.then(response => {
+					this.discount = response.data.data.discount
+					this.discount_type = response.data.data.discount_type
+					
+					this.ACTION_CHANGE_STATE(['promocodeStore' , this.promocode ])
+					this.ACTION_CHANGE_STATE(['discountStore' , this.discount])
+					this.ACTION_CHANGE_STATE(['discount_typeStore' , this.discount_type])
+					this.ACTION_CHANGE_STATE(['showDiscountStore' , true])
+					this.messageColor = 'color_green';
+					this.promocodeMessage = 'Promocode applied successfully!';
+					this.showMessage = true
+					this.showDiscount = true
+					this.calculateTotal()
+					const self = this
+					setTimeout(() => {
+						this.showMessage = false
+					}, 10000);
+				}).catch(error => {
+					this.ACTION_CHANGE_STATE(['promocodeStore' , ''])
+					this.ACTION_CHANGE_STATE(['discountStore' , 0])
+					this.ACTION_CHANGE_STATE(['discount_typeStore' , this.discount_type])
+					this.ACTION_CHANGE_STATE(['showDiscountStore' , false])
+					this.promocode = this.promocodeStore
+					this.discount = this.discountStore
+					this.discount_type = this.discount_typeStore
+					this.showDiscount = this.showDiscountStore
+					this.calculateTotal()
+
+					this.messageColor = 'color_red';
+					this.promocodeMessage = 'Code expired!';
+					this.showMessage = true
+					this.showDiscount = false
+					const self = this
+					setTimeout(() => {
+						this.showMessage = false
+					}, 3000);
 				})
 			}
 		}

@@ -2,6 +2,7 @@
 
 namespace App;
 
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'first_name', 'last_name', 'mobile', 'role_id', 'dob', 'gst_number',
+        'email', 'password', 'first_name', 'last_name', 'mobile', 'role_id', 'dob', 'gst_number', 'dial_code', 'api_token', 'status', 'created_by', 'updated_by',
     ];
 
     /**

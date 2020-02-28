@@ -21,8 +21,14 @@ import myInformation from "./components/myAccount/myInformationComponent";
 import myOrder from "./components/myAccount/myOrderComponent";
 import viewOrder from "./components/myAccount/viewOrderComponent";
 import aboutUs from "./components/common/aboutUs";
-import contactUs  from "./components/common/contactUs";
-import giftCanvasComponent  from "./components/giftCanvasComponent";
+import contactUs from "./components/common/contactUs";
+import giftCanvasComponent from "./components/giftCanvasComponent";
+import sendMessageComponent from "./components/myAccount/sendMessageComponent";
+import democase1 from "./components/jquerydrag";
+import tesrCanvas from "./components/testCanvas";
+import canvasChampComponent from "./components/canvasChampComponent";
+import jqueyDraggable from "./components/jqueyDraggable";
+import cropbox from "./components/cropbox";
 
 
 
@@ -34,8 +40,12 @@ export default new VueRouter({
             path: '/welcome',
             component: demoCanvasComponent,
         },
+        // {
+        //     path: '/loader',
+        //     component: loader,
+        // },
         {
-            path: '/dev-ui',
+            path: '/upload',
             component: EditorComponent,
         },
         {
@@ -76,7 +86,7 @@ export default new VueRouter({
         },
         {
             name: 'thankyou',
-            path: '/thankyou',
+            path: '/thankyou/:id',
             component: thankyou,
         },
         {
@@ -115,7 +125,12 @@ export default new VueRouter({
                 name: 'viewOrder',
                 path: '/my-account/viewOrder/:id',
                 component: viewOrder
-            }
+            },
+            {
+                name: 'sendmessage',
+                path: '/my-account/sendmessage/:id',
+                component: sendMessageComponent,
+            },
             ]
         },
         {
@@ -123,10 +138,36 @@ export default new VueRouter({
             path: '/aboutUs',
             component: aboutUs,
         },
+
         {
             name: 'contactUs',
             path: '/contactUs',
             component: contactUs,
+        },
+        {
+            name: 'democase1',
+            path: '/democase1',
+            component: democase1,
+        },
+        {
+            name: 'testCanvas',
+            path: '/testCanvas',
+            component: tesrCanvas,
+        },
+        {
+            name: 'jqueyDraggable',
+            path: '/canvas1',
+            component: jqueyDraggable,
+        },
+        {
+            name: 'cropbox',
+            path: '/cropbox',
+            component: cropbox,
+        },
+        {
+            name: 'canvasChampComponent',
+            path: '/cropbox1',
+            component: canvasChampComponent,
         },
 
     ],

@@ -13,10 +13,16 @@ export const store = new Vuex.Store({
         fileStatckImageHeightStore: '',
         canvasTypeStore: '',
         fromWrappedEdge: '',
-        imageTypeStore:'',
+        imageTypeStore: '',
         canvasTypeStore: '',
         domImageStore: '',
-        dynamicPriceStore: ''
+        dynamicPriceStore: '',
+        promocodeStore: '',
+        discountStore: 0,
+        discount_typeStore: '',
+        showDiscountStore: false,
+        cartLength: 0,
+        allCartValueStore: []
     },
     getters: {},
     mutations: {
