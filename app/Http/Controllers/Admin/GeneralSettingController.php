@@ -7,8 +7,8 @@ use App\Model\Banners;
 use App\Model\Category;
 use App\Model\Offers;
 use App\Model\Products;
+use App\Model\Promocode;
 use App\Model\Slider;
-use App\Model\Tax;
 use DB;
 
 class GeneralSettingController extends Controller
@@ -16,8 +16,8 @@ class GeneralSettingController extends Controller
     public function changeStatus($table, $id, $value)
     {
         try {
-            if ($table == 'taxes') {
-                $data = new Tax();
+            if ($table == 'promocodes') {
+                $data = new Promocode();
             }
 
             if ($table == 'categories') {
@@ -64,11 +64,11 @@ class GeneralSettingController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             dd($e);
-            return redirect()->back()->with('error', __('language.alertMessage.internalServerError'));
+            return redirect()->back()->with('error', 'Internal server error');
         }
 
         return response()->json([
-            'success' => __($language) . ' ' . __('language.alertMessage.statusChange'),
+            'success' => 'Status changed successfully!',
         ]);
     }
 }

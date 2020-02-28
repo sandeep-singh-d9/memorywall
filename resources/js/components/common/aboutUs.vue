@@ -23,6 +23,12 @@ export default {
     headerTop,
     footerBottom,
     homeTestimonial
+ },
+ mounted(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
  }
 }
 </script>

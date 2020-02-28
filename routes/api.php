@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('updateUser', 'Api\Users\UsersController@updateUser');
     Route::get('getOrder', 'Api\OrdersController@getOrder');
     Route::get('getOrderDetails/{id}', 'Api\OrdersController@getOrderDetails');
+    Route::post('sendIssue', 'Api\IssueController@sendIssue');
+    Route::get('getIssues/{id}', 'Api\IssueController@getIssues');
 });
 
 Route::post('imageUpload', 'Api\ImageUploadController@imageUpload');
@@ -41,4 +43,5 @@ Route::post('cancelResponse', 'Api\ImageUploadController@cancelResponse');
 Route::post('registerCustomer', 'Api\Users\RegisterController@registerCustomer');
 Route::post('signIn', 'Api\Users\LoginController@signIn');
 Route::post('placeOrder', 'Api\OrdersController@placeOrder');
+Route::post('checkPromocode', 'Api\OrdersController@checkPromocode');
 Route::post('subscribe', 'Api\Users\UsersController@subscribe');

@@ -25,7 +25,8 @@
                                     <th>Payment mothod</th>
                                     <th>Subtotal</th>
                                     <th>Tax</th>
-                                    <!-- <th>Discount</th> -->
+                                    <th>Discount</th>
+                                    <th>Promocode</th>
                                     <th>Grandtotal</th>
                                     <th>status</th>
                                     <th>Action</th>
@@ -35,12 +36,13 @@
                                 @foreach ($orders as $key => $order)
                                 <tr>
                                     <td>{{ $key + 1 }} </td>
-                                    <td>{{ $order->shippingAddress->firstname. ' ' . $order->shippingAddress->lastname }}</td>
+                                    <td>{{ $order->shippingAddress != null ? $order->shippingAddress->firstname : '' }}</td>
                                     <td>{{ date('d-m-y',strtotime($order->ordered_at)) }}</td>
-                                    <td>{{ $order->payment_method = 'ccavenue' ? 'ccavenue' : 'Cash On Delivery' }}</td>
+                                    <td>{{ $order->payment_method == 'ccavenue' ? 'ccavenue' : 'Cash On Delivery' }}</td>
                                     <td>{{ $order->price }}</td>
                                     <td>{{ $order->tax_collected }}</td>
-                                    <!-- <td>{{ $order->discount }}</td> -->
+                                    <td>{{ $order->discount }}</td>
+                                    <td>{{ $order->offer }}</td>
                                     <td>{{ $order->grand_total }}</td>
                                     <td id="statusChange">{{ ucfirst(str_replace('_',' ', $order->status)) }}</td>
                                     <td style="text-align: center;">
@@ -56,12 +58,17 @@
                                             </a> -->
                                         </i>
                                         <i class="material-icons">
-                                            <a href="/ordersDetails/{{$order->id}}" id="modal_id" >shopping_cart
+                                            <a href="/ordersDetails/{{$order->id}}" >shopping_cart
                                             </a>
                                         </i>
                                         <i class="material-icons">
                                             <a href="javascript:void(0)" id="modal_id" data-toggle="modal"  data-target="#addressModal_{{ $order->id }}" >location_on</a>
                                         </i>
+                                        @if($order->payment_method == 'ccavenue')
+                                        <i class="material-icons">
+                                            <a href="/payment/{{$order->order_no}}">payment</a>
+                                        </i>
+                                        @endif
                                     </td>
 
                                     @endforeach
@@ -84,7 +91,7 @@
                     <h4 class="modal-title" id="defaultModalLabel">Order details</h4>
                 </div>
                 <div class="modal-body table_data">
-                    <strong>Name</strong> : {{ $order->shippingAddress->firstname. ' ' . $order->shippingAddress->lastname }}<br>
+                    <strong>Name</strong> : {{ $order->shippingAddress != null ? $order->shippingAddress->firstname : '' }}<br>
                     <strong>Order date</strong> : {{ $order->ordered_at }} <br>
                     <br>
                     <br>
@@ -93,60 +100,60 @@
                         <tbody class="table_space ">
                             <tr>
                                 <th><strong>Mobile : </strong></th>
-                                <td> {{  $order->shippingAddress->mobile }}</td>
+                                <td> {{  $order->shippingAddress != null ? $order->shippingAddress->mobile : '' }}</td>
                             </tr>
                             <tr>
                                 <th> <strong>Email :</strong> </th>
-                                <td> {{ $order->shippingAddress->email }} </td>
+                                <td> {{ $order->shippingAddress != null ? $order->shippingAddress->email : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong>Zipcode :</strong> </th>
-                                <td> {{ $order->shippingAddress->zipcode }} </td>
+                                <td> {{ $order->shippingAddress != null ? $order->shippingAddress->zipcode : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong> Area : </strong> </th>
-                                <td> {{ $order->shippingAddress->area }} </td>
+                                <td> {{ $order->shippingAddress != null ? $order->shippingAddress->area : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong>Landmark :</strong> </th>
-                                <td>{{ $order->shippingAddress->landmark }} </td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->landmark : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong> Address : </strong> </th>
-                                <td>{{ $order->shippingAddress->address }}</td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->address : '' }}</td>
                             </tr>
                             <tr>
                                 <th> <strong>City :</strong> </th>
-                                <td>{{ $order->shippingAddress->city }} </td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->city : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong>State</strong> </th>
-                                <td>{{ $order->shippingAddress->state }} </td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->state : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong>Country</strong> </th>
-                                <td>{{ $order->shippingAddress->country }} </td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->country : '' }} </td>
                             </tr>
                             <tr>
                                 <th> <strong>Address type :</strong> </th>
-                                <td>{{ $order->shippingAddress->address_type }} </td>
+                                <td>{{ $order->shippingAddress != null ? $order->shippingAddress->address_type : '' }} </td>
                             </tr>
-                            @if($order->shippingAddress->messageType != '')
+                            @if($order->shippingAddress && $order->shippingAddress->messageType != '')
                                 <tr>
                                     <th> <strong>Gift option type :</strong> </th>
-                                    <td>{{ $order->shippingAddress->messageType }} </td>
+                                    <td>{{ $order->shippingAddress ? $order->shippingAddress->messageType : '' }} </td>
                                 </tr>
                                 <tr>
                                     <th> <strong>To :</strong> </th>
-                                    <td>{{ $order->shippingAddress->to }} </td>
+                                    <td>{{ $order->shippingAddress ? $order->shippingAddress->to : '' }} </td>
                                 </tr>
                                 <tr>
                                     <th> <strong>From :</strong> </th>
-                                    <td>{{ $order->shippingAddress->From }} </td>
+                                    <td>{{ $order->shippingAddress ? $order->shippingAddress->From : '' }} </td>
                                 </tr>
                                 <tr>
                                     <th> <strong>Message :</strong> </th>
-                                    <td>{{ $order->shippingAddress->message }} </td>
+                                    <td>{{ $order->shippingAddress ? $order->shippingAddress->message : '' }} </td>
                                 </tr>
                             @endif
 

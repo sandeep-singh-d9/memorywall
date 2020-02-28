@@ -211,7 +211,7 @@
         display: inherit;
     }
     .easy_steps img {
-        width: 100px;
+        width: 70px;
         margin-bottom: 15px;
     }
     .easy_steps .col-md-4 {
@@ -241,7 +241,7 @@
     .innner_previewimg .d-inline-block {
         float: left;
         width: 100%;
-        text-align: left !important;
+        /* text-align: left !important; */
         
     }
     .upload_rotate p {
@@ -258,6 +258,15 @@
     .home_tabcontent .table {
         width: 75%;
         margin: 0 auto;
+    }
+    .dashboard_div .right_div .form-group, .dashboard_div .right_div label {
+        text-align: left;
+    }
+    .home_tabcontent .custome_select {
+        width: 40% !important;
+    }
+    #giftOption .modal-dialog {
+        max-width: 75%;
     }
 }
 
@@ -324,6 +333,26 @@
     .about_us p {
         font-size: 15px;
         line-height: 30px;
+    }
+    .contact_inner {
+        padding: 15px 15px;
+        width: 90%;
+        margin-top: 25px;
+    }
+    .contact_inner h4 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    .contact_inner img {
+        height: 50px;
+        margin-bottom: 10px;
+    }
+    .contact_inner p {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+    #shippingModal .modal-content.p-5 {
+        padding: 30px 15px !important;
     }
 }
 
@@ -397,11 +426,17 @@
         margin: 0 auto;
     }
     .easy_steps img {
-        width: 75px;
+        width: 60px;
         margin-bottom: 15px;
     }
     .gift_innercanvas .col-md-4 {
         width: 33.33%;
+    }
+    .custome_price .default_btn {
+        float: none;
+    }
+    .bright {
+        border: none;
     }
     
 }
@@ -419,6 +454,9 @@
     .tab-content {
         width: 95%;
         margin: 0 auto;
+    }
+    .home_tabcontent .custome_select {
+        width: 50% !important;
     }
 }
 @media (max-width: 667px){
@@ -450,12 +488,59 @@
     .gift_innercanvas .col-md-4:nth-child(2) img{ width: 110px !important; }
     .gift_innercanvas .col-md-4:nth-child(3) img{ width: 130px !important; }
     .gift_innercanvas .col-md-4:nth-child(4) img{ width: 110px !important; }
-    .gift_innercanvas .col-md-4:nth-child(5) img{ width: 130px !important; }
-    .gift_innercanvas .col-md-4:nth-child(6) img{ width: 150px !important; }
+    .gift_innercanvas .col-md-4:nth-child(5) img{ width: 125px !important; }
+    .gift_innercanvas .col-md-4:nth-child(6) img{ width: 140px !important; }
     .gift_innercanvas .col-md-4:nth-child(7) img{ width: 80px !important; }
     .gift_innercanvas .col-md-4:nth-child(8) img{ width: 100px !important; }
     .gift_innercanvas .col-md-4:nth-child(9) img{ width: 120px !important; }
     
+
+    #recent_orders table, #recent_orders thead, #recent_orders tbody, #recent_orders th, #recent_orders td, #recent_orders tr { 
+		display: block; 
+	}
+	#recent_orders  thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	#recent_orders  tr {border-bottom: 2px solid #ff5722;}
+	#recent_orders  td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 30%; 
+        line-height: inherit;
+	}
+	#recent_orders  td:before { 
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+	}
+	#recent_orders  td:nth-of-type(1):before { content: "Order No.:"; color: #ff5722; }
+	#recent_orders  td:nth-of-type(2):before { content: "Date:"; color: #ff5722; }
+	#recent_orders  td:nth-of-type(3):before { content: "Ship to:"; color: #ff5722; }
+	#recent_orders  td:nth-of-type(4):before { content: "Amount:"; color: #ff5722; }
+	#recent_orders  td:nth-of-type(5):before { content: "Status:";  color: #ff5722;}
+	#recent_orders  td:nth-of-type(6):before { content: "Action:"; color: #ff5722; }
+    .order_view table.main_orderview tr td {
+        width: 16% !important;
+        font-size: 12px;
+    }
+    .order_view table.main_orderview tr td img {
+        width: 75px !important;
+    }
+    .order_view table tr td.inner_cartdetail{
+        width: 22% !important;
+    }
+    .order_view table.main_orderview tr td.inner_cartdetail {
+        width: auto !important;
+    } 
+    .order_view .inner_cartdetail p {
+        font-size: 10px;
+    }
 }
 
 @media (max-width: 600px){
@@ -482,6 +567,21 @@
     }
     .about_us img {
         padding: 40px;
+    }
+    .contact_inner {
+        width: 100%;
+    }
+    .contact_inner h4 {
+        font-size: 14px;
+    }
+    .contact_inner img {
+        height: 40px;
+    }
+    .contact_inner p {
+        font-size: 14px;
+    }
+    .contact_inner a{
+        font-size: 12px;
     }
 }
 @media (max-width: 568px){
@@ -544,6 +644,65 @@
     .gift_innercanvas .col-md-4 {
         width: 49%;
     }
+    .contact_us  .col-md-4{
+        width:49%;
+    }
+    .send_message .col-sm-6{
+        width: 50%;
+    }
+    #message_orders table, #message_orders thead, #message_orders tbody, #message_orders th, #message_orders td, #message_orders tr { 
+		display: block; 
+	}
+	#message_orders  thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	#message_orders  tr {border-bottom: 2px solid #ff5722;}
+	#message_orders  td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 30%; 
+        line-height: inherit;
+	}
+	#message_orders  td:before { 
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+	}
+	#message_orders  td:nth-of-type(1):before { content: "Order No.:"; color: #ff5722; }
+	#message_orders  td:nth-of-type(2):before { content: "Issue No.:"; color: #ff5722; }
+	#message_orders  td:nth-of-type(3):before { content: "Details:"; color: #ff5722; }
+	#message_orders  td:nth-of-type(4):before { content: "Status:";  color: #ff5722;}
+    #message_orders  td:nth-of-type(5):before { content: "Response:"; color: #ff5722; }
+    .v-scale span {
+        font-size: 10px;
+        height: 14px;
+        left: -26px;
+    }
+    .h-scale span {
+        font-size: 10px;
+        line-height: 14px;
+        position: relative;
+        top: -7px;
+    }
+    .h-scale{
+        height: 10px;
+    }
+    .v-scale{
+        left: -30px;
+        width: 8px;
+    }
+    #giftOption .modal-dialog {
+        max-width: 100%;
+    }
+    .bright .gift_option {
+        padding-right: 15px;
+    }
 }
 
 @media (max-width: 480px){
@@ -573,7 +732,7 @@
         padding: 0px !important;
     }
     .checkout_left .col-md-5, #addressbook .col-md-4 {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
     .checkout_boxradius .gift_option {
@@ -591,6 +750,34 @@
     }
     .checkout_boxradius .inner_add{
         padding: 18px 0;
+    }
+    .home_tabcontent .custome_select {
+        width: 45% !important;
+    }
+    .custom-control-label {
+        padding-left: 0px;
+    }
+    .input--select .input__input {
+        padding-right: 0px;
+        font-size: 12px;
+    }
+    .f-20 {
+        font-size: 16px;
+    }
+    .custome_price h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+    #giftOption .modal-content.p-5{
+        padding: 1rem !important;
+    }
+    .close {
+        right: 15px;
+        top: 11px;
+    }
+    .right_circleimg .canvas_btn.border_radius {
+        margin-top: 0;
+        padding: 2px 12px !important;
     }
 }
 
@@ -681,7 +868,82 @@
         font-size: 14px;
         line-height: 24px;
     }
-    
+    .close {
+        right: 18px;
+        top: 23px;
+    }
+    .header_title.modal-title.mb-5 {
+        margin-bottom: 1rem !important;
+    }
+    .checkout_left {
+        padding: 0px;
+    }
+
+
+    .main_orderview table, .main_orderview thead, .main_orderview tbody, .main_orderview th, .main_orderview td, .main_orderview tr { 
+		display: block; 
+	}
+	.main_orderview  thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	.main_orderview  tr {border-bottom: 2px solid #ff5722;}
+	.main_orderview  td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 30%; 
+        line-height: inherit;
+	}
+	.main_orderview  td:before { 
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+	}
+	/* .main_orderview  td:nth-of-type(1):before { content: "Order No.:"; color: #ff5722; }
+	.main_orderview  td:nth-of-type(2):before { content: "Date:"; color: #ff5722; }
+	.main_orderview  td:nth-of-type(3):before { content: "Ship to:"; color: #ff5722; }
+	.main_orderview  td:nth-of-type(4):before { content: "Amount:"; color: #ff5722; }
+	.main_orderview  td:nth-of-type(5):before { content: "Status:";  color: #ff5722;}
+    .main_orderview  td:nth-of-type(6):before { content: "Action:"; color: #ff5722; } */
+    .order_view table.main_orderview tr td {
+        width: 100% !important;
+        font-size: 12px;
+        border-bottom:none;
+        padding: 4px 6px;
+    }
+    .order_view table.main_orderview tr td p {
+        margin-bottom: 0px;
+    }
+    .order_view table tr td.inner_cartdetail {
+        width: 40% !important;
+    }
+    .custome_price h2 {
+        font-size: 20px;
+    }
+    .happiness{
+        margin-bottom: 20px;
+    }
+    .happiness p {
+        font-size: 10px;
+    }
+    .happiness h4{
+        font-size: 16px;
+    }
+    .happiness img {
+        margin-top: -80px;
+        border: 5px solid #fff;
+        border-radius: 100px;
+        margin-bottom: 30px;
+        width: 100px;
+    }
+    .footer-links img {
+        width:100%;
+    }
 }
 
 
@@ -696,7 +958,8 @@
         padding: 0px;
     }
     .site-footer .form-control{
-        width: 75%;
+        width: 70%;
+        margin: 0 0 0 auto;
     }
     .header_title {
         font-size: 22px;
@@ -751,8 +1014,31 @@
         margin-bottom: 30px;
         font-size: 18px;
     }
+    .contact_us .col-md-4{
+        width:70%;
+        margin: 0 auto;
+    }
+    .checkout_left .checkout_boxradius{
+        width: 100%;
+        margin: 0 auto 22px;
+    }
+    #footer_top h3 {
+        font-size: 22px;
+    }
+    .home_tabcontent .custom-control.custom-radio.d-inline-block {
+        font-size: 13px;
+    }
+    .custom-control {
+        min-height: inherit !important;
+    }
+    .custome_price h2 span {
+        margin: 9px 10px;
+    }
 }
 @media (max-width: 320px){
+    .container {
+        max-width: 100% !important;
+    }
     .canvas_print .nav-pills .nav-link {
         padding: 4px 7px;
         font-size: 11px!important;
@@ -764,8 +1050,11 @@
         width: 80%;
     }
     .right_circleimg ul li .inner_image {
-        width: 55px;
-        height: 55px;
+        width: 46px;
+        height: 46px;
+    }
+    .right_circleimg ul li .inner_image + label{
+        letter-spacing: 0px;
     }
     .right_circleimg ul li {
         font-size: 9px;
@@ -786,5 +1075,11 @@
     }
     .gift_innercanvas .col-md-4 h5 {
         font-size: 12px;
+    }
+    .contact_us .col-md-4 {
+        width: 80%;
+    }
+    .home_tabcontent .custom-control.custom-radio.d-inline-block {
+        font-size: 11px;
     }
 }

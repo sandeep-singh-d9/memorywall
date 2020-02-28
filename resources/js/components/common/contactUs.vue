@@ -8,10 +8,10 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <div class="contact_inner">
-                        <h4>Chat Us</h4>
-                        <img src="/images/chatus.png" alt="" title="">
+                        <h4>Call Us</h4>
+                        <img src="/images/callus.png" alt="" title="">
                         <p>24 x 7</p>
-                        <a href="javascript:void(0)" class="contact_link">Start a Chat</a>
+                        <a class="contact_link" href="tel:8200324798">Call Now</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
@@ -19,15 +19,15 @@
                         <h4>Email Us</h4>
                         <img src="/images/emailus.png" alt="" title="">
                         <p>&nbsp;</p>
-                        <a href="javascript:void(0)" class="contact_link">Start an Email</a>
+                        <a class="contact_link" href="mailto:memorywall.in@hotmail.com">Start an Email</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="contact_inner">
-                        <h4>Call Us</h4>
-                        <img src="/images/callus.png" alt="" title="">
+                        <h4>Chat Us</h4>
+                        <img src="/images/chatus.png" alt="" title="">
                         <p>24 x 7</p>
-                        <a href="javascript:void(0)" class="contact_link">Call Now</a>
+                        <a class="contact_link">Start a Chat</a>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,12 @@ export default {
     headerTop,
     footerBottom,
     // homeTestimonial
- }
+ },
+mounted(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
+}
 }
 </script>

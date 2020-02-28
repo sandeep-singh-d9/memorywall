@@ -8,54 +8,54 @@
                     <div class="innner_previewimg"  :style="{paddingLeft: '13px' , paddingTop: thickDimension !== '' ? '0px' : '10px'}">
                         <div :class="{'mainimage__preview': true, 'wrapped_edge': imageType == 'wrapedge' ? true : false}" :style="{opacity: '1', width: selectedHeight+'px', height: selectedHeight+'px'}" >
                             <div class="h-scale" :style="{marginLeft: '20px', width: dynamicWidth}"><span id="scalewidth">{{selectedCanvasWidth}} inch</span></div>
-                            <div class="v-scale" :style="{marginTop: thickDimension !== '' ? '30px' : '20px', height: dynamicHeight}"><span id="scaleheight">{{selectedCanvasHeight}} inch</span></div>
-                            <div class="image__preview_section" id="mirroredElement" :style="{paddingLeft:'20px', width: thickDimension !== '' ? topWrapWidth+20+'px' :topWrapWidth+40+'px', position:'relative' , top:thickDimension !== '' ? '0px' : ''}">
-                                <div class="image__preview_top" :style="{height: thickDimension !== '' ? thickDimension+'px' :'20px', width:dynamicWidth, opacity:canvasType != 'roleCanvas' ? '1': '0'}">
-                                    <div class="innerimage_window" :style="{width: '100%', height: 'auto',  paddingTop:dynamicHeight}">
-                                        <div class="innerimage_canvas" :style="{ backgroundColor: imageType == 'color' ?  color : '', left: imageType == 'color' ?  '0px' : '-2px', top:'0' }">
-                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{width:WidthZoomed == '' ? imageWidth : WidthZoomed, height: heightZoomed == '' ?imageHeight : heightZoomed}" >
+                            <div class="image__preview_section"  :style="{paddingLeft:'0px', width: thickDimension !== '' ? topWrapWidth+60+'px' :topWrapWidth+40+'px', position:'relative' , top:thickDimension !== '' ? '0px' : ''}">
+                                <div class="v-scale" :style="{marginTop: thickDimension !== '' ? '30px' : '20px', height: dynamicHeight}"><span id="scaleheight">{{selectedCanvasHeight}} inch</span></div>
+                                <div id="mirroredElement">
+                                <div class="image__preview_top" :style="{height: thickDimension !== '' ? thickDimension+'px' :'20px', width:dynamicWidth, opacity:canvasType != 'roleCanvas' ? '1': '0', marginLeft:thickDimension !== '' ? '30px' :'20px'}">
+                                    <div class="innerimage_window " :style="{width: '100%', height: 'auto',  paddingTop:dynamicHeight}">
+                                        <div class="innerimage_canvas cropit-preview-image-container" :style="{ backgroundColor: imageType == 'color' ?  color : '', left: '0px', top:'0' }">
+                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{transformOrigin: 'left top', willChange: 'transform', transform: 'translate(-94.8576px, 0px) scale(0.569715) rotate(0deg)'}" >
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="image__preview_right" :style="{height: dynamicHeight, width: thickDimension !== '' ? thickDimension+'px' :'20px', opacity:canvasType != 'roleCanvas' ? '1': '0' ,left: thickDimension !== '' ? topWrapWidth+20+'px' : '0' , position: thickDimension !== ''?'absolute' : ''}">
+                                <div class="image__preview_right" :style="{height: dynamicHeight, width: thickDimension !== '' ? thickDimension+'px' :'20px', opacity:canvasType != 'roleCanvas' ? '1': '0' ,left: thickDimension !== '' ? topWrapWidth+30+'px' : '0' , position: thickDimension !== ''?'absolute' : ''}">
                                     <div class="innerimage_window" :style="{height: dynamicHeight, width: dynamicWidth, paddingTop:dynamicHeight}">
-                                        <div class="innerimage_canvas" :style="{ backgroundColor: imageType == 'color' ?  color : '' , top: imageType == 'color' ?  '0px' : '-1px', right:'0', left:'auto' }">
-                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{marginLeft: '0px', width:WidthZoomed == '' ? imageWidth : WidthZoomed, height:heightZoomed == '' ? imageHeight : heightZoomed}">
+                                        <div class="innerimage_canvas cropit-preview-image-container" :style="{ backgroundColor: imageType == 'color' ?  color : '', left: '0px', top:'0' }">
+                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{transformOrigin: 'left top', willChange: 'transform', transform: 'translate(-94.8576px, 0px) scale(0.569715) rotate(0deg)'}" >
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="image__preview wrapper" id="prviewSelected"  :class="{'borderdotted': canvasType == 'roleCanvas'}"  :style="{width:dynamicWidth,height:dynamicHeight }">
-                                    <div class="innerimage_window map" :style="{width: '100%', height: 'auto' ,paddingTop:dynamicHeight, cursor:'all-scroll'}">
-                                        <div  class="innerimage_canvas" style="top:0; left:0" :style="{cursor:imagePath == '' ?'pointer' : ''}" @click="uploadImageFilestack">
-                                            <img class="image__preview_main transform-after-drag" :src="imagePath" :style="{width:WidthZoomed == '' ? imageWidth: WidthZoomed, height: heightZoomed ==''  ? imageHeight : heightZoomed}" @mouseleave="mouseleave($event)" id="main_image">
-                                        </div>
+                                <div class="image__preview wrapper" id="prviewSelected"  :class="{'borderdotted': canvasType == 'roleCanvas'}"  :style="{width:dynamicWidth,height:dynamicHeight,marginLeft:thickDimension !== '' ? '30px' :'20px', background:imagePath != '' ? '#ffffff' : '' }" @click="uploadImageFilestack">
+                                    <div class="image-editor" id="rolledPreview">
+                                        <div class="cropit-preview" :style="{width:dynamicWidth,height:dynamicHeight, cursor:'grab'}"></div>
                                     </div>
                                 </div>
 
-                                <div class="image__preview_bottom" :style="{height: thickDimension !== '' ? thickDimension+'px' :'20px', width: dynamicWidth, opacity:canvasType != 'roleCanvas' ? '1': '0'}">
+                                <div class="image__preview_bottom" :style="{height: thickDimension !== '' ? thickDimension+'px' :'20px', width: dynamicWidth, opacity:canvasType != 'roleCanvas' ? '1': '0', marginLeft:thickDimension !== '' ? '30px' :'20px'}">
                                     <div class="image__preview_bottom-inner">
                                         <div class="innerimage_window" :style="{width:'100%', height:'auto',  paddingTop:bottomImageHeight-5+'px'}">
-                                            <div class="innerimage_canvas" :style="{ backgroundColor: imageType == 'color' ?  color : '', top: imageType == 'color' ?  '0px' : '-5px', left:'0'}">
-                                                <img  class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{marginTop: '0px', width:WidthZoomed == '' ? imageWidth: WidthZoomed, height:heightZoomed == '' ? imageHeight : heightZoomed}">
+                                            <div class="innerimage_canvas cropit-preview-image-container" :style="{ backgroundColor: imageType == 'color' ?  color : '', left: '0px', top:'0' }">
+                                                <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{transformOrigin: 'left top', willChange: 'transform', transform: 'translate(-94.8576px, 0px) scale(0.569715) rotate(0deg)'}" >
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="image__preview_left" :style="{left: thickDimension !== '' ? '-10px' : '0'  ,height: dynamicHeight, width: thickDimension !== '' ? thickDimension+'px' :'20px', top: thickDimension !== '' ? thickDimension+'px' :'20px', opacity:canvasType != 'roleCanvas' ? '1': '0'}">
+                                <div class="image__preview_left" :style="{left:'0'  ,height: dynamicHeight, width: thickDimension !== '' ? thickDimension+'px' :'20px', top: thickDimension !== '' ? thickDimension+'px' :'20px', opacity:canvasType != 'roleCanvas' ? '1': '0'}">
                                     <div class="innerimage_window" :style="{width:dynamicWidth,height:dynamicHeight, paddingTop:'100%'}">
-                                        <div class="innerimage_canvas" :style="{ backgroundColor: imageType == 'color' ?  color : '', top: imageType == 'color' ?  '0px' : '-2px', left:'0'}">
-                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{width:WidthZoomed == '' ? imageWidth: WidthZoomed, height:heightZoomed == '' ?imageHeight : heightZoomed}" >
+                                        <div class="innerimage_canvas cropit-preview-image-container" :style="{ backgroundColor: imageType == 'color' ?  color : '', left: '0px', top:'0' }">
+                                            <img class="image__preview_image transform-after-drag" :src="imagePath"  v-if="imageType != 'color'"  :style="{transformOrigin: 'left top', willChange: 'transform', transform: 'translate(-94.8576px, 0px) scale(0.569715) rotate(0deg)'}" >
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                             
                             
                             <div class="d-inline-block col-md-12 mb-4 mt-5 text-center ">
-                                <vue-slider v-model="zoomValue" @change="zoomChange"></vue-slider>
+                                <vue-slider class="cropit-image-input" v-model="zoomValue" @change="zoomChange" v-bind="options"></vue-slider>
                                 <div class="upload_rotate">
                                     <!-- <p>
                                         PRINT RESOLUTION 325 DPI. <span class="text-success">LOOK GOOD</span>
@@ -64,10 +64,10 @@
                                         <img src="/images/upload_image.png" alt="" title="">
                                         <span>{{imagePath =='' ? 'UPLOAD IMAGE'  : 'CHANGE IMAGE'}}</span>
                                     </p>
-                                    <p class="ml-1" @click="rotate()" v-if="canvasType == 'roleCanvas'? false : true">
+                                    <!-- <p class="ml-1" @click="rotate()" v-if="canvasType == 'roleCanvas'? false : true">
                                         <img src="/images/rotate_icon.png" alt="" title="">
                                         <span>ROTATE ORIENTATION</span>
-                                    </p>
+                                    </p> -->
                                 </div>
                                 <!-- <button @click="imageUpload" class="btn canvas_btn">UploadImage</button>
                                 <button @click="addToCart" class="btn canvas_btn">Add to cart</button> -->
@@ -80,42 +80,25 @@
                     <hr/>
                     <div class="col-sm-12 p-0 mb-3 float-left" >
                         <div> 
-                            <label><b class="text-uppercase f-20">Size</b></label>
+                            <label><b>SIZE</b></label>
                             <div class="col-lg-8 custome_select">
                                 <div class="row">
-                                    <div class="col-lg-5">
-                                        <span>Height</span>
-                                        <select v-model="selectedCanvasHeight" @change="getContext" class="form-control">
-                                            <option v-for="(item,index) in optionHeight" :key="index" :value="item">{{item}}</option>
+                                    <div class="col-lg-5 input input--select has-value">
+                                        <label for="custom-width" class="input__label">Height</label>
+                                        <select v-model="selectedCanvasHeight" @change="getContext" class="form-control input__input">
+                                            <option v-for="(item,index) in optionHeight" :key="index" :value="item">{{item}}"</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-1 p-0"></div>
-                                    <div class="col-lg-5 ">
-                                        <span>Width</span>
-                                       <select v-model="selectedCanvasWidth" @change="getContext" class="form-control">
-                                            <option v-for="(item,index) in optionWidth" :key="index" :value="item">{{item}}</option>
+                                    <div class="col-lg-5 input input--select has-value">
+                                        <label for="custom-width" class="input__label">Width</label>
+                                        <select v-model="selectedCanvasWidth" @change="getContext" class="form-control input__input">
+                                            <option v-for="(item,index) in optionWidth" :key="index" :value="item">{{item}}"</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <label><b class="text-uppercase f-20">Size (H x W)</b></label>
-                        <div class=" col-md-8 float-right">
-                            <div class="row">
-                                <div class="col-lg-4 pr-0">
-                                    <select v-model="selectedCanvasHeight" @change="getContext" class="form-control">
-                                        <option v-for="(item,index) in optionHeight" :key="index" :value="item">{{item}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 p-0 text-center pt-2"><label><b> X </b></label></div>
-                                <div class="col-lg-4 pl-0">
-                                    <select v-model="selectedCanvasWidth" @change="getContext" class="form-control">
-                                        <option v-for="(item,index) in optionWidth" :key="index" :value="item">{{item}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-2 p-0 text-center pt-2"><label><b> (Inches) </b></label></div>
-                            </div>
-                        </div> -->
                     </div>
                     
                     <div class="float-left col-md-12 p-0 right_circleimg">
@@ -184,7 +167,7 @@
                         </ul>
                         <div class="col-md-12 text-right">
                             <button v-show="imageType == 'color'" @click="showColorPicker" class="btn canvas_btn border_radius ">Choose Color</button>
-                            <button v-show="colorPicker" @click="hideColorPicker" class="btn default_grey_btn canvas_btn ml-2"><i class="fas fa-times"></i></button>
+                            <button v-show="colorPicker" @click="hideColorPicker" class="btn default_grey_btn border_radius  canvas_btn ml-2"><i class="fas fa-times"></i></button>
                         </div>
                         <hr/>
                         
@@ -192,10 +175,10 @@
                     <div class="float-left col-md-12 px-4 pb-3 bottom_circles" >
                         
                         <h2 class="poppins d-block mr-2">
-                            <del><i class="fas fa-rupee-sign"></i>{{dynamicPrice*2}}</del>
-                            <i class="fas fa-rupee-sign"></i>{{dynamicPrice}}
+                            <del class="mr-2"><span class="rupees_icon">&#x20B9;</span>{{dynamicPrice*2}}</del>
+                            <span class="rupees_icon">&#x20B9;</span>{{dynamicPrice}}
                         </h2>
-                        <div class="col-md-12">
+                        <div>
                             <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart">Add to Cart</button>
                             <button type="button" class="btn default_grey_btn canvas_btn text-uppercase" @click="previewImage">Preview Canvas</button>
                         </div>
@@ -208,6 +191,7 @@
                             <li>03 &nbsp; Hanging Hardware</li>
                             <li>04 &nbsp; Safe Packaging</li>
                             <li>05 &nbsp; Free Shipping</li>
+                            <li>06 &nbsp; 100% Happiness Guaranteed</li>
                         </ul>
                     </div>
                 </div>
@@ -242,7 +226,7 @@ import { saveAs } from 'file-saver';
 export default {
     data(){
         return {
-            selectedHeight: '420',
+            selectedHeight: '440',
             selectedWidth: '380',
             topWrapWidth:380,
             selectedCanvasHeight: '8',
@@ -256,7 +240,7 @@ export default {
             fileStatckImageWidth: '',
             fileStatckImageHeight: '',
             color:'',
-            zoomValue:'',
+            zoomValue:'0.1',
             imageType : 'mirror',
             savedMainImageStyle:'',
             optionHeight:[],
@@ -272,6 +256,40 @@ export default {
             cart : [],
             cartIndex : '',
             domImage: '',
+            options: {
+                dotSize: 14,
+                width: 'auto',
+                height: 10,
+                contained: false,
+                direction: 'ltr',
+                data: null,
+                min: 0.1,
+                max: 0.8,
+                interval: 0.01,
+                disabled: false,
+                clickable: true,
+                duration: 0.01,
+                tooltip: 'focus',
+                tooltipPlacement: 'top',
+                tooltipFormatter: void 0,
+                useKeyboard: false,
+                enableCross: true,
+                fixed: false,
+                minRange: void 0,
+                maxRange: void 0,
+                order: true,
+                marks: false,
+                dotOptions: void 0,
+                process: true,
+                dotStyle: void 0,
+                railStyle: void 0,
+                processStyle: void 0,
+                tooltipStyle: void 0,
+                stepStyle: void 0,
+                stepActiveStyle: void 0,
+                labelStyle: void 0,
+                labelActiveStyle: void 0,
+            },
             showLoader:false,
             bestSelling : [
                 {
@@ -299,7 +317,8 @@ export default {
                     price: 2495
 
                 },
-            ]
+            ],
+            designTool:true,
 
         }
     },
@@ -311,14 +330,41 @@ export default {
         loaderComponent
     },
     mounted(){
-        console.log($(window).width()<= 414)
+        this.showLoader = true
+        var me =  this
+        $(document).ready(function(){
+            $('.image-editor').cropit({
+                imageState: {
+                    src: '',
+                },
+                originalSize: true,
+                onImageLoaded:function(e){
+                    // console.log($('.cropit-preview-image').attr("style"), 'asasas')
+                },
+                onOffsetChange:function(e){
+                    // console.log(e, 'asasa')
+                    me.dragImage(e)
+                },
+                onFileChange: function(e){
+                    // console.log(e, 'file')
+                },
+                allowDragNDrop: false,
+            });
+
+        }) 
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
         });
         if(this.$store.state.imagePathUrl != ''){
+            var me = this
+            setTimeout(function(){
+                $('.image-editor').cropit('imageSrc', me.imagePath);
+                me.showLoader = false
+            },100)
             this.imagePath = this.$store.state.imagePathUrl
         }
+        this.canvasType = this.$store.state.canvasTypeStore != '' ? this.$store.state.canvasTypeStore :  'gallerywrap'
         if(this.$store.state.imageTypeStore ==   'color'){
             this.imageType = 'color'
         }else if(this.$store.state.imageTypeStore ==   'mirror'){
@@ -348,21 +394,21 @@ export default {
                 this.editValue(this.cart,cartIndex)
             }
         }
-        
-
-        this.canvasType = this.$store.state.canvasTypeStore != '' ? this.$store.state.canvasTypeStore :  'gallerywrap'
+       
         if(this.$store.state.widthHeightSelect == ''){
             this.$store.state.widthHeightSelect = '8x8'
         }
-        console.log(this.$store.state.widthHeightSelect , 'new') 
         this.layoutModify()
         const self = this
             Draggable.create(".map img", {
-                type:"x,y",
+                    type:"x,y",
                     bounds:".wrapper",
+                    minimumMovement:6,
                     edgeResistance:1,
                     onDrag:self.yourFunction,
-                    onRelease:self.releaseDragEvents
+                    onRelease:self.releaseDragEvents,
+                    onLockAxis:self.getAxis,
+                    trigger: ".trigger"
             });
             if(this.allImageStyle != ''){
                 $('.transform-after-drag').attr('style','')
@@ -375,11 +421,10 @@ export default {
                 // this.savedMainImageStyle = e.target.style.cssText
                 $('.transform-after-drag').attr('style',e.target.style.cssText)
                 if(e.target.style.width == '' || e.target.style.width == undefined ){
-                    console.log(this.savedMainImageStyle,'454545454554545')
                     $('.transform-after-drag').attr('style',this.savedMainImageStyle)
                 }
                 // if(self.zoomValue != ''){
-                //     let scale = 1 + parseFloat(self.zoomValue * 0.03)
+                //     let scale = 1 + parseInt(self.zoomValue * 0.03)
                 //     $('.image__preview_main').css('transform','scale(' + scale + ')'+translate)
                 //     $('.image__preview_image').css('transform','scale(' + scale + ')'+translate)
                 // }
@@ -401,7 +446,15 @@ export default {
             'fileStatckImageWidthStore',
             'fileStatckImageHeightStore',
             'canvasTypeStore'
-        ])
+        ]),
+        metaInfo() {
+         // don't know your return object structure, 
+            // maybe you should check whole this.getViewPage
+            let data = this.getViewPage.data; 
+            return {
+                title: data ? data.meta.title : "some placeholder title",
+            }
+        }
     },
     methods:{
         ...mapActions([
@@ -410,12 +463,26 @@ export default {
         changeTansslate(translate){
             this.translateData = translate
         },
+        dragImage(e){
+            // console.log($('.image-editor').cropit('zoom'), 'sandeep',  $('.image-editor').cropit('offset'))
+            // this.zoomValue = $('.image-editor').cropit('zoom')
+
+            // $('#image-cropper').cropit('rotateCW');
+            // this.options.min = $('.image-editor').cropit('zoom')
+            var dynamicStyle = $('.cropit-preview-image').attr("style")
+            $('.image__preview_image').attr('style', dynamicStyle)
+            
+        },
         zoomChange(){
+            var me =  this
+            // console.log(me.zoomValue)
+            $('.image-editor').cropit('zoom', me.zoomValue);
             if(this.zoomValue == ''){
                 var self = this
                 $('.transform-after-drag').css('transform', '')
                 TweenLite.set(".map img", {clearProps:"transform"});
                 TweenLite.set(".map img", {clearProps:"x"});
+                TweenLite.set(".map img", {clearProps:"y"});
             }
             let scale = ''
             if($(window).width()<= 414){
@@ -432,16 +499,18 @@ export default {
         },
         releaseDragEvents(){
             const self = this
-            console.log(this.savedMainImageStyle)
             if($('.image__preview_main')[0].style[5] == undefined){
                $('.transform-after-drag').attr('style',this.savedMainImageStyle)
-                Draggable.create(".map img", {
+                var D = Draggable.create(".map img", {
                 type:"x,y",
                     bounds:".wrapper",
+                    minimumMovement:6,
                     edgeResistance:1,
                     onDrag:self.yourFunction,
-                    onRelease:self.releaseDragEvents
+                    onRelease:self.releaseDragEvents,
+                    trigger: ".trigger"
                 });
+                D[0].addEventListener('press', function(){ console.log( Draggable.get(this) ) });
             }
         },
         imageUpload(){
@@ -454,19 +523,20 @@ export default {
                     crop: false,
                     circle: false,
                     rotate: false
-                }
+                },
+                fromSources: ["local_file_system"],
             };
             const picker = client.picker(options);
             picker.open();
             const self = this 
             function updateForm(result){
-                console.log(result, 'asasassa')
                 const fileData = result.filesUploaded[0];
                 self.imagePath = fileData.url;
                 self.showLoader = true
+                $('.image-editor').cropit('imageSrc',fileData.url);
+            //    console.log($('.image-editor').cropit('previewSize'), 'dataaaa1111')
             }
             function selectedImageDimension(e){
-                console.log(e, 'sasasasasa')
             }
             function checkImgSize (file) {
                 return new Promise(function (resolve, reject) {
@@ -483,7 +553,6 @@ export default {
 
                     img.onload = function () {
                     URL.revokeObjectURL(url);
-                    console.log(this.naturalWidth , this.naturalHeight)
                     self.fileStatckImageWidth = this.naturalWidth
                     self.fileStatckImageHeight = this.naturalHeight
                     // if (this.naturalWidth > maxWidth) {
@@ -510,29 +579,37 @@ export default {
                 //     self.imageHeight='auto !important' 
                 //     self.imageWidth='100% !important'
                 // }
+                self.imagePath = ''
+                // $('#rolledPreview').css('display', 'none');
+                $(".cropit-preview").find("img").attr("src", null)
+                self.resetImage()
+                self.reInitDraggable()
                 self.layoutModify()
             }
 
         },
         getContext(){
-            // console.log(this.selectedHeight , this.selectedWidth)
             this.ACTION_CHANGE_STATE(['widthHeightSelect' , this.selectedCanvasWidth+'x'+this.selectedCanvasHeight ])
+            this.designTool =  false
             this.layoutModify()
         },
         layoutModify(){
-            if(this.allImageStyle != ''){
-                // alert('in')
-                // console.log(this.allImageStyle)
-                $('.transform-after-drag').attr('style','')
-                $('.transform-after-drag').attr('style',this.allImageStyle)
-            }else{
-                // $('.transform-after-drag').css('transform', 'translate3d(0px, 0px, 0px)')
-            }
-            console.log(this.$store.state.widthHeightSelect, 'asasass')
-            // console.log(this.fileStatckImageHeight , this.fileStatckImageWidth , 'asasas')
+           
+            // $('.transform-after-drag').css('transform', '')
+            // if(this.allImageStyle != ''){
+            //     $('.transform-after-drag').attr('style','')
+            //     $('.transform-after-drag').attr('style',this.allImageStyle)
+            // }
+            $(document).ready(function(){
+                // $('.image-editor').cropit('previewSize', { width: 800, height: 450 });
+                // console.log($('.image-editor').cropit('previewSize'), 'layout')
+                $('.image-editor').cropit('disable');
+                $('.image-editor').cropit('reenable');
+            })
+            this.reInitDraggable()
             this.selectedCanvasWidth =  parseInt(this.$store.state.widthHeightSelect.split('x')[0]) || this.$store.state.customWidth
             this.selectedCanvasHeight =  parseInt(this.$store.state.widthHeightSelect.split('x')[1]) || this.$store.state.customHeight
-            this.dynamicPrice  = parseFloat(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144).toFixed(2)
+            this.dynamicPrice  = parseInt(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144)
             this.bestSelling.map((d)=>{
                 if(d.wxh == this.selectedCanvasWidth+'x'+this.selectedCanvasHeight){
                     this.dynamicPrice = d.price
@@ -546,17 +623,21 @@ export default {
                     this.dynamicWidth = '240px'
                     this.dynamicHeight = '240px'
                     this.topWrapWidth = 240
+                    this.resetImage() 
                 }else{
                     this.dynamicWidth = '380px'
                     this.dynamicHeight = '380px'
                     this.topWrapWidth = 380
+                    this.resetImage() 
                 }
                 if(this.fileStatckImageHeight == this.fileStatckImageWidth){
                     this.imageHeight='auto !important' 
                     this.imageWidth='100% !important' 
+                    this.resetImage() 
                 }else if(this.fileStatckImageHeight < this.fileStatckImageWidth){
                     this.imageHeight=this.dynamicHeight+'!important' 
                     this.imageWidth='auto !important'
+                    this.resetImage() 
                 }
                 else{
                     this.imageHeight='auto !important' 
@@ -574,7 +655,9 @@ export default {
                     this.bottomImageHeight = 380
                 }
             }else if (this.selectedCanvasWidth > this.selectedCanvasHeight){
-                // console.log(this.selectedCanvasWidth, this.selectedCanvasHeight)
+                // $(document).ready(function(){
+                //     $('.image-editor').cropit('rotateCW')
+                // })
                 if($(window).width()<= 414){
                     this.selectedHeight = 280
                     this.dynamicWidth = '240px'
@@ -589,29 +672,71 @@ export default {
                     /*For bottom image */
                     this.bottomImageHeight = 380 * this.selectedCanvasHeight/ this.selectedCanvasWidth
                 }
-                if(this.fileStatckImageHeight > this.fileStatckImageWidth){
+                if( this.fileStatckImageWidth > this.fileStatckImageHeight){
+                    if(this.selectedCanvasWidth/ this.selectedCanvasHeight < '1.5'){
+                        if($(window).width()<= 414){
+                            this.selectedHeight = 280
+                            this.imageHeight=this.dynamicHeight+'!important'
+                            this.imageWidth='auto !important' 
+                            this.reInitDraggable() 
+                            this.resetImage() 
+                        }else{
+                            this.imageHeight=this.dynamicHeight+'!important' 
+                            this.imageWidth='auto !important'
+                            this.reInitDraggable() 
+                            this.resetImage()
+                        }
+                    }else{
+                        if($(window).width()<= 414){
+                            this.selectedHeight = 280
+                            this.imageWidth='240px !important' 
+                            this.imageHeight='auto !important'
+                            this.reInitDraggable() 
+                            this.resetImage()  
+                        }else{
+                            this.imageWidth='380px !important' 
+                            this.imageHeight='auto !important'
+                            this.reInitDraggable() 
+                            this.resetImage()
+                        }
+                    }
+                }else if(this.fileStatckImageHeight > this.fileStatckImageWidth){
                     if($(window).width()<= 414){
                         this.selectedHeight = 280
-                        this.imageHeight='auto !important' 
                         this.imageWidth='240px !important' 
+                        this.imageHeight='auto !important'
+                        this.reInitDraggable() 
+                        this.resetImage()  
                     }else{
+                        this.reInitDraggable() 
+                        this.resetImage()
                         this.imageWidth='380px !important' 
-                        this.imageHeight='auto !important' 
-                    }
-                }else if (this.fileStatckImageWidth > this.fileStatckImageHeight){
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='240px !important' 
-                        this.imageWidth='auto !important' 
-                    }else{
-                        this.imageHeight='380px !important' 
-                        this.imageWidth='auto !important'     
+                        this.imageHeight='auto !important'
                     }
                 }
-                else{
-                    this.imageHeight='auto !important' 
-                    this.imageWidth='380px !important' 
-                }
+                // if(this.fileStatckImageHeight > this.fileStatckImageWidth){
+                //     if($(window).width()<= 414){
+                //         this.selectedHeight = 280
+                //         this.imageHeight='auto !important' 
+                //         this.imageWidth='240px !important' 
+                //     }else{
+                //         this.imageWidth='380px !important' 
+                //         this.imageHeight='auto !important' 
+                //     }
+                // }else if (this.fileStatckImageWidth > this.fileStatckImageHeight){
+                //     if($(window).width()<= 414){
+                //         this.selectedHeight = 280
+                //         this.imageHeight='240px !important' 
+                //         this.imageWidth='auto !important' 
+                //     }else{
+                //         this.imageHeight='380px !important' 
+                //         this.imageWidth='auto !important'     
+                //     }
+                // }
+                // else{
+                //     this.imageHeight='auto !important' 
+                //     this.imageWidth='380px !important' 
+                // }
                 // console.log(this.dynamicHeight, 'asas')
             }else if (this.selectedCanvasHeight > this.selectedCanvasWidth){
                 if($(window).width()<= 414){
@@ -626,82 +751,142 @@ export default {
                     this.topWrapWidth = 380 * this.selectedCanvasWidth/ this.selectedCanvasHeight
                     this.bottomImageHeight = 380
                 }
-                // console.log(this.fileStatckImageHeight, 'asasasasasaasasa', this.fileStatckImageWidth)
                 if(this.fileStatckImageWidth > this.fileStatckImageHeight){
                     if($(window).width()<= 414){
                         this.selectedHeight = 280
-                        this.imageHeight='240px !important' 
-                        this.imageWidth='auto !important' 
+                        this.imageHeight='240px !important'
+                        this.imageWidth='auto !important'
+                        this.reInitDraggable()
+                        this.resetImage() 
                     }else{
+                        this.imageWidth='auto !important' 
                         this.imageHeight='380px !important' 
-                        this.imageWidth='auto !important'     
+                        this.reInitDraggable() 
+                        this.resetImage()
                     }
+                        
+                    // if($(window).width()<= 414){
+                    //     this.selectedHeight = 280
+                    //     this.imageHeight='240px !important' 
+                    //     this.imageWidth='auto !important' 
+                    // }else{
+                    //     this.imageHeight='380px !important' 
+                    //     this.imageWidth='auto !important'     
+                    // }
                 }else if(this.fileStatckImageHeight > this.fileStatckImageWidth){
-                    if(this.selectedCanvasHeight > this.selectedCanvasWidth){
-                        this.imageHeight='auto !important' 
-                        this.imageWidth=this.dynamicWidth 
-                        var valueWidth = this.dynamicWidth.split('px')
-                        if(valueWidth[0] < 285){
-                            if($(window).width()<= 414){
-                                this.selectedHeight = 280
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='240px !important' 
-
-                            }else{
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='380px !important' 
-                            }
-                        }else if(valueWidth[0] > 285) {
-                            if($(window).width()<= 414){
-                                this.selectedHeight = 280
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='240px !important' 
-                            }else{
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='380px !important' 
-                            }
-                        }    
-                    }else if(this.selectedCanvasHeight < this.selectedCanvasWidth){
+                    if(this.selectedCanvasHeight/ this.selectedCanvasWidth < '1.5'){
                         if($(window).width()<= 414){
                             this.selectedHeight = 280
                             this.imageHeight='auto !important' 
-                            this.imageWidth='240px !important'
+                            this.imageWidth=this.dynamicWidth+'!important' 
+                            this.resetImage()
                         }else{
-                            this.imageHeight='auto !important' 
-                            this.imageWidth='380px !important'
-
+                            this.imageWidth=this.dynamicWidth+'!important' 
+                            this.imageHeight='auto !important'
+                            this.resetImage()
+                        }
+                    }else{
+                        if($(window).width()<= 414){
+                            this.selectedHeight = 280
+                            this.imageHeight='240px !important'  
+                            this.imageWidth='auto !important'
+                            this.resetImage()
+                        }else{
+                            this.imageWidth='auto !important' 
+                            this.imageHeight='380px !important' 
+                            this.resetImage() 
                         }
                     }
+                    //     this.imageWidth=this.dynamicWidth 
+                    //     var valueWidth = this.dynamicWidth.split('px')
+                    // if(this.selectedCanvasHeight > this.selectedCanvasWidth){
+                    //     this.imageHeight='auto !important' 
+                    //     this.imageWidth=this.dynamicWidth 
+                    //     var valueWidth = this.dynamicWidth.split('px')
+                    //     if(valueWidth[0] < 285){
+                    //         if($(window).width()<= 414){
+                    //             this.selectedHeight = 280
+                    //             this.imageHeight='auto !important' 
+                    //             this.imageWidth='240px !important' 
+
+                    //         }else{
+                    //             this.imageHeight='auto !important' 
+                    //             this.imageWidth='380px !important' 
+                    //         }
+                    //     }else if(valueWidth[0] > 285) {
+                    //         if($(window).width()<= 414){
+                    //             this.selectedHeight = 280
+                    //             this.imageHeight='auto !important' 
+                    //             this.imageWidth='240px !important' 
+                    //         }else{
+                    //             this.imageHeight='auto !important' 
+                    //             this.imageWidth='380px !important' 
+                    //         }
+                    //     }    
+                    // }else if(this.selectedCanvasHeight < this.selectedCanvasWidth){
+                    //     if($(window).width()<= 414){
+                    //         this.selectedHeight = 280
+                    //         this.imageHeight='auto !important' 
+                    //         this.imageWidth='240px !important'
+                    //     }else{
+                    //         this.imageHeight='auto !important' 
+                    //         this.imageWidth='380px !important'
+
+                    //     }
+                    // }
                 }
-                // else{
-                //     this.imageHeight='380px !important' 
-                //     this.imageWidth='auto !important' 
-                //     console.log('111111asas')
-                // }
+                else{
+                    if($(window).width()<= 414){
+                        this.selectedHeight = 280
+                        this.imageHeight='240px !important'
+                        this.imageWidth='auto !important'  
+                        this.resetImage()
+                    }else{
+                        this.imageHeight='380px !important' 
+                        this.imageWidth='auto !important' 
+                        this.resetImage()
+                    }
+                }
+                const me = this
+                $('.cropit-preview-image').css({width:me.imageWidth, height: me.imageHeight})
             }
+            var width = this.dynamicWidth.split('px')
+            var height = this.dynamicHeight.split('px')
             var self = this
             setTimeout(function(){
                 self.savedMainImageStyle = $('.transform-after-drag').attr('style')
                 // console.log(self.savedMainImageStyle)
             }, 100)
             setTimeout(function(){
-                self.showLoader = false
-            },3000)
+                self.showLoader = false  
+                // $('.image-editor').cropit('previewSize', { width: width[0], height: height[0] });
+            },5000)
+            setTimeout(function(){
+                $('#rolledPreview').css('display', '');   
+            },4000)
+
+            if(this.imagePath != ''){
+                $(document).ready(function(){
+                    $('.image-editor').cropit('previewSize', { width: width[0], height: height[0] });
+                    setTimeout(function(){
+                        $('.image-editor').cropit('imageSrc', self.imagePath);
+                    },100)
+                })
+            }
         },
         yourFunction(e){
-            // console.log(e.offsetX)
-            const self = this;
+            // console.log(e.target, 'style')
+             const self = this;
             let translate = e.target.style.transform
             self.translateData = translate
             self.changeTansslate(translate)
-            // this.savedMainImageStyle = e.target.style.cssText
             $('.transform-after-drag').attr('style',e.target.style.cssText)
             if(e.target.style.width == '' || e.target.style.width == undefined ){
-                console.log(this.savedMainImageStyle,'saved')
+                // console.log(this.savedMainImageStyle,'saved')
                 $('.transform-after-drag').attr('style',this.savedMainImageStyle)
             }
             // if(self.zoomValue != ''){
-            //     let scale = 1 + parseFloat(self.zoomValue * 0.03)
+            //     let scale = 1 + parseInt(self.zoomValue * 0.03)
             //     $('.image__preview_main').css('transform','scale(' + scale + ')'+translate)
             //     $('.image__preview_image').css('transform','scale(' + scale + ')'+translate)
             // }
@@ -717,10 +902,15 @@ export default {
             }
         },
         editValue(cartData,cartIndex){
+            console.log(cartData, 'asasa')
             this.$store.state.widthHeightSelect = cartData[cartIndex].canvasWidth+'x'+cartData[cartIndex].canvasHeight
             this.selectedCanvasHeight = cartData[cartIndex].canvasHeight
             this.selectedCanvasWidth = cartData[cartIndex].canvasWidth
             this.imagePath = cartData[cartIndex].imagePath;
+            const me = this
+            setTimeout(function(){
+                $('.image-editor').cropit('imageSrc', me.imagePath);
+            },100)
             this.color = cartData[cartIndex].color != null ? cartData[cartIndex].color : this.color  ;
             this.zoomValue = cartData[cartIndex].zoomValue;
             this.imageType = cartData[cartIndex].imageType;
@@ -731,7 +921,7 @@ export default {
             this.fileStatckImageHeight = cartData[cartIndex].fileStatckImageHeight
             $('.transform-after-drag').attr('style','')
             $('.transform-after-drag').attr('style',cartData[cartIndex].imageStyle)
-            this.dynamicPrice  = parseFloat(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144).toFixed(2)
+            this.dynamicPrice  = parseInt(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144)
         },
         addToCart(){
             if(this.selectedCanvasHeight == '' || this.selectedCanvasWidth == ''){
@@ -750,12 +940,10 @@ export default {
                         img.src = dataUrl;    
                         self.$store.state.domImageStore = dataUrl
                         self.domImage = dataUrl
+                        // console.log(dataUrl, 'sasasa')
                         self.storeToCart()
                         // saveAs(dataUrl, "PatternImage.png");
-                        setTimeout(function(){
-                            self.$router.push('cart');     
-                            self.showLoader = false
-                        }, 1000) 
+                        
                     })
                     .catch(function (error) {
                         console.error('oops, something went wrong!', error);
@@ -814,7 +1002,7 @@ export default {
                     price : this.dynamicPrice,
                     quantity : 1,
                 }
-    
+
                 this.cart.push(data)
             }
             // this section for store data in db or localstorage
@@ -840,7 +1028,11 @@ export default {
                     axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken');
                     axios.post('/api/updateCart/'+id,data)
                     .then(response => {
-                        console.log(response)
+                        const self = this
+                        setTimeout(function(){
+                            self.$router.push('cart');     
+                            self.showLoader = false
+                        }, 1000) 
                     }).catch(error => {
                         console.log(error)
                     })
@@ -849,13 +1041,22 @@ export default {
                     axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken');
                     axios.post('/api/addCart',data)
                     .then(response => {
-                        console.log(response)
+                        const self = this
+                        setTimeout(function(){
+                            self.$router.push('cart');     
+                            self.showLoader = false
+                        }, 1000) 
                     }).catch(error => {
                         console.log(error)
                     })
                 }
             }else{
                 localStorage.setItem('cart',JSON.stringify(this.cart));
+                const self = this
+                setTimeout(function(){
+                    self.$router.push('cart');     
+                    self.showLoader = false
+                }, 1000) 
             }
         },
         rolledCanvas(){
@@ -863,8 +1064,8 @@ export default {
             this.canvasType = 'gallerywrap'
         },
         mouseleave(e){
-            console.log(e.target,'asasa')
             $('#main_image').css('cursor' , 'grab')
+            e.stopPropagation();
         },
         uploadImageFilestack(){
             if(this.imagePath != '' ){
@@ -883,12 +1084,14 @@ export default {
                 return false
             }else{
                 var self = this
-                domtoimage.toPng(document.getElementById('prviewSelected'))
+                self.showLoader = true
+                domtoimage.toPng(self.canvasType != 'roleCanvas' ? document.getElementById('prviewSelected') : document.getElementById('rolledPreview') )
                     .then(function (dataUrl) {
                         var img = new Image();
                         img.src = dataUrl;    
                         self.$store.state.domImageStore = dataUrl
-                        self.$store.state.imageTypeStore  = self.imageType 
+                        self.$store.state.imageTypeStore  = self.imageType
+                        self.showLoader = false 
                         $("#myModal").modal("show")
                         
                     })
@@ -902,6 +1105,13 @@ export default {
         },
         hideColorPicker(){
             this.colorPicker = false
+        },
+        resetImage(){
+            // if(this.imagePath !=  ''){
+            //     $('.transform-after-drag').css('transform', '')
+            //     TweenLite.set(".map img", {clearProps:"transform"});
+            //     TweenLite.set(".map img", {clearProps:"x"}); 
+            // }
         },
         getCartData(){
             axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
@@ -917,11 +1127,22 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
+        },
+        reInitDraggable(){
+            const self = this
+            Draggable.create(".map img", {
+            type:"x,y",
+                bounds:".wrapper",
+                minimumMovement:6,
+                edgeResistance:1,
+                onDrag:self.yourFunction,
+                onRelease:self.releaseDragEvents,
+                trigger: ".trigger"
+            });
         }
     },
     watch:{
         canvasType(value){
-            console.log(value, 'sasasa')
             if(value  == 'gallerywrap1'){
                 this.thickDimension = 30
                 // this.topWrapWidth = 400
@@ -932,11 +1153,26 @@ export default {
                 this.thickDimension = ''
                 // this.topWrapWidth = 380 
             }
+            this.layoutModify()
         },
         imageType(value){
-            console.log(value , 'asasasasa') 
+            console.log(value, 'asasas')
+            if(value == 'mirror'){
+                // alert('sasas')
+                var dynamicStyle = $('.cropit-preview-image').attr("style")
+                $(document).ready(function(){
+                    $('.image__preview_image').attr('style', dynamicStyle)
+                })
+            }
             this.$store.state.imageTypeStore  = value 
         },
+        zoomValue(value){
+            console.log(value)
+            var self =  this
+            if(value == 0.1){
+                $('.image-editor').cropit('imageSrc', self.imagePath);
+            }
+        }
     }
 }
 </script>

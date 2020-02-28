@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Controller;
+use App\Model\Cart;
 use App\Model\Order;
 use App\Model\OrderDetail;
+use App\Model\Promocode;
 use App\Model\shippingAddress;
 use Auth;
 use Carbon\Carbon;
@@ -51,6 +53,8 @@ class OrdersController extends Controller
             $message = $request->get('message');
             $total = $request->get('total');
             $GST = $request->get('GST');
+            $discount = $request->get('discount');
+            $promocode = $request->get('promocode');
 
             $shippingId = '';
             if ($request->get('shippingId')) {
@@ -70,6 +74,7 @@ class OrdersController extends Controller
                     'area' => $area,
                     'landmark' => $landmark,
                     'city' => $city,
+                    'country' => $country,
                     'state' => $state,
                     'address_type' => $address_type,
                     'created_by' => $checkoutType != 'guest' ? Auth::id() : 0,
@@ -93,7 +98,7 @@ class OrdersController extends Controller
             } else {
                 $order_no = 1100;
                 $invoice_no = 'CGAD2237';
-                $transaction_id = rand(111111111111111, 999999999999999);
+                $transaction_id = rand();
             }
             $order = Order::create([
                 'user_id' => Auth::id(),
@@ -107,17 +112,20 @@ class OrdersController extends Controller
                 'ordered_at' => Carbon::now(),
                 'grand_total' => $grand_total,
                 'shipping_id' => $shippingId,
+                'discount' => $discount,
+                'offer' => $promocode,
                 'created_by' => $checkoutType != 'guest' ? Auth::id() : 0,
             ]);
 
             DB::commit();
             $orderData = $request->get('allCartValue');
+
             foreach ($orderData as $key => $value) {
                 if (Auth::user()) {
                     $path = $value['domImage'];
                 } else {
                     $domImage = $value['domImage'];
-                    $name = time() . '.png';
+                    $name = time() . $key . '.png';
                     $path = '/uploads/updatedImage/' . $name;
                     \Image::make($domImage)->save(public_path('uploads/updatedImage/') . $name);
                 }
@@ -140,49 +148,49 @@ class OrdersController extends Controller
                     'price' => $value['price'],
                 ]);
                 DB::commit();
-                // if (isset($value['id'])) {
-                //     Cart::whereId($value['id'])->delete();
-                //     DB::commit();
-                // }
+                if (isset($value['id'])) {
+                    Cart::whereId($value['id'])->delete();
+                    DB::commit();
+                }
             }
-            // $c_data = [];
-            // if ($billingMethod == 'ccavenue') {
-            //     $c_data['transaction_id'] = $transaction_id;
-            //     $c_data['merchant_id'] = env('MERCHANT_ID');
-            //     $c_data['order_id'] = $order_no;
-            //     $c_data['amount'] = $grand_total;
-            //     $c_data['currency'] = 'INR';
-            //     $c_data['redirect_url'] = 'http://memorywall.in/ccavenueResponse';
-            //     $c_data['cancel_url'] = 'http://memorywall.in/cancelResponse';
-            //     $c_data['language'] = 'EN';
-            //     $c_data['billing_name'] = $firstname . ' ' . $lastname;
-            //     $c_data['billing_address'] = $landmark . ' ' . $area . ' ' . $address;
-            //     $c_data['billing_city'] = $city;
-            //     $c_data['billing_state'] = $state;
-            //     $c_data['billing_zip'] = $zipcode;
-            //     $c_data['billing_zip'] = $zipcode;
-            //     $c_data['billing_country'] = $country;
-            //     $c_data['billing_tel'] = $mobile;
-            //     $c_data['billing_email'] = $email;
-            //     $merchant_data = '';
-            //     $working_key = env('WORKING_KEY'); //Shared by CCAVENUES
-            //     $access_code = env('ACCESS_CODE'); //Shared by CCAVENUES
+            $c_data = [];
+            if ($billingMethod == 'ccavenue') {
+                $c_data['transaction_id'] = $transaction_id;
+                $c_data['merchant_id'] = env('MERCHANT_ID');
+                $c_data['order_id'] = $order_no;
+                $c_data['amount'] = $grand_total;
+                $c_data['currency'] = 'INR';
+                $c_data['redirect_url'] = 'https://memorywall.in/ccavenueResponse';
+                $c_data['cancel_url'] = 'https://memorywall.in/cancelResponse';
+                $c_data['language'] = 'EN';
+                $c_data['billing_name'] = $firstname . ' ' . $lastname;
+                $c_data['billing_address'] = $landmark . ' ' . $area . ' ' . $address;
+                $c_data['billing_city'] = $city;
+                $c_data['billing_state'] = $state;
+                $c_data['billing_zip'] = $zipcode;
+                $c_data['billing_zip'] = $zipcode;
+                $c_data['billing_country'] = $country;
+                $c_data['billing_tel'] = $mobile;
+                $c_data['billing_email'] = $email;
+                $merchant_data = '';
+                $working_key = env('WORKING_KEY'); //Shared by CCAVENUES
+                $access_code = env('ACCESS_CODE'); //Shared by CCAVENUES
 
-            //     foreach ($c_data as $key => $value) {
-            //         $merchant_data .= $key . '=' . urlencode($value) . '&';
-            //     }
+                foreach ($c_data as $key => $value) {
+                    $merchant_data .= $key . '=' . urlencode($value) . '&';
+                }
 
-            //     $encrypted_data = $this->encrypt($merchant_data, $working_key);
-            //     return response()->json([
-            //         'message' => 'Order place successfully',
-            //         'order_no' => $order_no,
-            //         'encrypted_data' => $encrypted_data,
-            //         'access_code' => $access_code,
-            //         'success' => true,
-            //     ], 200);
-            // }
-
-            // $email = $this->emailcontroller->order_email($order, $orderData, $shippingId, $email);
+                $encrypted_data = $this->encrypt($merchant_data, $working_key);
+                return response()->json([
+                    'message' => 'Order place successfully',
+                    'order_no' => $order_no,
+                    'encrypted_data' => $encrypted_data,
+                    'access_code' => $access_code,
+                    'success' => true,
+                ], 200);
+            } else {
+                $email = $this->emailcontroller->order_email($order, $orderData, $shippingId, $email);
+            }
 
             return response()->json([
                 'message' => 'Order place successfully',
@@ -271,6 +279,30 @@ class OrdersController extends Controller
             return response()->json([
                 'message' => $th->getMessage(),
                 'success' => false,
+            ], 500);
+
+        }
+    }
+    public function checkPromocode(Request $request)
+    {
+        try {
+            $promocode = $request->get('promocode');
+            $checkPromocode = Promocode::where('promocode', $promocode)->where('status', '1')->first();
+            if ($checkPromocode) {
+                return response()->json([
+                    'data' => $checkPromocode,
+                    'success' => true,
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Promocode not found',
+                ], 500);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Internal server error',
             ], 500);
 
         }

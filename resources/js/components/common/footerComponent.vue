@@ -1,55 +1,58 @@
 <template>
    <div>
-       <footer class="footer site-footer font-national-regular text-uppercase" id="footer_top">
+       <footer class="footer site-footer text-uppercase" id="footer_top">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <ul class="footer-links">
-                            <li>
-                                <a href="javascript:void(0)"> How It Works </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"> Canvas Prints </a>
-                            </li>
-                            <li>
-                                <a href="javascrip:void(0)"> Gallery Walls </a>
-                            </li>
-                            
-                            <li>
-                                <a href="javascript:void(0)"> Gifts </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Services</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <ul class="footer-links">
-                            <li>
-                                <router-link to="/aboutUs">Our Story</router-link>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Customer Reviews</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Process</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Bulk Orders</a>
-                            </li>
-                            <li>
-                                <router-link to="/contactUs">Contact Us</router-link>
-                            </li>
-                        </ul>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-12 col-sm-4 col-md-5 col-lg-4 col-xl-4">
+                                <ul class="footer-links">
+                                    <li>
+                                        <!-- <a href="javascript:void(0)" v-scroll-to="'#canvas_print'"> Canvas Prints </a> -->
+                                        <router-link :to="pathname == '/' ? '' : '/upload' " v-scroll-to="'#canvas_print'">Canvas Prints</router-link>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="javascrip:void(0)"> Gallery Walls </a>
+                                    </li> -->
+                                    <li>
+                                        <router-link to="/giftcanvas"> Gifts </router-link>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"> How It Works </a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="javascript:void(0)">Services</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-5 col-lg-4 col-xl-4">
+                                <ul class="footer-links">
+                                    <li>
+                                        <router-link to="/aboutUs">Our Story</router-link>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="javascript:void(0)">Customer Reviews</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Process</a>
+                                    </li>-->
+                                    <li>
+                                        <router-link to="/contactUs">Contact Us</router-link>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">TRADE & BULK ORDERS</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12 footer-links">
+                                <img src="/images/payment_icon.png" alt="" title="">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-left">
                         <div class="float-right responsive_float">
-                            <h3 class="Vogue text-uppercase ">subscribe & Stay tuned</h3>
-                            <p>
-                                BE THE FIRST TO KNOW ABOUT OUR
-                                <br>
-                                NEW PRODUCTS &amp; EXCLUSIVE OFFERS.
-                            </p>
+                            <h3 class="Vogue text-uppercase ">GET OUR LATEST OFFERS IN YOUR INBOX</h3>
+                            <p>LIKED OUR PRODUCTS?<br/>GET PROMO CODES & COUPONS BY SUBSCRIBING!</p>
                             <form @submit.prevent="subscribe" class="form-inline" required="required">
                                 <input type="email" class="form-control" v-model="email" required="required">
                                 <input type="submit" value="SIGN UP">
@@ -78,14 +81,14 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a>
+                                    <a href="https://twitter.com/Memorywall_in?s=08">
                                         <i class="fab fa-twitter"></i>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                            <p class="text-uppercase text-center m-0">©2019 MEMORYWALL</p>
+                            <p class="text-uppercase text-center m-0">©2020 MEMORYWALL</p>
                         </div>
                         <div class="col-sm-4 col-md-5 col-lg-5 col-xl-5 text-right text-xs-center text-uppercase">
                             <a href="javascript:void(0)" style="margin: 0px 10px;">TERMS OF SERVICES</a>
@@ -103,8 +106,12 @@ export default {
     data(){
         return{
             email:'',
-            show_message : false
+            show_message : false,
+            pathname: ''
         }
+    },
+    mounted() {
+        this.pathname = window.location.pathname;
     },
     methods:{
         subscribe(){

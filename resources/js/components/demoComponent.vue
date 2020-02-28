@@ -33,25 +33,25 @@
             <div class="builder__preview-top-wrap" style="height: 66.4369px; width: 450px;">
                 <div class="guillotine-window" style="width: 100%; height: auto; padding-top: 66.6667%;">
                 <div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; left: -22.8%;">
-                    <img class="builder__preview-image" src="http://www.thepetedesign.com/demos/tiltedpage_scroll/demo1.jpg" style="perspective: 1000px; backface-visibility: hidden;">
+                    <img class="builder__preview-image" src="/images/backup/demo.jpg" style="perspective: 1000px; backface-visibility: hidden;">
                 </div>
                 </div>
             </div>
             <div class="builder__preview-right-wrap" style="width: 66.4369px; height: 304px;">
                 <div class="guillotine-window" style="padding-top: 66.6667%; height: 304px; width: 450px;">
                 <div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; right: -102.594px; left: auto;">
-                    <img class="builder__preview-image" src="http://www.thepetedesign.com/demos/tiltedpage_scroll/demo1.jpg" style="perspective: 1000px; backface-visibility: hidden; margin-left: 0px;">
+                    <img class="builder__preview-image" src="/images/backup/demo.jpg" style="perspective: 1000px; backface-visibility: hidden; margin-left: 0px;">
                 </div>
                 </div>
             </div>
             <div class="builder__preview-wrap">
-                <div class="guillotine-window" style="width: 100%; height: auto; padding-top: 66.6667%;"><div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; left: -22.8%;"><img class="builder__preview-main-image" src="http://www.thepetedesign.com/demos/tiltedpage_scroll/demo1.jpg" style="perspective: 1000px; backface-visibility: hidden;"></div></div>
+                <div class="guillotine-window" style="width: 100%; height: auto; padding-top: 66.6667%;"><div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; left: -22.8%;"><img class="builder__preview-main-image" id='sample_picture' src="/images/backup/demo.jpg" style="perspective: 1000px; backface-visibility: hidden;"></div></div>
             </div>
             <div class="builder__preview-bottom-wrap" style="height: 66.4369px; width: 450px;">
                 <div class="builder__preview-bottom-inner">
                 <div class="guillotine-window" style="width: 100%; height: auto; padding-top: 66.6667%;">
                     <div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; left: -22.8%;">
-                    <img class="builder__preview-image" src="http://www.thepetedesign.com/demos/tiltedpage_scroll/demo1.jpg" style="perspective: 1000px; backface-visibility: hidden; margin-top: 0px;">
+                    <img class="builder__preview-image" src="/images/backup/demo.jpg" style="perspective: 1000px; backface-visibility: hidden; margin-top: 0px;">
                     </div>
                 </div>
                 </div>
@@ -59,7 +59,7 @@
             <div class="builder__preview-left-wrap" style="width: 66.4369px; top: 66.4369px; height: 304px;">
                 <div class="guillotine-window" style="padding-top: 66.6667%; height: 304px; width: 450px;">
                 <div class="guillotine-canvas" style="width: 145.6%; height: 102.38%; top: -1.19%; left: -22.8%;">
-                    <img class="builder__preview-image" src="http://www.thepetedesign.com/demos/tiltedpage_scroll/demo1.jpg" style="perspective: 1000px; backface-visibility: hidden;">
+                    <img class="builder__preview-image" src="/images/backup/demo.jpg" style="perspective: 1000px; backface-visibility: hidden;">
                 </div>
                 </div>
             </div>
@@ -79,6 +79,45 @@ export default {
         }
     },
     mounted(){
+         $(document).ready(function(){
+                var picture = $('#sample_picture')
+
+                var camelize = function() {
+                    var regex = /[\W_]+(.)/g
+                    var replacer = function (match, submatch) { return submatch.toUpperCase() }
+                    return function (str) { return str.replace(regex, replacer) }
+                }()
+
+                var showData = function (data) {
+                    data.scale = parseFloat(data.scale.toFixed(4))
+                    for(var k in data) { $('#'+k).html(data[k]) }
+                }
+
+                picture.on('load', function() {
+                    picture.guillotine({ eventOnChange: 'guillotinechange' })
+                    picture.guillotine('fit')
+                    for (var i=0; i<5; i++) { picture.guillotine('zoomIn') }
+
+                    // Show controls and data
+                    $('.loading').remove()
+                    $('.notice, #controls, #data').removeClass('hidden')
+                    showData( picture.guillotine('getData') )
+
+                    // Bind actions
+                    $('#controls a').click(function(e) {
+                    e.preventDefault()
+                    var action = camelize(this.id)
+                    picture.guillotine(action)
+                    })
+
+                    // Update data on change
+                    picture.on('guillotinechange', function(e, data, action) { showData(data) })
+                })
+
+                // Display random picture
+                // picture.attr('src', 'img/unsplash.com_' + Math.ceil(Math.random() * 25) + '.jpg')
+
+                });
         this.selectedCanvasWidth =  this.$store.state.widthHeightSelect.split('x')[0] || this.$store.state.customWidth
         this.selectedCanvasHeight =  this.$store.state.widthHeightSelect.split('x')[1] || this.$store.state.customHeight
     },

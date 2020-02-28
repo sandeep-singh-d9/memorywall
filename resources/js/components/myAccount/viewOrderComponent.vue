@@ -1,7 +1,7 @@
 <template>
     <div class="text-left">
        <div class="order_view">
-            <h5>Order No.  {{ order.order_no }} | &nbsp;&nbsp;&nbsp; Invoice no. {{ order.invoice_no }}
+            <h5>Order No.  {{ order.order_no }} &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Invoice no. {{ order.invoice_no }}
                <!-- <a href="#" class="orangecolor">Print Invoice</a> -->
             </h5>
             <h6>Placed on : {{ order.completed_at }}</h6>
@@ -35,7 +35,7 @@
                 <div class="col-md-12">
                     <h6>Items in this order:</h6>
                     <div>
-                        <table class="table">
+                        <table class="table main_orderview">
                             <tbody>
                                 <tr v-for="orderDetail in orderDetails">
                                     <td style="width:20%"><img :src="orderDetail.domImage" style="width:130px;"></td>
@@ -47,13 +47,13 @@
                                         <p>Inclusion: Hanging Hardware</p>
                                     </td>
                                     <td style="width:15%">
-                                        <p>Price <br/><i class="fas fa-rupee-sign"></i> {{ orderDetail.price }}</p>
+                                        <p>Price <br/><span class="rupees_icon">&#x20B9;</span>{{ orderDetail.price }}</p>
                                     </td>
                                     <td style="width:15%">
                                         <p>Quantity <br/>{{ orderDetail.quantity }} Nos.</p>
                                     </td>
                                     <td style="width:15%">
-                                        <p>SubTotal <br/><i class="fas fa-rupee-sign"></i> {{ orderDetail.price }}</p>
+                                        <p>SubTotal <br/><span class="rupees_icon">&#x20B9;</span>{{ orderDetail.price }}</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -70,11 +70,11 @@
                                         <p><b>Grand Total</b></p>
                                     </td>
                                     <td style="width:15%" class="inner_cartdetail">
-                                        <p><i class="fas fa-rupee-sign"></i>{{ order.price }}</p>
-                                        <p><i class="fas fa-rupee-sign"></i> {{ order.payment_method == 'cod' ? '50' : '00.00' }} </p>
-                                        <p><i class="fas fa-rupee-sign"></i> {{ order.price < 299 ? '50.00' : '00.00' }}</p>
-                                        <p><i class="fas fa-rupee-sign"></i> {{ order.tax_collected }} </p>
-                                        <p><b><i class="fas fa-rupee-sign"></i> {{ order.grand_total }} </b></p>
+                                        <p><span class="rupees_icon">&#x20B9;</span>{{ order.price }}</p>
+                                        <p><span class="rupees_icon">&#x20B9;</span>{{ order.payment_method == 'cod' ? '50' : '00.00' }} </p>
+                                        <p><span class="rupees_icon">&#x20B9;</span>{{ order.price < 299 ? '50.00' : '00.00' }}</p>
+                                        <p><span class="rupees_icon">&#x20B9;</span>{{ order.tax_collected }} </p>
+                                        <p><b><span class="rupees_icon">&#x20B9;</span>{{ order.grand_total }} </b></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="text-left col-md-12">
                     <a href="javascript:void(0)" class="default_btn mt-4 mb-4" style="width:auto;display: inline-block;">
-                        <i class="fas fa-chevron-left"></i> &nbsp;&nbsp; My Order
+                        <i class="fas fa-chevron-left"></i> &nbsp;&nbsp; My Orders
                     </a>
                 </div>
             </div>
@@ -102,7 +102,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$route.params.id)
         this.getOrderDetails(this.$route.params.id)
     },
     methods: {

@@ -17,7 +17,7 @@ class SubscribersController extends Controller
     {
         $subscribe = Subscribe::get();
 
-        return view('admin.subscribe.index', compact('subscribe'));
+        return view('Admin.subscribe.index', compact('subscribe'));
     }
 
     /**

@@ -5,33 +5,44 @@
         <div class="builder container right_div padding_70">
             <div class="row m-0">
                 <div class="col-lg-6 p-5 mt-3 mirrored">
-                    <div class="innner_previewimg" id="wrappedEdge" :style="{paddingLeft: '13px' , paddingTop: thickDimension !== '' ? '0px' : '10px'}">
-                        <div class="wrapped_edge" :style="{height:selectedHeight+'px' , width:selectedHeight+'px'}">
+                    <div class="innner_previewimg" :style="{paddingLeft: '13px' , paddingTop: thickDimension !== '' ? '0px' : '10px'}">
+                        <div class="wrapped_edge" :style="{height: thickDimension !== '' ? parseInt(selectedHeight)+20+'px' : selectedHeight+'px' , width: thickDimension !== '' ? parseInt(selectedHeight)+20+'px' : selectedHeight+'px'}">
                             <div class="h-scale" :style="{marginLeft: '20px', width: boxWidth-40+'px'}">
                                 <span id="scalewidth">{{selectedCanvasWidth}} inch</span>
                             </div>
-                            <div class="v-scale" :style="{marginTop: thickDimension !== '' ? '30px' : '20px', height: boxHeight-40+'px'}">
-                                <span id="scaleheight">{{selectedCanvasHeight}} inch</span>
-                            </div>                   
-                            <div class="image__preview wrapper" :style="{height: thickDimension !== '' ? boxHeight+20+'px' : dynamicHeight, width: thickDimension !== '' ? boxWidth+20+'px' : dynamicWidth, marginLeft: thickDimension !== '' ? '-10px' : '0px' }">
-                                <span class="tleft_corner preview-line" :style="{top: '0px',zIndex: '99999',left: thickDimension !== '' ? '-10px' : '0px', width:thickDimension !== '' ? '30px' : '20px', height:thickDimension !== '' ? '30px' : '20px', borderRight:hideBorder ?'1px solid #8c8c8c':'none' , borderBottom: hideBorder ?'1px solid #8c8c8c':'none'}">
-                                    <p class="topdotted" :style="{width: boxWidth-40+'px',height: thickDimension !== '' ? '30px' : '20px',marginLeft: thickDimension !== '' ? '30px' : '20px', borderBottom:hideBorder ?'1.5px dashed #8c8c8c':'none', background:hideBorder ?'none':'#ffffff'}"></p>
-                                    <p class="bbottompdotted" :style="{width: boxWidth-40+'px',height:thickDimension !== '' ? '30px' : '20px',marginLeft: thickDimension !== '' ? '30px' : '20px', top: thickDimension !== '' ? boxHeight-10+'px' : boxHeight-20+'px', borderTop:hideBorder ?'1.5px dashed #8c8c8c':'none',background:hideBorder ?'none':'#ffffff'}"></p>
-                                    <p class="bleftdotted" :style="{width: thickDimension !== '' ? '30px' : '20px',height:boxHeight-40+'px',marginTop: thickDimension !== '' ? '30px' : '20px', borderRight:hideBorder ?'1.5px dashed #8c8c8c':'none',background:hideBorder ?'none':'#ffffff'}"></p>
-                                </span>
-                                <span class="tright_corner preview-line" :style="{top:'0px',zIndex: '99999',left:boxWidth-20+'px', width:thickDimension !== '' ? '30px' : '20px', height:thickDimension !== '' ? '30px' : '20px', borderLeft:hideBorder ?'1px solid #8c8c8c': 'none' , borderBottom:hideBorder ?'1px solid #8c8c8c': 'none'}">
-                                    <p class="toprightdotted" :style="{width:thickDimension !== '' ? '30px' : '20px',height:boxHeight-40+'px',marginTop: thickDimension !== '' ? '30px' : '20px', borderLeft:hideBorder ?'1.5px dashed #8c8c8c':'none',background:hideBorder ?'none':'#ffffff'}"></p>
-                                </span>
-                                <span class="bbottom_corner preview-line" :style="{top:thickDimension !== '' ? boxHeight-10+'px' : boxHeight-20+'px',zIndex: '99999',left:boxWidth-20+'px', width:thickDimension !== '' ? '30px' : '20px', height:thickDimension !== '' ? '30px' : '20px', borderLeft:hideBorder ?'1px solid #8c8c8c': 'none' , borderTop:hideBorder ?'1px solid #8c8c8c': 'none'}"> </span>
-                                <span class="bleft_corner preview-line" :style="{left:thickDimension !== '' ? '-10px' : '0px',zIndex: '99999',top:thickDimension !== '' ? boxHeight-10+'px' : boxHeight-20+'px', width:thickDimension !== '' ? '30px' : '20px', height:thickDimension !== '' ? '30px' : '20px', borderRight:hideBorder ?'1px solid #8c8c8c': 'none' , borderTop: hideBorder ?'1px solid #8c8c8c':'none'}"> </span>
-                                <div class="innerimage_window map" :style="{paddingTop: thickDimension !== '' ? boxHeight+20+'px' : dynamicHeight,  cursor:imagePath == '' ?'pointer' : ''}">
-                                    <div class="innerimage_canvas" @click="uploadImageFilestack">
-                                        <img class="image__preview_main transform-after-drag" :src="imagePath" :style="{width:WidthZoomed == '' ? imageWidth: WidthZoomed, height:heightZoomed == '' ?imageHeight : heightZoomed}">
+                            <div class="image__preview wrapper image-editor" :style="{height: thickDimension !== '' ? boxHeight+20+'px' : dynamicHeight, width: thickDimension !== '' ? boxWidth+20+'px' : dynamicWidth, margin: thickDimension !== '' ? '0 auto !important' : '0 auto !important', overflow: 'inherit' }">
+                                <div class="v-scale" :style="{marginTop: thickDimension !== '' ? '30px' : '20px', height: boxHeight-40+'px'}">
+                                    <span id="scaleheight">{{selectedCanvasHeight}} inch</span>
+                                </div>                   
+                                <div id="wrappedEdge" >
+                                    <span class="tleft_corner preview-line" :style="{top: '0px',zIndex: '1',left: thickDimension !== '' ? '0px' : '0px', width:thickDimension !== '' ? '30px' : '22px', height:thickDimension !== '' ? '30px' : '22px', borderRight:hideBorder ?'1.5px solid #8c8c8c':'none' , borderBottom: hideBorder ?'1.5px solid #8c8c8c':'none'}">
+                                        <p class="topdotted" :style="{width: boxWidth-20+'px',height: thickDimension !== '' ? '30px' : '20px',marginLeft: thickDimension !== '' ? '30px' : '20px', borderBottom:hideBorder ?'1.5px dashed #8c8c8c':'none',borderTop:hideBorder ?'1.5px solid #8c8c8c':'1.5px solid #ffffff', background:hideBorder ?'none':'#ffffff'}"></p>
+                                        <p class="bbottompdotted" :style="{width: boxWidth-40+'px',height:thickDimension !== '' ? '30px' : '20px',marginLeft: thickDimension !== '' ? '30px' : '20px', top: thickDimension !== '' ? boxHeight-10+'px' : boxHeight-20+'px', borderTop:hideBorder ?'1.5px dashed #8c8c8c':'none',borderBottom:hideBorder ?'1.5px solid #8c8c8c':'1.5px solid #ffffff',background:hideBorder ?'none':'#ffffff'}"></p>
+                                        <p class="bleftdotted" :style="{width: thickDimension !== '' ? '30px' : '20px',height:boxHeight-40+'px',marginTop: thickDimension !== '' ? '30px' : '20px', borderRight:hideBorder ?'1.5px dashed #8c8c8c':'none',borderLeft:hideBorder ?'1.5px solid #8c8c8c':'1.5px solid #ffffff',background:hideBorder ?'none':'#ffffff'}"></p>
+                                    </span>
+                                    <span class="tright_corner preview-line" :style="{top:'0px',zIndex: '1',left:thickDimension !== '' ? boxWidth-10+'px' : boxWidth-22+'px', width:thickDimension !== '' ? '30px' : '22px', height:thickDimension !== '' ? '30px' : '22px', borderLeft:hideBorder ?'1.5px solid #8c8c8c': 'none' , borderBottom:hideBorder ?'1.5px solid #8c8c8c': 'none'}">
+                                        <p class="toprightdotted" :style="{width:thickDimension !== '' ? '29px' : '22px',height:boxHeight-40+'px',marginTop: thickDimension !== '' ? '30px' : '20px', borderLeft:hideBorder ?'1.5px dashed #8c8c8c':'none',borderRight:hideBorder ?'1.5px solid #8c8c8c':'1.5px solid #ffffff',background:hideBorder ?'none':'#ffffff',left:thickDimension !== '' ? '0px' : '1px'}"></p>
+                                    </span>
+                                    <span class="bbottom_corner preview-line" :style="{top:thickDimension !== '' ? boxHeight-10+'px' : boxHeight-22+'px',zIndex: '1',left:thickDimension !== '' ? boxWidth-10+'px' : boxWidth-22+'px', width:thickDimension !== '' ? '30px' : '22px', height:thickDimension !== '' ? '30px' : '22px', borderLeft:hideBorder ?'1.5px solid #8c8c8c': 'none' , borderTop:hideBorder ?'1.5px solid #8c8c8c': 'none'}"> </span>
+                                    <span class="bleft_corner preview-line" :style="{left:thickDimension !== '' ? '0px' : '0px',zIndex: '1',top:thickDimension !== '' ? boxHeight-10+'px' : boxHeight-22+'px', width:thickDimension !== '' ? '30px' : '22px', height:thickDimension !== '' ? '30px' : '22px', borderRight:hideBorder ?'1.5px solid #8c8c8c': 'none' , borderTop: hideBorder ?'1.5px solid #8c8c8c':'none'}"> </span>
+
+
+                                    <!-- <div class="innerimage_window map" :style="{paddingTop: thickDimension !== '' ? boxHeight+20+'px' : dynamicHeight,  cursor:imagePath == '' ?'pointer' : ''}">
+                                        <div class="innerimage_canvas" @click="uploadImageFilestack">
+                                            <img class="image__preview_main transform-after-drag" :src="imagePath" :style="{width:WidthZoomed == '' ? imageWidth: WidthZoomed, height:heightZoomed == '' ?imageHeight : heightZoomed}">
+                                        </div>
+                                    </div> -->
+
+                                    <div class="innerimage_window innerimage_canvas" :style="{paddingTop: '0px',  cursor:imagePath == '' ?'pointer' : ''}"  @click="uploadImageFilestack">
+                                        <div class="cropit-preview" :style="{height: thickDimension !== '' ? boxHeight+20+'px' : dynamicHeight, width: thickDimension !== '' ? boxWidth+20+'px' : dynamicWidth, cursor:'grab', background:imagePath != '' ? '#ffffff' : ''}" id="previewWrapper"></div>
                                     </div>
+                                     <!-- <div class="image-editor" id="rolledPreview">
+                                        <div class="cropit-preview" :style="{width:dynamicWidth,height:dynamicHeight, cursor:'grab'}"></div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div v-if="hideSlider" class="d-inline-block col-md-12 mb-4 mt-5 text-center ">
-                                <vue-slider v-model="zoomValue" @change="zoomChange"></vue-slider>
+                                <vue-slider v-model="zoomValue" @change="zoomChange" v-bind="options"></vue-slider>
                                 
                                 <div class="upload_rotate">
                                     <!-- <p>
@@ -41,10 +52,10 @@
                                         <img src="/images/upload_image.png" alt="" title="">
                                         <span>{{imagePath =='' ? 'UPLOAD IMAGE'  : 'CHANGE IMAGE'}}</span>
                                     </p>
-                                    <p class="ml-1" @click="rotate">
+                                    <!-- <p class="ml-1" @click="rotate">
                                         <img src="/images/rotate_icon.png" alt="" title="">
                                         <span>ROTATE ORIENTATION</span>
-                                    </p>
+                                    </p> -->
                                 </div>
                                 <!-- <color-picker v-model="color" v-show="imageType == 'color'"></color-picker> -->
                             </div>
@@ -61,8 +72,25 @@
                     <hr/>
                     <div class="col-sm-12 p-0 mb-3 float-left" >
                         <div> 
-                            <label><b class="text-uppercase f-20">Size</b></label>
+                            <label><b>SIZE</b></label>
                             <div class="col-lg-8 custome_select">
+                                <div class="row">
+                                    <div class="col-lg-5 input input--select has-value">
+                                        <label for="custom-width" class="input__label">Height</label>
+                                        <select v-model="selectedCanvasHeight" @change="getContext" class="form-control input__input">
+                                            <option v-for="(item,index) in optionHeight" :key="index" :value="item">{{item}}"</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-1 p-0"></div>
+                                    <div class="col-lg-5 input input--select has-value">
+                                        <label for="custom-width" class="input__label">Width</label>
+                                        <select v-model="selectedCanvasWidth" @change="getContext" class="form-control input__input">
+                                            <option v-for="(item,index) in optionWidth" :key="index" :value="item">{{item}}"</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-8 custome_select">
                                 <div class="row">
                                     <div class="col-lg-5">
                                         <span>Height</span>
@@ -78,7 +106,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- <label><b>Size (H x W)</b></label>
                         <div class=" col-md-8 float-right">
@@ -166,10 +194,10 @@
                     </div>
                     <div class="float-left col-md-12 px-4 pb-3 bottom_circles">
                         <h2 class="poppins d-block mr-2">
-                            <del><i class="fas fa-rupee-sign"></i>{{dynamicPrice*2}}</del>
-                            <i class="fas fa-rupee-sign"></i>{{dynamicPrice}}
+                            <del  class="mr-3"><span class="rupees_icon">&#x20B9;</span>{{dynamicPrice*2}}</del>
+                            <span class="rupees_icon">&#x20B9;</span>{{dynamicPrice}}
                         </h2>
-                        <div class="col-md-12">
+                        <div>
                             <button type="button" class="btn canvas_btn text-uppercase" @click="addToCart">Add to Cart</button>
                             <button type="button" class="btn default_grey_btn canvas_btn text-uppercase" @click="previewImage">Preview Canvas</button>
                         </div>
@@ -182,6 +210,7 @@
                             <li>03 &nbsp; Hanging Hardware</li>
                             <li>04 &nbsp; Safe Packaging</li>
                             <li>05 &nbsp; Free Shipping</li>
+                            <li>06 &nbsp; 100% Happiness Guaranteed</li>
                         </ul>
                     </div>
                 </div>
@@ -229,7 +258,7 @@ export default {
             fileStatckImageWidth: '',
             fileStatckImageHeight: '',
             color:'',
-            zoomValue:'',
+            zoomValue:'0.01',
             imageType : '',
             savedMainImageStyle:'',
             optionHeight:[],
@@ -245,6 +274,40 @@ export default {
             cart : [],
             cartIndex:'',
             domImage: '',
+             options: {
+                dotSize: 14,
+                width: 'auto',
+                height: 10,
+                contained: false,
+                direction: 'ltr',
+                data: null,
+                min: 0.1,
+                max: 0.8,
+                interval: 0.01,
+                disabled: false,
+                clickable: true,
+                duration: 0.01,
+                tooltip: 'focus',
+                tooltipPlacement: 'top',
+                tooltipFormatter: void 0,
+                useKeyboard: false,
+                enableCross: true,
+                fixed: false,
+                minRange: void 0,
+                maxRange: void 0,
+                order: true,
+                marks: false,
+                dotOptions: void 0,
+                process: true,
+                dotStyle: void 0,
+                railStyle: void 0,
+                processStyle: void 0,
+                tooltipStyle: void 0,
+                stepStyle: void 0,
+                stepActiveStyle: void 0,
+                labelStyle: void 0,
+                labelActiveStyle: void 0,
+            },
             hideSlider:true,
             hideBorder:true,
             showLoader:false,
@@ -286,11 +349,32 @@ export default {
         loaderComponent
     },
     mounted(){
-         window.scrollTo({
+        this.showLoader = true;
+        var me =  this
+        $(document).ready(function(){
+            $('.image-editor').cropit({
+                imageState: {
+                    // src: '/images/aboutus.jpg',
+                },
+                onImageLoaded:function(e){
+                    console.log($('.cropit-preview-image').attr("style"), 'asasas')
+                },
+                onOffsetChange:function(e){
+                    me.dragImage(e)
+                },
+                allowDragNDrop: false
+            });
+        })
+        window.scrollTo({
             top: 0,
             behavior: 'smooth',
         });
         this.imagePath = this.$store.state.imagePathUrl 
+        var me = this
+        setTimeout(function(){
+            $('.image-editor').cropit('imageSrc', me.imagePath);
+            me.showLoader = false;
+        },100)
         this.canvasType = this.$store.state.canvasTypeStore 
         this.fileStatckImageWidth = this.$store.state.fileStatckImageWidthStore
         this.fileStatckImageHeight = this.$store.state.fileStatckImageHeightStore
@@ -313,16 +397,18 @@ export default {
         }
         if(this.$store.state.widthHeightSelect == ''){
             this.$store.state.widthHeightSelect = '8x8'
+            this.canvasType = 'gallerywrap'
         }
         this.layoutModify()
         const self = this
-            Draggable.create(".map img", {
-                type:"x,y",
-                    bounds:".wrapper",
-                    edgeResistance:1,
-                    onDrag:self.yourFunction,
-                    onRelease:self.releaseDragEvents
-            });
+            // Draggable.create(".map img", {
+            //     type:"x,y",
+            //         bounds:".wrapper",
+            //         edgeResistance:1,
+            //         onDrag:self.yourFunction,
+            //         throwProps: true,
+            //         onRelease:self.releaseDragEvents
+            // });
             if(this.allImageStyle != ''){
                 $('.transform-after-drag').attr('style','')
                 $('.transform-after-drag').attr('style',this.allImageStyle)
@@ -338,7 +424,7 @@ export default {
                     $('.transform-after-drag').attr('style',this.savedMainImageStyle)
                 }
                 // if(self.zoomValue != ''){
-                //     let scale = 1 + parseFloat(self.zoomValue * 0.03)
+                //     let scale = 1 + parseInt(self.zoomValue * 0.03)
                 //     $('.image__preview_main').css('transform','scale(' + scale + ')'+translate)
                 //     $('.image__preview_image').css('transform','scale(' + scale + ')'+translate)
                 // }
@@ -348,6 +434,15 @@ export default {
         for (let index = 8; index <= 55; index++) {
             this.optionHeight.push(index)                
             this.optionWidth.push(index)                
+        }
+
+        if(this.thickDimension != ''){
+            $(document).ready(function(){
+            $('.image-editor').cropit('previewSize', { width:440, height: 440 });
+                setTimeout(function(){
+                    $('.image-editor').cropit('imageSrc', self.imagePath);
+                },100)
+            })
         }
             
     },
@@ -369,31 +464,35 @@ export default {
         changeTansslate(translate){
             this.translateData = translate
         },
+        dragImage(e){
+            console.log($('.image-editor').cropit('zoom'), 'sandeep')
+            // this.zoomValue = $('.image-editor').cropit('zoom')
+            // this.options.min = $('.image-editor').cropit('zoom')
+            var dynamicStyle = $('.cropit-preview-image').attr("style")
+            $('.image__preview_image').attr('style', dynamicStyle)
+            
+        },
         zoomChange(){
-            // let scale = 1 + parseFloat(this.zoomValue * 0.03)
-            // $('.image__preview_main').css('transform','scale(' + scale + ')')
-            // $('.image__preview_image').css('transform','scale(' + scale + ')')
+            var me =  this
+            console.log(me.zoomValue)
+            $('.image-editor').cropit('zoom', me.zoomValue);
             if(this.zoomValue == ''){
-                // $('.transform-after-drag').css('transform', '')
+                var self = this
+                $('.transform-after-drag').css('transform', '')
                 TweenLite.set(".map img", {clearProps:"transform"});
-                TweenLite.to(".map img", 1, {x: 0, y:0, z:0});
-                this.layoutModify()
+                TweenLite.set(".map img", {clearProps:"x"});
+                TweenLite.set(".map img", {clearProps:"y"});
             }
             let scale = ''
             if($(window).width()<= 414){
                 this.selectedHeight = 280
-                scale = (this.zoomValue*5)+280
+                scale = (this.zoomValue*5)+240
             }else{
-                scale = (this.zoomValue*5)+420
-            }
-            if(this.thickDimension != ''){
-                let scale = (this.zoomValue*5)+440
+                scale = (this.zoomValue*5)+380
             }
             if(this.fileStatckImageWidth >  this.fileStatckImageHeight){
                 this.heightZoomed = (scale+'px !important')
-                this.layoutModify()
             }else{
-                this.layoutModify()
                 this.WidthZoomed = (scale+'px !important')
             }
         },
@@ -401,13 +500,13 @@ export default {
             const self = this
             if($('.image__preview_main')[0].style[5] == undefined){
                $('.transform-after-drag').attr('style',this.savedMainImageStyle)
-                Draggable.create(".map img", {
-                type:"x,y",
-                    bounds:".wrapper",
-                    edgeResistance:1,
-                    onDrag:self.yourFunction,
-                    onRelease:self.releaseDragEvents
-                });
+                // Draggable.create(".map img", {
+                // type:"x,y",
+                //     bounds:".wrapper",
+                //     edgeResistance:1,
+                //     onDrag:self.yourFunction,
+                //     onRelease:self.releaseDragEvents
+                // });
             }
         },
         imageUpload(){
@@ -420,7 +519,8 @@ export default {
                     crop: false,
                     circle: false,
                     rotate: false
-                }
+                },
+                fromSources: ["local_file_system"],
             };
             const picker = client.picker(options);
             picker.open();
@@ -429,6 +529,8 @@ export default {
                 const fileData = result.filesUploaded[0];
                 self.imagePath = fileData.url;
                 self.showLoader = true
+                // $('.image-editor').cropit('imageSrc',fileData.url);
+                self.layoutModify()
             }
             function selectedImageDimension(e){
                 
@@ -474,6 +576,9 @@ export default {
                 //     self.imageHeight='auto !important' 
                 //     self.imageWidth='100% !important'
                 // }
+                self.imagePath = ''
+                // $('#previewWrapper img').css('display', 'none');
+                $(".cropit-preview").find("img").attr("src", null)
                 self.layoutModify()
             }
 
@@ -483,12 +588,13 @@ export default {
             this.layoutModify()
         },
         layoutModify(){
+            // alert('sasas')
             // if(this.cart.length == 0){
                 $('.transform-after-drag').css('transform', 'translate3d(0px, 0px, 0px)')
             // }
             this.selectedCanvasWidth =  parseInt(this.$store.state.widthHeightSelect.split('x')[0]) || this.$store.state.customWidth
             this.selectedCanvasHeight =  parseInt(this.$store.state.widthHeightSelect.split('x')[1]) || this.$store.state.customHeight
-            this.dynamicPrice  = parseFloat(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144).toFixed(2)
+            this.dynamicPrice  = parseInt(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144)
             this.bestSelling.map((d)=>{
                 if(d.wxh == this.selectedCanvasWidth+'x'+this.selectedCanvasHeight){
                     this.dynamicPrice = d.price
@@ -502,6 +608,10 @@ export default {
                     this.boxWidth = 280
                     this.boxHeight = 280
                     this.topWrapWidth = 280
+                    if(this.thickDimension != ''){
+                        this.dynamicWidth = '320px'
+                        this.dynamicHeight = '320px'
+                    }
 
                 }else{
                     this.dynamicWidth = '420px'
@@ -509,35 +619,10 @@ export default {
                     this.boxWidth = 420
                     this.boxHeight = 420
                     this.topWrapWidth = 420
-                }
-                if(this.fileStatckImageHeight == this.fileStatckImageWidth){
-                    this.imageHeight='auto !important' 
-                    this.imageWidth='100% !important' 
-                }else if(this.fileStatckImageHeight < this.fileStatckImageWidth){
-                    this.imageHeight=this.dynamicHeight+'!important' 
-                    this.imageWidth='auto !important'
-                    if(this.thickDimension !=''){
-                        this.imageHeight= '440px'
+                    if(this.thickDimension != ''){
+                        this.dynamicWidth = '440px'
+                        this.dynamicHeight = '440px'
                     }
-                }
-                else{
-                    this.imageHeight='auto !important' 
-                    this.imageWidth='100% !important' 
-                        
-                    if(this.thickDimension !=''){
-                        
-                        this.imageWidth ='440px'
-                        this.imageHeight = 'auto !important'
-                    }
-                }
-                
-                // $('.transform-after-drag').attr('style',e.target.style.cssText)
-                /*For bottom image */
-                if($(window).width()<= 414){
-                    this.selectedHeight = 280
-                    this.bottomImageHeight = 280
-                }else{
-                    this.bottomImageHeight = 420
                 }
             }else if (this.selectedCanvasWidth > this.selectedCanvasHeight){
                 if($(window).width()<= 414){
@@ -549,6 +634,10 @@ export default {
                     this.boxHeight = 280 * this.selectedCanvasHeight/ this.selectedCanvasWidth
                     /*For bottom image */
                     this.bottomImageHeight = 280 * this.selectedCanvasHeight/ this.selectedCanvasWidth
+                    if(this.thickDimension != ''){
+                        this.dynamicWidth = '420px'
+                        this.dynamicHeight = 420 * this.selectedCanvasHeight/ this.selectedCanvasWidth+'px'
+                    }
                 }else{
                     this.dynamicWidth = '420px'
                     this.dynamicHeight = 420 * this.selectedCanvasHeight/ this.selectedCanvasWidth+'px'
@@ -557,43 +646,9 @@ export default {
                     this.boxHeight = 420 * this.selectedCanvasHeight/ this.selectedCanvasWidth
                     /*For bottom image */
                     this.bottomImageHeight = 420 * this.selectedCanvasHeight/ this.selectedCanvasWidth
-                }
-                if(this.fileStatckImageHeight > this.fileStatckImageWidth){
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='auto !important' 
-                        this.imageWidth='280px !important'
-                    }else{
-                        this.imageHeight='auto !important' 
-                        this.imageWidth='420px !important'
-                    }
-                    if(this.thickDimension !=''){
-                        this.imageWidth='440px !important'
-                    } 
-                }else if (this.fileStatckImageWidth > this.fileStatckImageHeight){
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='280px !important' 
-                        this.imageWidth='auto !important' 
-                    }else{
-                        this.imageHeight='420px !important' 
-                        this.imageWidth='auto !important' 
-                    }
-                    if(this.thickDimension !=''){
-                        this.imageHeight='440px !important'
-                    } 
-                }
-                else{
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='auto !important' 
-                        this.imageWidth='280px !important' 
-                    }else{
-                        this.imageHeight='auto !important' 
-                        this.imageWidth='420px !important' 
-                    }
-                    if(this.thickDimension !=''){
-                        this.imageWidth='440px !important'
+                    if(this.thickDimension != ''){
+                        this.dynamicWidth = '440px'
+                        this.dynamicHeight = 550 * this.selectedCanvasHeight/ this.selectedCanvasWidth+'px'
                     }
                 }
             }else if (this.selectedCanvasHeight > this.selectedCanvasWidth){
@@ -607,6 +662,10 @@ export default {
     
                     this.topWrapWidth = 280 * this.selectedCanvasWidth/ this.selectedCanvasHeight
                     this.bottomImageHeight = 280
+                    if(this.thickDimension != ''){
+                        this.dynamicHeight = '420px'
+                        this.dynamicWidth = 500 * this.selectedCanvasWidth/ this.selectedCanvasHeight+'px'
+                    }
 
                 }else{
                     this.dynamicHeight = '420px'
@@ -617,87 +676,33 @@ export default {
     
                     this.topWrapWidth = 420 * this.selectedCanvasWidth/ this.selectedCanvasHeight
                     this.bottomImageHeight = 420
-                }
-                if(this.fileStatckImageWidth > this.fileStatckImageHeight){
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='280px !important' 
-                        this.imageWidth='auto !important' 
-
-                    }else{
-                        this.imageHeight='420px !important' 
-                        this.imageWidth='auto !important' 
-                    }
-                    if(this.thickDimension !=''){
-                        this.imageHeight='440px !important'
-                    }
-                }else if(this.fileStatckImageHeight > this.fileStatckImageWidth){
-                    if(this.selectedCanvasHeight > this.selectedCanvasWidth){
-                        this.imageHeight='auto !important' 
-                        this.imageWidth=this.dynamicWidth 
-                        var valueWidth = this.dynamicWidth.split('px')
-                        if(valueWidth[0] < 285){
-                            if($(window).width()<= 414){
-                                this.selectedHeight = 280
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='280px !important' 
-                            }else{
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='420px !important' 
-                            }
-                            if(this.thickDimension !=''){
-                                this.imageWidth='440px !important'
-                            }
-                        }else if(valueWidth[0] > 285) {
-                            if($(window).width()<= 414){
-                                this.selectedHeight = 280
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='280px !important' 
-
-                            }else{
-                                this.imageHeight='auto !important' 
-                                this.imageWidth='420px !important' 
-                            }
-                            if(this.thickDimension !=''){
-                                this.imageWidth='440px !important'
-                            }
-                        }    
-                    }else if(this.selectedCanvasHeight < this.selectedCanvasWidth){
-                        if($(window).width()<= 414){
-                            this.selectedHeight = 280
-                            this.imageHeight='auto !important' 
-                            this.imageWidth='280px !important'
-                        }else{
-                            this.imageHeight='auto !important' 
-                            this.imageWidth='420px !important'
-                        }
-                        if(this.thickDimension !=''){
-                            this.imageWidth='440px !important'
-                        }
-                    }
-                }
-                else{
-                    if($(window).width()<= 414){
-                        this.selectedHeight = 280
-                        this.imageHeight='280px !important' 
-                        this.imageWidth='auto !important' 
-                    }else{
-                        this.imageHeight='420px !important' 
-                        this.imageWidth='auto !important' 
-                    }
-                    if(this.thickDimension !=''){
-                        this.imageHeight='440px !important'
+                    if(this.thickDimension != ''){
+                        this.dynamicHeight = '440px'
+                        this.dynamicWidth = 550 * this.selectedCanvasWidth/ this.selectedCanvasHeight+'px'
                     }
                 }
             }
             var self = this
+            var width = this.dynamicWidth.split('px')
+            var height = this.dynamicHeight.split('px')
             setTimeout(function(){
                 self.savedMainImageStyle = $('.transform-after-drag').attr('style')
                 
             }, 100)
             setTimeout(function(){
                 self.showLoader = false
-            },3000)
+            },5000)
+            setTimeout(function(){
+                $('#previewWrapper img').css('display', '');   
+            },4000)
+            if(this.imagePath != ''){
+                $(document).ready(function(){
+                    $('.image-editor').cropit('previewSize', { width: width[0], height: height[0] });
+                      setTimeout(function(){
+                        $('.image-editor').cropit('imageSrc', self.imagePath);
+                    },100)
+                })
+            }
         },
         yourFunction(e){
             const self = this;
@@ -705,13 +710,13 @@ export default {
             self.translateData = translate
             self.changeTansslate(translate)
             // this.savedMainImageStyle = e.target.style.cssText
-            $('.transform-after-drag').attr('style',e.target.style.cssText)
+            // $('.transform-after-drag').attr('style',e.target.style.cssText)
             if(e.target.style.width == '' || e.target.style.width == undefined ){
                 
                 $('.transform-after-drag').attr('style',this.savedMainImageStyle)
             }
             // if(self.zoomValue != ''){
-            //     let scale = 1 + parseFloat(self.zoomValue * 0.03)
+            //     let scale = 1 + parseInt(self.zoomValue * 0.03)
             //     $('.image__preview_main').css('transform','scale(' + scale + ')'+translate)
             //     $('.image__preview_image').css('transform','scale(' + scale + ')'+translate)
             // }
@@ -731,7 +736,7 @@ export default {
             this.fileStatckImageHeight = cartData[cartIndex].fileStatckImageHeight
             $('.transform-after-drag').attr('style','')
             $('.transform-after-drag').attr('style',cartData[cartIndex].imageStyle)
-            this.dynamicPrice  = parseFloat(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144).toFixed(2)
+            this.dynamicPrice  = parseInt(this.selectedCanvasHeight*this.selectedCanvasWidth*895/144)
             this.layoutModify()
         },
         addToCart(){
@@ -744,8 +749,10 @@ export default {
                 return false
             }
             if(this.imagePath == ''){
-                this.showLoader = false
+                // this.showLoader = false
                 this.flashMessage.error({title: 'Error', message: 'Upload image first',time: 1000});
+                this.hideSlider = true
+                this.showLoader = false
                 return false
             }else{
                 this.ACTION_CHANGE_STATE(['fromWrappedEdge' , true])
@@ -758,10 +765,6 @@ export default {
                         self.domImage = dataUrl
                         self.storeToCart()
                         self.hideSlider = true
-                        setTimeout(function(){
-                            self.$router.push('cart');     
-                            self.showLoader = false
-                        }, 1000) 
                     })
                     .catch(function (error) {
                         console.error('oops, something went wrong!', error);
@@ -844,6 +847,11 @@ export default {
                     axios.post('/api/updateCart/'+id,data)
                     .then(response => {
                         this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
+                        const self = this;
+                        setTimeout(function(){
+                            self.$router.push('cart');     
+                            self.showLoader = false
+                        }, 1000)
                     }).catch(error => {
                         this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2000});
                     })
@@ -853,17 +861,27 @@ export default {
                     axios.post('/api/addCart',data)
                     .then(response => {
                         this.flashMessage.success({title: 'Success', message: response.data.message,time: 2000});
+                        const self = this;
+                        setTimeout(function(){
+                            self.$router.push('cart');     
+                            self.showLoader = false
+                        }, 1000)
                     }).catch(error => {
                         this.flashMessage.error({title: 'Error', message: error.response.data.message,time: 2000});
                     })
                 }
             }else{
                 localStorage.setItem('cart',JSON.stringify(this.cart));
+                const self = this;
+                setTimeout(function(){
+                    self.$router.push('cart');     
+                    self.showLoader = false
+                }, 1000)
             }
         },
         changeRoute(value){
             this.$store.state.imageTypeStore = value 
-            this.$router.push('/dev-ui')
+            this.$router.push('/upload')
             if(value ==  'mirror'){
                 this.ACTION_CHANGE_STATE(['imagePathUrl' , this.imagePath])
                 this.ACTION_CHANGE_STATE(['canvasTypeStore' , this.canvasType])
@@ -875,7 +893,7 @@ export default {
         changeRouter(value){
             this.$store.state.imagePathUrl  =  this.imagePath  
             this.$store.state.canvasTypeStore = value 
-            this.$router.push('/dev-ui')
+            this.$router.push('/upload')
         },
         rotate(){
             this.ACTION_CHANGE_STATE(['widthHeightSelect' , this.selectedCanvasHeight+'x'+this.selectedCanvasWidth])
@@ -894,11 +912,12 @@ export default {
             if(this.imagePath == ''){
                 this.flashMessage.error({title: 'Error', message: 'Upload image first',time: 1000});
                 this.hideSlider = true
-                this.hideBorder = false
+                this.hideBorder = true
                 return false
             }else{
                 var self = this
-                domtoimage.toPng(document.getElementById('wrappedEdge'))
+                self.showLoader = true
+                domtoimage.toPng(document.getElementById('previewWrapper'))
                     .then(function (dataUrl) {
                         var img = new Image();
                         img.src = dataUrl;    
@@ -906,8 +925,11 @@ export default {
                         self.$store.state.imageTypeStore  = self.imageType
                         self.hideSlider = true
                         self.hideBorder = true
+                        console.log(self.hideBorder)
+                        self.showLoader = false
                         $("#myModal").modal("show")
-                        $('.preview-line').css('z-index', '')
+                        // $('.preview-line').css('z-index', '')
+                        $('.preview-line').css('z-index', '8')
                         
                     })
                     .catch(function (error) {
@@ -936,20 +958,24 @@ export default {
             if(value  == 'gallerywrap1'){
                 this.thickDimension = 30
                 // this.topWrapWidth = 400
-                if(this.fileStatckImageWidth > this.fileStatckImageHeight){
-                    this.imageHeight= '440px'
-                    this.heightZoomed = '440px'
-                }else{
-                    this.imageWidth ='440px'
-                    this.imageHeight = 'auto !important'
-                }
+                // if(this.fileStatckImageWidth > this.fileStatckImageHeight){
+                    //     this.imageHeight= '440px'
+                //     this.heightZoomed = '440px'
+                // }else{
+                    //     this.imageWidth ='440px'
+                //     this.imageHeight = 'auto !important'
+                // }
+                
             }else{
                 this.thickDimension = ''
                 // this.topWrapWidth = 380 
             }
+            this.layoutModify()
         },
         zoomValue(value){
-            if(value == 0){
+            console.log(value, 'asasas')
+            var self =  this
+            if(value == 0.1){
                 if(this.thickDimension != ''){
                     if(this.fileStatckImageWidth > this.fileStatckImageHeight){
                     this.imageHeight= '440px'
@@ -961,6 +987,7 @@ export default {
                         this.WidthZoomed = ''
                     }
                 }
+                $('.image-editor').cropit('imageSrc', self.imagePath);
             }
         },
     }

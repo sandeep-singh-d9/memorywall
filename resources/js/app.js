@@ -8,6 +8,7 @@ require('./bootstrap');
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'guillotine/css/jquery.guillotine.css';
+import 'cropbox/jquery.cropbox.css';
 import router from './router';
 import { store } from './store.js';
 import VueSession from 'vue-session'
@@ -22,16 +23,26 @@ import * as rules from 'vee-validate/dist/rules';
 import FlashMessage from '@smartweb/vue-flash-message';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import moment from 'moment'
+import Meta from 'vue-meta';
+
 // install rules and localization
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);
 });
 
+
 window.toastr = require('toastr')
 window.Vue = require('vue');
+Vue.filter('formatDate', function (value) {
+    if (value) {
+        return moment(String(value)).format('DD/MM/YYYY')
+    }
+});
 Vue.use(VueToastr2)
 Vue.use(V_Session)
 Vue.use(FlashMessage);
+Vue.use(Meta);
 Vue.component('color-picker', ColorPicker);
 Vue.component('date-picker', DatePicker);
 Vue.use(VueSession)

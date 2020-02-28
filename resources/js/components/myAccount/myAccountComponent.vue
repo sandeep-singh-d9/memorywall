@@ -1,6 +1,6 @@
 <template>
     <div>
-        <headerTop></headerTop>
+        <headerTop :cartLength="cartLength"></headerTop>
         <div class="canvas_print padding_70 dashboard_div" id="canvas_print">
             <div class="container">
                 <div class="row">
@@ -44,16 +44,38 @@ export default {
     },
     data() {
         return {
-            checkRoute:'dashboard'
+            checkRoute:'dashboard',
+            cartLength: 0
         }
     },
-    mounted() {    
+    mounted() {   
+
             this.checkRoute = this.$router.history.current.name
+            if(this.$v_session.get('accessToken')){
+                this.getCartData()
+            }else{
+                let cartData = JSON.parse(localStorage.getItem("cart"));
+            
+                if(cartData != null){
+                    this.allCartValue = cartData
+                    this.cartLength = this.allCartValue.length
+                }
+            }
     },
     methods: {
         click(){
             this.checkRoute = this.$router.history.current.name
-        }
+        },
+        getCartData(){
+            axios.defaults.headers.common['Authorization'] = this.$v_session.get('accessToken')
+            axios.get('/api/getCartData')
+            .then(response => {
+                this.cartLength = response.data.data.length
+                this.$v_session.set('cartLength',response.data.data.length)
+            }).catch(error => {
+                console.log(error)
+            })
+        },
     },
 }
 </script>

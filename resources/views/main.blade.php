@@ -2,9 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Canvas Print</title>
+<title>Canvas Prints | Custom Canvas Prints Starts Rs 245 Only</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Upload your photos and create your personalized canvas prints at lowest price Rs 245. Free Shipping. Shipping in 24 Hours."/>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}" type="image/png" />
 <script src="https://static.filestackapi.com/transforms-ui/beta/transforms.umd.min.js"></script>
 <link rel="stylesheet" href="https://static.filestackapi.com/transforms-ui/beta/transforms.css" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css' rel='stylesheet'>
@@ -28,13 +30,15 @@
 </head>
 
 <body>
-	<div id="app">
-            <router-view></router-view>
-            {{-- <example-component></example-component> --}}
+    <div id="app">
+      <router-view></router-view>
     </div>
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> --}}
     <script src="{{ asset('/js/app.js') }}"></script>
     <script src="{{ asset('/js/owl.carousel.js') }}"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="{{ asset('/js/jquery.cropit.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="//code.tidio.co/an6eohcy4esjerjwu4cgsche0xq0dcb2.js" async></script>
 </body>

@@ -9,16 +9,16 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body text-center">
-                    <img :src="imagePathPreview" alt="">
+                    <img :src="imagePathPreview" alt="" class="mb-3" style="width:100%">
                     <div class="ml-5 text-left">
                         <b class="text-uppercase">product:</b> <span>Canvas Print</span><br>
                         <b class="text-uppercase">Size:</b> <span>{{widthHeight}} inches</span><br>
-                        <b class="text-uppercase">Price:</b> <span>{{price}}</span><br>
+                        <b class="text-uppercase">Price:</b> <span><span class="rupees_icon">&#x20B9;</span>{{price}}</span><br>
                         <b class="text-uppercase">Edge:</b> <span>{{edgeType}}</span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn black_btn canvas_btn" data-dismiss="modal">Close</button>
                 </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@ export default {
             // do something...
         })
         $('#myModal').on('hidden.bs.modal', function (e) {
-           $('.preview-line').css('z-index', '9999')
+           $('.preview-line').css('z-index', '8')
             // do something...
         })
     }
